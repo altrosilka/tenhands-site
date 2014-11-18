@@ -75,8 +75,6 @@ Class LM_Controller {
 	}
 }
 
-
-
 $pos = strpos($URL_PARTrl,'?');
 $g = $_GET;
 
@@ -93,15 +91,12 @@ if ($pos){
 	}
 }
 
-
-
 $URL_PART = explode("/",substr($URL_PARTrl,1));
 if ($URL_PART[count($URL_PART)-1]==''){
 	unset($URL_PART[count($URL_PART)-1]);
 }
 
-
-$controller = (!isset($URL_PART[0])) ? 'main' : $URL_PART[0];
+$controller = (!isset($URL_PART[0])) ? 'index' : $URL_PART[0];
 $file = folder_controllers.'/'.$controller.'.php';
 
 if (file_exists($file)){
