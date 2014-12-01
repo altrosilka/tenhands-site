@@ -1,0 +1,95 @@
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+    <span class="h_label">Группы пользователя <b>{{ctr.userName}}</b></span>
+    <a ui-sref="^.admin_groups" class="btn btn-primary pull-right">администрирование</a>
+  </div> 
+  <div class="panel-body">
+    <span class="pull-right" ng-if="ctr.timeStatus">По состоянию на
+      <span ng-bind="ctr.timeStatus"></span>
+    </span>
+    <p>Это список групп, в которых ты являешься администратором</p>
+  </div>
+
+  <!-- Table -->
+  <table class="table">
+    <thead>
+
+      <th ng-click="ctr.setOrder('name');">Название
+        <span ng-show="ctr.paramOrdering === 'product'">
+          <i ng-show="ctr.reverseOrdering === true" class="fa fa-sort-desc"></i>
+          <i ng-show="ctr.reverseOrdering === false" class="fa fa-sort-asc"></i>
+        </span>
+      </th>
+      <th ng-click="ctr.setOrder('screen_name');">Ссылка
+        <span ng-show="ctr.paramOrdering === 'qty'">
+          <i ng-show="ctr.reverseOrdering === true" class="fa fa-sort-desc"></i>
+          <i ng-show="ctr.reverseOrdering === false" class="fa fa-sort-asc"></i>
+        </span>
+      </th>
+      <th ng-click="ctr.setOrder('members_count');">Кол-во чел.
+        <span ng-show="ctr.paramOrdering === 'price'">
+          <i ng-show="ctr.reverseOrdering === true" class="fa fa-sort-desc"></i>
+          <i ng-show="ctr.reverseOrdering === false" class="fa fa-sort-asc"></i>
+        </span>
+      </th>
+      <th ng-click="ctr.setOrder('lastPostUnix');">Последний пост
+        <span ng-show="ctr.paramOrdering === 'cash'">
+          <i ng-show="ctr.reverseOrdering === true" class="fa fa-sort-desc"></i>
+          <i ng-show="ctr.reverseOrdering === false" class="fa fa-sort-asc"></i>
+        </span>
+      </th>
+      <th ng-click="ctr.setOrder('storage');">Есть хранилище
+        <span ng-show="ctr.paramOrdering === 'card'">
+          <i ng-show="ctr.reverseOrdering === true" class="fa fa-sort-desc"></i>
+          <i ng-show="ctr.reverseOrdering === false" class="fa fa-sort-asc"></i>
+        </span>
+      </th>
+      <th>
+        Действия
+      </th>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="group in ctr.groups | orderBy:ctr.paramOrdering:ctr.reverseOrdering">
+        <td>
+          <span ng-bind="group.name"></span>
+        </td>
+        <td><a ng-href="//vk.com/{{group.screen_name}}" target="_blank">{{group.screen_name}}</a>
+        </td>
+        <td>
+          <span ng-bind="group.members_count">
+          </span>
+        </td>
+        <td>
+          <span ng-bind="group.lastPostHuman">
+          </span>
+        </td>
+        <td>???</td> 
+        <td>
+          <div class="btn-group" dropdown>
+            <a type="button" class="btn btn-default btn-sm" ui-sref="groups_page({id:group.id})">Просмотр</a>
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" dropdown-toggle>
+              <span class="caret"></span>
+              <span class="sr-only"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a href="">Action</a>
+              </li>
+              <li>
+                <a href="#">Another action</a>
+              </li>
+              <li>
+                <a href="#">Something else here</a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <a href="#">Separated link</a>
+              </li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

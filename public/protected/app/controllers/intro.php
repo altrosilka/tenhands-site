@@ -11,7 +11,7 @@ Class intro extends LM_Controller{
 	
 	public function redirect($type){
 		if ($type === 'vk'){
-			header("Location: https://oauth.vk.com/authorize?client_id=4637584&redirect_uri=http://smm.dev:5338/getVkUserCodeAfterIntro&response_type=code&v=5.9&scope=groups,photos,video,audio,wall,offline,email,docs");
+			header("Location: https://oauth.vk.com/authorize?client_id=4637584&redirect_uri=http://smm.dev:5338/getVkUserCodeAfterIntro&response_type=code&v=5.9&scope=groups,photos,friends,video,audio,wall,offline,email,docs,stats");
 			die();
 		} else {
 			trigger(404);

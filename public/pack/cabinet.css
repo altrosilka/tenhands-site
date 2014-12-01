@@ -1,0 +1,396 @@
+body.cabinet {
+  font-family: Tahoma, Geneva, sans-serif, arial, verdana;
+  background-color: #F0F2F5;
+  font-size: 12px;
+}
+body.cabinet .view {
+  padding-top: 60px;
+}
+.emoji {
+  width: 1.4em;
+  vertical-align: top;
+}
+.container {
+  width: 960px!important;
+}
+.toppanel {
+  height: 50px;
+  background-color: #567ca4;
+}
+.toppanel menu {
+  padding: 0;
+  margin: 0;
+}
+.toppanel menu a {
+  -webkit-font-smoothing: antialiased;
+  line-height: 48px;
+  font-size: 13px;
+  display: block;
+  float: left;
+  padding: 0 12px 2px;
+  text-decoration: none;
+  color: #EEE;
+}
+.toppanel menu a:hover {
+  background-color: rgba(107, 138, 172, 0.9);
+}
+.toppanel menu a.active,
+.toppanel menu a.active:hover {
+  background-color: #4c7198;
+}
+.panel {
+  box-shadow: 0 1px 2px rgba(6, 33, 63, 0.13);
+  border-radius: 2px;
+  border: none;
+}
+.panel.panel-default > .panel-heading {
+  padding: 0px 30px;
+  position: relative;
+  background-color: #F7F8FA;
+  border-bottom: 1px solid #EEF0F3;
+}
+.panel.panel-default > .panel-heading .btn.pull-right {
+  margin: 18px 0 0;
+}
+.panel.panel-default > .panel-heading .h_label {
+  line-height: 64px;
+  font-size: 1.46em;
+  color: #2B2F33;
+  font-weight: normal;
+}
+.bg {
+  border: 1px solid;
+  padding: 15px;
+}
+.bg .title {
+  font-size: 14px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+.bg.bg-warning {
+  border-color: #D4BC4C;
+}
+.btn {
+  transition: 0.2s;
+  padding: 6px 16px 7px;
+  border-radius: 3px;
+}
+.btn.btn-primary {
+  background-color: #6287AE;
+  font-size: 13px;
+  line-height: 1.385em;
+  border: none;
+}
+.btn.btn-primary:hover {
+  background-color: #678EB5;
+}
+.date-selector {
+  width: 100%;
+}
+.date-selector .inputs {
+  position: relative;
+  width: 168px;
+  margin: -3px 0 0 3px;
+  border: 1px solid #E0E0E0;
+  height: 30px;
+}
+.date-selector .inputs input {
+  border: none;
+  outline: 0;
+  float: left;
+  height: 100%;
+  line-height: 19px;
+  background: 0 0;
+  color: #000;
+  text-align: center;
+}
+.date-selector .inputs:after,
+.date-selector .inputs:before {
+  position: absolute;
+  content: '';
+  top: 7px;
+  height: 13px;
+  width: 1px;
+  background: #ccc;
+}
+.date-selector .inputs:after {
+  left: 85px;
+}
+.date-selector .inputs:before {
+  left: 42px;
+}
+.date-selector .inputs .day,
+.date-selector .inputs .month {
+  width: 43px;
+}
+.date-selector .inputs .year {
+  width: 80px;
+}
+.date-selector .hidden-input {
+  opacity: 0;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  display: none;
+}
+.calendar {
+  outline: none!important;
+}
+.calendar .btn.btn-default {
+  padding: 0px 3px;
+  font-size: 14px;
+  outline: none;
+  border: none;
+  line-height: 16px;
+  color: #000;
+}
+.calendar .btn-default[disabled] {
+  background: #f9f9f9;
+  cursor: default!important;
+  color: #ccc!important;
+}
+.calendar .text-info {
+  color: #3A65BE;
+  font-weight: bold;
+}
+.calendar table {
+  border-collapse: collapse;
+  width: 100%;
+  border-spacing: 0;
+  outline: none!important;
+}
+.calendar table tr:first-child th {
+  background-color: #e7e7e7;
+  overflow: hidden;
+  font-size: 16px;
+  line-height: 43px;
+  height: 43px;
+  text-align: center;
+  padding: 0;
+  min-width: 34px;
+  border: none;
+}
+.calendar table tr:first-child th:nth-child(1),
+.calendar table tr:first-child th:nth-child(3) {
+  width: 34px;
+}
+.calendar table tr:first-child th:nth-child(2) {
+  width: 184px;
+}
+.calendar table tr:first-child th:nth-child(2) .btn {
+  font-size: 14px;
+  background: #e7e7e7!important;
+  cursor: default!important;
+}
+.calendar table tr:first-child th:nth-child(1) i:before {
+  content: "\f104" !important;
+}
+.calendar table tr:first-child th:nth-child(3) i:before {
+  content: "\f105" !important;
+}
+.calendar table tr:first-child th .btn:hover {
+  background-color: #eee;
+}
+.calendar table tr:first-child th .btn:active {
+  background-color: #ddd;
+}
+.calendar table tr:first-child th:nth-child(2) .btn strong {
+  font-weight: normal;
+}
+.calendar table tr:first-child th .btn {
+  height: 100%;
+  padding: 0;
+  width: 100%;
+}
+.calendar table tr:first-child th .btn i {
+  padding: 0 10px;
+  font-family: FontAwesome!important;
+  font-size: 32px;
+  color: #707070;
+}
+.calendar table tr:last-child th {
+  background-color: #fff;
+  color: #575757;
+  font-weight: 400;
+  font-size: 12px;
+  padding: 4px;
+}
+.calendar table td {
+  border: 1px solid #E3E3E3;
+  background-color: #FFF;
+  text-align: center;
+  height: 32px;
+  width: 32px;
+  font-size: 14px;
+  padding: 0;
+}
+.calendar table td .btn {
+  height: 100%;
+  box-shadow: inset 0px 0px 0px 2px transparent;
+}
+.calendar .text-muted {
+  color: #ddd;
+}
+.calendar button.btn.btn-default.btn-sm.btn-info.active {
+  box-shadow: inset 0px 0px 0px 2px #009ee0;
+  color: #000;
+}
+.calendar .btn.btn-default:focus {
+  background: transparent;
+}
+.CCV_groups_page .period_form .formline {
+  position: relative;
+  display: inline-block;
+  margin-left: 20px;
+}
+.CCV_groups_page .period_form .formline .text_how {
+  position: relative;
+  top: -11px;
+}
+.CCV_groups_page .period_form .formline .picker_inputs {
+  display: inline-block;
+}
+.CCV_groups_page .period_form .formline .pick_icon {
+  position: relative;
+  top: -11px;
+  left: -5px;
+  border-radius: 0;
+}
+.CCV_groups_page .chart {
+  width: 100%;
+  height: 400px;
+}
+.CCV_search .pos {
+  margin-bottom: 20px;
+}
+.CCV_search .pos h4 {
+  font-size: 16px;
+}
+.CCV_search .radioList label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+.CCV_search .radioList input {
+  width: 1px;
+  height: 1px;
+  visibility: hidden;
+  opacity: 0;
+}
+.CCV_search .radioList input:checked + span:after {
+  opacity: 1;
+}
+.CCV_search .radioList span {
+  display: inline-block;
+  margin-left: 20px;
+  font-weight: normal;
+}
+.CCV_search .radioList span:before {
+  width: 12px;
+  height: 12px;
+  box-shadow: 0px 0px 1px #000;
+  left: 5px;
+  top: 4px;
+  border-radius: 50%;
+  content: '';
+  position: absolute;
+  display: block;
+}
+.CCV_search .radioList span:after {
+  width: 8px;
+  height: 8px;
+  left: 7px;
+  top: 6px;
+  border-radius: 50%;
+  background: #358CE0;
+  opacity: 0;
+  transition: 0.2s;
+  content: '';
+  position: absolute;
+  display: block;
+}
+.CCV_search .period_form .formline {
+  position: relative;
+  display: block;
+  text-align: right;
+  height: 30px;
+  margin-top: 7px;
+}
+.CCV_search .period_form .formline .text_how {
+  position: relative;
+  top: -11px;
+}
+.CCV_search .period_form .formline .picker_inputs {
+  display: inline-block;
+}
+.CCV_search .period_form .formline .pick_icon {
+  position: relative;
+  top: -11px;
+  left: -5px;
+  border-radius: 0;
+}
+.CCV_search .gosearch-panel {
+  display: block;
+}
+.CCV_search .gosearch-button {
+  display: block;
+  border-radius: 0px;
+  width: 100%;
+}
+.CCV_search .query {
+  display: block;
+  width: 100%;
+}
+.CCV_search .post {
+  width: 520px;
+  overflow: auto;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+.CCV_search .post.big {
+  position: relative;
+}
+.CCV_search .post.big .text {
+  overflow: hidden;
+}
+.CCV_search .post.big .more {
+  background-color: rgba(221, 244, 255, 0.8);
+  opacity: 0.55;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.CCV_search .post.big .more:hover {
+  opacity: 1;
+}
+.CCV_search .post .left {
+  width: 60px;
+  float: left;
+}
+.CCV_search .post .left img {
+  width: 50px;
+  height: 50px;
+}
+.CCV_search .post .right {
+  float: left;
+  width: 460px;
+}
+.CCV_search .post .right .title .gray {
+  font-size: 9px;
+  color: #777;
+}
+.CCV_search .post .right footer {
+  margin-top: 10px;
+}
+.CCV_search .post .right footer .socials .point {
+  display: inline-block;
+  margin-left: 10px;
+}
+.CCV_search .post .right footer .socials .point i {
+  opacity: 0.7;
+}
+.CCV_search .post .right footer .socials .point span {
+  font-weight: bold;
+}

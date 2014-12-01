@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <h3 class="modal-title">Добавление группы</h3>
+</div>
+<div class="modal-body">
+  <p>Введи ссылку на группу, которую хочешь добавить</p>
+  <form ng-submit="ctr.resolveAndAdd()">
+    <input class="form-control" type="text" placeholder="https://vk.com/super_public" ng-model="ctr.url">
+    <input type="submit" style="position:absolute;left:-9999px">
+    <strong class="text-danger" ng-bind="ctr.error"></strong>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="ctr.resolveAndAdd()">добавить</button>
+  <button class="btn btn-default" ng-click="$dismiss()">отмена</button>
+</div>

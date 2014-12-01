@@ -1,17 +1,39 @@
-<?php
-$this->getView('utils/head');
-$this->echoMeta(array());
-?>
+<!DOCTYPE html>
+<html lang="ru">
 
+<head>
+  <meta charset="UTF-8" />
+  <!--<meta http-equiv="content-type" content="text/html; charset=windows-1251" />-->
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" type="text/css" href="/pack/vendors.css" />
+  <link rel="stylesheet" type="text/css" href="/pack/styles.css" />
+  <link rel="stylesheet" type="text/css" href="/pack/cabinet.css" />
+  <title>Личный кабинет</title>
+  <base href="/cabinet/" />
 </head>
-<body ng-app="Cabinet">
- <header>
 
- </header>
+<body ng-app="Cabinet" ng-controller="C_cabinet as ctr" class="cabinet">
+  <nav class="toppanel">
+    <div class="container">
+      <menu>
+        <a href="http://smm.dev/">Обратно на сайт</a>
+        <a ui-sref="index">Кабинет</a>
+        <a ui-sref="groups">Группы</a>
+        <a ui-sref="search">Поиск контента</a>
+      </menu>
+    </div>
+  </nav>
 
- <section ui-view class="view">
+  <div class="container">
+    <section ui-view class="view">
 
- </section>
-<?php
-$this->getView('utils/footer');
-exit;
+    </section>
+  </div>
+
+  <script type="text/javascript" src="/pack/vendor.js"></script>
+  <script type="text/javascript" src="/pack/templates.js"></script>
+  <script src="/pack/cabinet-templates.js"></script>
+  <script type="text/javascript" src="/pack/scripts.js"></script>
+</body>
+
+</html>

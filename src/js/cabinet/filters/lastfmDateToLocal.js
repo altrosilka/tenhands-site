@@ -1,3 +1,4 @@
+/*
 angular.module('App').filter('lastfmDateToLocal', ['localization',function(localization) {
   return function(date) {
     if (!date) {
@@ -9,3 +10,4 @@ angular.module('App').filter('lastfmDateToLocal', ['localization',function(local
     return parsed.format('DD') + ' ' + localization.months[parsed.month()] + ' ' + parsed.format('YYYY');
   }
 }]);
+*/

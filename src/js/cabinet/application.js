@@ -1,5 +1,26 @@
-var App = angular.module('App', [
+var App = angular.module('Cabinet', [
+  'configuraion',
+  'ui.router',
   'ngSanitize',
-  'ui.bootstrap',
-  'templates'
+  'ui.bootstrap', 
+  'cabinet.templates',
+  'S_eventer', 
+  'S_selfapi',
+  'S_vk',
+  'S_utils',
+  'S_location',
+  'complexGroupChart',
+  'extendedWallPost',
+  'ngEnter',
+  'vkEmoji',
+  'datePickers',
+  'parseVkUrls',
+  'C_main',
+  'C_cabinet', 
+  'CCV_index',
+  'CCV_groups',
+  'CCV_admin_groups.page',
+  'CCV_search',
+  'CCV_groups.page'
 ]);
+  

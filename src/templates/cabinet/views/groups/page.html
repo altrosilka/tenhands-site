@@ -1,0 +1,32 @@
+<section class="CCV_groups_page">
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><span class="h_label">Страница группы</span>
+    </div>
+    <div class="panel-body">
+      <h4 ng-bind="ctr.info.name"></h4>
+
+
+      <div class="clearfix">
+        <h4 class="pull-left">Статистика</h4>
+        <div class="calendar period_form pull-right">
+          <div class="formline clearfix">
+            <span class="text_how">с</span>
+            <div select-date data-is-open="ctr.isOpen.start" max-date="ctr.endDate" data-model="ctr.startDate" class="picker_inputs"></div>
+            <button class="pick_icon btn btn-primary btn-sm" ng-click="ctr.openCalendar('start', $event)">выбрать</button>
+          </div>
+
+          <div class="formline clearfix">
+            <span class="text_how">по</span>
+            <div select-date data-is-open="ctr.isOpen.end" min-date="ctr.startDate" max-date="ctr.today" data-model="ctr.endDate" class="picker_inputs"></div>
+            <button class="pick_icon btn btn-primary btn-sm" ng-click="ctr.openCalendar('end', $event)">выбрать</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart" complex-group-chart group-id="ctr.info.id" start-date="ctr.startDate" end-date="ctr.endDate">
+
+      </div>
+    </div>
+  </div>
+</section>

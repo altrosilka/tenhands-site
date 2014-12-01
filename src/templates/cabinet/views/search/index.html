@@ -1,0 +1,116 @@
+<section class="CCV_search">
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><span class="h_label">Страница поиска</span>
+    </div>
+    <div class="panel-body">
+      <div class="clearfix">
+        <div class="leftpanel col-md-3">
+          <div class="row">
+
+            <div class="pos">
+              <h4>Тип поиска</h4>
+              <div class="radioList">
+                <label>
+                  <input type="radio" name="searchType" ng-model="ctr.searchType" ng-change="ctr.resetQuery()" value="word">
+                  <span>поиск по фразе</span>
+                </label>
+                <label>
+                  <input type="radio" name="searchType" ng-model="ctr.searchType" ng-change="ctr.resetQuery()" value="list">
+                  <span>поиск по списку</span>
+                </label>
+                <label>
+                  <input type="radio" name="searchType" ng-model="ctr.searchType" ng-change="ctr.resetQuery()" value="group">
+                  <span>поиск по группе</span>
+                </label>
+              </div>
+            </div>
+            <div class="pos">
+              <div class="type-time">
+                <h4>Временной интервал</h4>
+                <div class="calendar period_form">
+                  <div class="formline clearfix">
+                    <span class="text_how">с</span>
+                    <div select-date data-is-open="ctr.isOpen.start" max-date="ctr.endDate" data-model="ctr.startDate" class="picker_inputs"></div>
+                    <button class="pick_icon btn btn-primary btn-sm" ng-click="ctr.openCalendar('start', $event)">выбрать</button>
+                  </div>
+
+                  <div class="formline clearfix">
+                    <span class="text_how">по</span>
+                    <div select-date data-is-open="ctr.isOpen.end" min-date="ctr.startDate" max-date="ctr.today" data-model="ctr.endDate" class="picker_inputs"></div>
+                    <button class="pick_icon btn btn-primary btn-sm" ng-click="ctr.openCalendar('end', $event)">выбрать</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pos">
+              <div ng-show="ctr.searchType === 'word'">
+                <h4>Поисковая фраза</h4>
+                <input class="query" ng-model="ctr.query" ng-enter="ctr.search()" placeholder="котики">
+              </div>
+              <div ng-show="ctr.searchType === 'list'">
+                <h4>Список источников</h4>
+                <input class="query" ng-model="ctr.query" ng-enter="ctr.search()" placeholder="34534535,23534754,235363">
+              </div>
+              <div ng-show="ctr.searchType === 'group'">
+                <h4>Ссылка на групп</h4>
+                <input class="query" ng-model="ctr.query" ng-enter="ctr.search()" placeholder="http://vk.com/best_group">
+              </div>
+
+            </div>
+            <div class="pos">
+              <div class="gosearch-panel">
+                <button class="btn btn-success gosearch-button" ng-click="ctr.search()">поиск</button>
+              </div>
+            </div>
+            <input type="submit" style="position: absolute;left:-9999px;">
+
+          </div>
+        </div>
+
+
+        <div class="rightpanel col-md-6">
+          <div class="posts">
+            <section class="post" extended-wall-post ng-repeat="post in ctr.posts">
+              <div class="left">
+                <img ng-src="{{post.owner_photo}}">
+              </div>
+              <div class="right">
+                <div class="title">
+                  <a ng-href="//vk.com/{{post.owner_screen_name}}" target="_blank" ng-bind="post.owner_name"></a>
+                  <span class="gray">
+                    <strong ng-bind="post.owner_members"></strong>&nbsp;подписчиков</span>
+                </div>
+                <div class="text" ng-bind-html="post.text | parseVkUrls"></div>
+                <footer>
+                  <span class="pull-left">
+                    <span ng-bind="post.dateHuman"></span>
+                  </span>
+                  <span class="pull-right socials">
+                    <span class="point"><i class="fa fa-bullhorn"></i> 
+                      <span ng-bind="post.reposts"></span>
+                  </span>
+                  <span class="point"><i class="fa fa-heart-o"></i> 
+                      <span ng-bind="post.likes"></span>
+                  </span>
+                  <span class="point"><i class="fa fa-comments-o"></i> 
+                      <span ng-bind="post.comments"></span>
+                  </span>
+                  <span class="point"><i class="fa fa-smile-o"></i>
+                      <span ng-bind="post.strange"></span>%
+                  </span>
+                  <span class="point"><i class="fa fa-users"></i>
+                      <span ng-bind="post.total"></span>%
+                  </span>
+                  </span>
+                </footer>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>

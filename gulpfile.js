@@ -17,11 +17,16 @@ var gulp = require("gulp"),
 
 var vendorLibs = [
   './bower_components/jquery/dist/jquery.js',
+  './bower_components/lodash/dist/lodash.js',
   './bower_components/bootstrap/dist/js/bootstrap.js',
   './bower_components/angular/angular.js',
   './bower_components/angular-sanitize/angular-sanitize.js',
+  './bower_components/angular-ui-router/release/angular-ui-router.js',
   './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-  './bower_components/fancybox/source/jquery.fancybox.js'
+  './bower_components/momentjs/moment.js',
+  './bower_components/momentjs/locale/ru.js',
+  './bower_components/fancybox/source/jquery.fancybox.js',
+  './bower_components/highcharts/highcharts.src.js'
 ];
 
 
@@ -64,7 +69,7 @@ gulp.task('styles-deploy', function() {
 
 
 gulp.task('less', function() {
-  gulp.src('./src/less/styles.less')
+  gulp.src(['./src/less/styles.less', './src/less/cabinet.less'])
     .pipe(less())
     .pipe(gulp.dest('./public/pack'));
 });
@@ -83,7 +88,7 @@ gulp.task('vendors-styles', function() {
 });
 
 gulp.task('templates', function() {
-  gulp.src('./src/templates/**/*.html')
+  gulp.src(['./src/templates/**/*.html', '!./src/templates/cabinet/**.html'])
     .pipe(templateCache('templates.js', {
       standalone: true,
       root: './templates/'
@@ -93,11 +98,24 @@ gulp.task('templates', function() {
 
 
 
+gulp.task('cabinet-templates', function() {
+  gulp.src('./src/templates/cabinet/**/*.html')
+    .pipe(templateCache('cabinet-templates.js', {
+      standalone: true,
+      root: './cabinet/',
+      module: 'cabinet.templates'
+    }))
+    .pipe(gulp.dest('./public/pack'));
+});
+
+
+
 gulp.task("watch", function() {
   gulp.watch('./src/js/**', ["scripts"]);
-  gulp.watch('./src/less/**', ["less"]);
+  gulp.watch('./src/less/**/*.less', ["less"]);
   gulp.watch('./tmp/css/**', ["styles"]);
-  gulp.watch('./src/templates/**', ["templates"]);
+  gulp.watch(['./src/templates/**', '!./src/templates/cabinet/**.html'], ["templates"]);
+  gulp.watch('./src/templates/cabinet/**/*.html', ["cabinet-templates"]);
 });
 
 gulp.task('build', [
