@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <h3 class="modal-title">Добавление аккаунта Instagram</h3>
+</div>
+<div class="modal-body">
+  <p>Введи данные для входа в аккаунт, который ты хочешь прикрепить</p>
+  <form ng-submit="ctr.resolveAndAdd()">
+    <input class="form-control" type="text" placeholder="логин" ng-model="ctr.username">
+    <input class="form-control" type="password" placeholder="пароль" ng-model="ctr.password">
+    <input type="submit" style="position:absolute;left:-9999px">
+    <strong class="text-danger" ng-bind="ctr.error"></strong>
+  </form>
+</div> 
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="ctr.resolveAndAdd()">добавить</button>
+  <button class="btn btn-default" ng-click="$dismiss()">отмена</button>
+</div>

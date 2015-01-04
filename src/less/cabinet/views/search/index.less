@@ -3,6 +3,7 @@
     margin-bottom: 20px;
     h4 {
       font-size: 16px;
+      margin: 20px 0 15px;
     }
   }
   .radioList {
@@ -68,7 +69,7 @@
       }
       .pick_icon {
         position: relative;
-        top: -11px;
+        top: -12px;
         left: -5px;
         border-radius: 0;
       }
@@ -98,7 +99,7 @@
         overflow: hidden;
       }
       .more {
-        background-color: rgba(221, 244, 255, 0.8);
+        background-color: #E2F2FF;
         opacity: 0.55;
         text-align: center;
         line-height: 30px;
@@ -142,5 +143,29 @@
         }
       }
     }
+  }
+  .date-selector .inputs {
+    width: 117px;
+    height: 31px;
+    .day, .month {
+      width: 30px;
+    }
+    .year {
+      width: 55px;
+    }
+    &:before {
+      left: 29px;
+    }
+    &:after {
+      left: 59px;
+    }
+  }
+  .noresults {
+    text-align: center;
+    font-size: 14px;
+  }
+  .sliders {
+    line-height: 18px;
+    font-size: 15px;
   }
 }

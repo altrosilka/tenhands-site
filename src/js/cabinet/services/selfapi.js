@@ -1,59 +1,83 @@
-angular.module('S_selfapi',[])
+angular.module('S_selfapi', [])
   .service('S_selfapi', [
     '$http',
     '__api',
     function($http, __api) {
       var service = {};
       var base = __api.baseUrl;
+
       service.getVkToken = function() {
         return $http({
           url: base + __api.paths.getVkToken,
           method: 'GET'
-        }); 
+        });
       }
 
-      service.addGroup = function(group_id) {
+      service.signIn = function(email, password) {
         return $http({
-          url: base + __api.paths.addGroup,
+          withCredentials: true,
+          url: base + __api.paths.signIn,
           method: 'POST',
           data: {
-            group_id: group_id
+            email: email,
+            password: password
           }
-        }); 
+        });
       }
 
-       service.addSecretToGroup = function(group_id, appId, secret) {
+      service.signUp = function(email, password, name) {
         return $http({
-          url: base + __api.paths.addSecretToGroup,
+          withCredentials: true,
+          url: base + __api.paths.signUp,
+          method: 'POST',
+          data: {
+            email: email,
+            password: password,
+            name: name
+          }
+        });
+      }
+
+      service.addNewSet = function(setName) {
+        return $http({
+          url: base + __api.paths.sets,
+          method: 'POST',
+          data: {
+            name: setName
+          }
+        });
+      }
+
+      service.getUserOwnSets = function() {
+        return $http({
+          url: base + __api.paths.sets,
+          method: 'GET'
+        });
+      }
+
+      service.addVkGroup = function(group_id, setId) {
+        return $http({
+          url: base + __api.paths.addVkGroup,
           method: 'POST',
           data: {
             group_id: group_id,
-            appId: appId,
-            secret: secret
+            set_id: setId
           }
-        }); 
+        });
       }
-
-       service.sendApplicationCode = function(code, hash) {
+      service.addIgAccount = function(username, password, setId) {
         return $http({
-          url: base + __api.paths.sendCode,
+          url: base + __api.paths.addIgAccount,
           method: 'POST',
           data: {
-            code: code,
-            hash: hash
+            username: username,
+            password: password,
+            set_id: setId
           }
-        }); 
+        });
       }
 
-      service.loadAdminGroups = function(group_id) {
-        return $http({
-          url: base + __api.paths.loadAdminGroups,
-          method: 'GET',
-          data: {
-            group_id: group_id
-          }
-        }); 
-      }
+
 
       return service;
     }

@@ -1,1 +1,1174 @@
-(function(){var e,t=[].slice;e=function(){var e,n,r,a,o,s;return a=1<=arguments.length?t.call(arguments,0):[],o=/(^|[\s\n]|<br\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi,a.length>0?(r=a[0],n=function(){var t;t=[];for(e in r)s=r[e],"callback"!==e&&t.push(" "+e+"='"+s+"'");return t}().join(""),this.replace(o,function(e,t,a){var o;return o=("function"==typeof r.callback?r.callback(a):void 0)||"<a href='"+a+"'"+n+">"+a+"</a>",""+t+o})):this.replace(o,"$1<a href='$2'>$2</a>")},String.prototype.autoLink=e}).call(this),function(){function e(e,t){return 1024*(e-55296)+(t-56320)+65536}function t(e){var t=document.createElement("IMG");return t.src="//"+r+a+e+o,t.className="emoji",t}function n(n){var r,a=/([\ud800-\udbff])([\udc00-\udfff])/g,o=n.match(a);return o&&(r=n.replace(a,function(n,r,a){var o=e(r.charCodeAt(0),a.charCodeAt(0)),s=t(o.toString(16));return s.outerHTML}),n=r),n}var r=(parseInt("1f1e6",16),parseInt("1f1ff",16),"assets.github.com"),a="/images/icons/emoji/unicode/",o=".png";String.fromCodePoint||(String.fromCodePoint=function(){var e,t,n,r,a=[];for(r=0;r<arguments.length;++r)e=arguments[r],t=e-65536,n=e>65535?[55296+(t>>10),56320+(1023&t)]:[e],a.push(String.fromCharCode.apply(null,n));return a.join("")}),window.emojiParseInText=n}(this);var App=angular.module("Cabinet",["configuraion","ui.router","ngSanitize","ui.bootstrap","cabinet.templates","S_eventer","S_selfapi","S_vk","S_utils","S_location","complexGroupChart","extendedWallPost","ngEnter","vkEmoji","datePickers","parseVkUrls","C_main","C_cabinet","CCV_index","CCV_groups","CCV_admin_groups.page","CCV_search","CCV_groups.page"]);App.config(["$stateProvider","$urlRouterProvider","$locationProvider","$httpProvider",function(e,t,n,r){r.defaults.useXDomain=!0,delete r.defaults.headers.common["X-Requested-With"],n.html5Mode(!0).hashPrefix("!"),t.otherwise("/"),e.state("index",{url:"/",controller:"CCV_index as ctr",templateUrl:"cabinet/views/index.html"}).state("admin_groups",{url:"/admin/groups/",controller:"CCV_admin_groups as ctr",templateUrl:"cabinet/views/admin/groups/index.html"}).state("admin_groups_page",{url:"/admin/groups/:id/",controller:"CCV_admin_groups.page as ctr",templateUrl:"cabinet/views/admin/groups/page.html"}).state("groups",{url:"/groups/",controller:"CCV_groups as ctr",templateUrl:"cabinet/views/groups/index.html"}).state("groups_page",{url:"/groups/:id/?from&to",controller:"CCV_groups.page as ctr",templateUrl:"cabinet/views/groups/page.html"}).state("search",{url:"/search/",controller:"CCV_search as ctr",templateUrl:"cabinet/views/search/index.html"})}]),angular.module("configuraion",[]).constant("__vkAppId",4637584).constant("__timezone",6).constant("__api",{baseUrl:"http://api.smm.dev/",paths:{getVkToken:"user/getVkToken",addGroup:"admin/addGroup",loadAdminGroups:"admin/loadGroups",addSecretToGroup:"admin/addSecretToGroup",sendCode:"admin/sendCode"}}),App.run(["S_vk",function(){}]),angular.module("C_cabinet",[]).controller("C_cabinet",["$scope","S_selfapi","S_vk",function(e,t,n){var r=this;return t.getVkToken().then(function(e){n.setToken(e.data.token),n.testRequest().then(function(){console.log(1)},function(){console.log(2)})}),r}]),angular.module("C_main",[]).controller("C_main",["$scope",function(){var e=this;return e}]),angular.module("complexGroupChart",[]).controller("CD_complexGroupChart",["$q","$filter","S_vk","__vkAppId","__timezone",function(e,t,n,r,a){var o=this;return o.getDataForChart=function(o,s,i){var u=e.defer(),d="yyyy-MM-dd";return n.request("stats.get",{group_id:i,app_id:r,date_from:t("date")(o,d,a),date_to:t("date")(s,d,a)}).then(function(e){var t,n=e.response,r={views:{name:"Посещения",data:[],color:"#F90"},visitors:{name:"Визиты",data:[],color:"#a60"},subscribed:{name:"Подписки",data:[],color:"#36638E"},unsubscribed:{name:"Отписки",data:[],color:"#B05C91"}};_.forEach(n.reverse(),function(e){t=1e3*+moment(e.day,"YYYY-MM-DD").format("X")+36e5*a,r.views.data.push([t,+e.views]),r.visitors.data.push([t,+e.visitors]),r.subscribed.data.push([t,+e.subscribed]),r.unsubscribed.data.push([t,+e.unsubscribed])}),u.resolve(r)}),u.promise},o}]).directive("complexGroupChart",[function(){return{scope:{startDate:"=",endDate:"=",groupId:"="},controller:"CD_complexGroupChart",templateUrl:"cabinet/directives/complexGroupChart.html",link:function(e,t,n,r){function a(){"undefined"!=typeof e.startDate&&"undefined"!=typeof e.endDate&&"undefined"!=typeof e.groupId&&r.getDataForChart(e.startDate,e.endDate,e.groupId).then(function(e){var n=_.map(e,function(e){return e}),r={chart:{},title:{text:""},subtitle:{text:""},plotOptions:{line:{marker:{enabled:!0,radius:5,symbol:"circle"},lineWidth:2}},tooltip:{shared:!0,backgroundColor:"#fff",formatter:function(){},useHTML:!0,borderColor:"transparent",backgroundColor:"transparent",borderRadius:0,shadow:!1},legend:{enabled:!0}};angular.extend(r,{xAxis:{tickmarkPlacement:"on",type:"datetime",dateTimeLabelFormats:{day:"%d.%m",week:"%d.%m",month:"%B",year:"%Y"},minTickInterval:864e5,tickPixelInterval:40,labels:{}},yAxis:{min:0,title:{text:"Temperature (°C)"},plotLines:[{value:0,width:1,color:"#808080"}]},series:n}),t.highcharts(r).find('text:contains("Highcharts.com")').remove()})}e.$watch("startDate",a),e.$watch("endDate",a),e.$watch("groupId",a)}}}]),angular.module("datePickers",[]).directive("dateInterval",["$filter","_timezone",function(e,t){return{scope:{start:"=",end:"=",format:"="},templateUrl:"cabinet/directives/dateInterval.html",link:function(n){var r=n.format||"dd.MM.yyyy";n.$watch(function(){return n.start},function(){n.filteredStart=e("date")(n.start,r,t)}),n.$watch(function(){return n.end},function(){n.filteredEnd=e("date")(n.end,r,t)})}}}]).directive("selectDate",["$filter",function(e){return{scope:{isOpen:"=",hideInputs:"=",minDate:"=",maxDate:"=",model:"="},templateUrl:"cabinet/directives/selectDate.html",link:function(t,n){function r(t,n){n&&(t.editdate.day=e("date")(n,"dd",0),t.editdate.month=e("date")(n,"MM",0),t.editdate.year=e("date")(n,"yyyy",0))}t.editdate={day:void 0,month:void 0,year:void 0},t.$watch("model",function(e){r(t,e)}),n.find(".inputs input").on("blur",function(){if("undefined"!=typeof t.editdate.day&&"undefined"!=typeof t.editdate.month&&"undefined"!=typeof t.editdate.year){var e=new Date(parseInt(t.editdate.year),parseInt(t.editdate.month)-1,parseInt(t.editdate.day));t.$apply(isNaN(e)?function(){r(t,t.model)}:function(){t.model=e,r(t,e)})}}).on("keypress",function(e){13==e.which&&$(this).trigger("blur")})}}}]),angular.module("extendedWallPost",[]).directive("extendedWallPost",["$timeout",function(e){return{link:{post:function(t,n){e(function(){var e,t=n.find(".text"),r=parseInt(n.find(".text").css("line-height")),a=t.height(),o=Math.floor(a/r);if(a>10*r){t.height(10*r),n.addClass("big");var s=o-10;n.attr("data-lines",s),e=$(document.createElement("div")).addClass("more").html("еще "+s+" строк").insertAfter(t).on("click",function(){n.toggleClass("extended"),n.hasClass("extended")?(e.html("скрыть"),t.height(a)):($("html, body").animate({scrollTop:"-="+s*r+"px"},0),e.html("еще "+s+" строк"),t.height(10*r))})}},0)}}}}]),angular.module("ngEnter",[]).directive("ngEnter",function(){return function(e,t,n){t.bind("keydown keypress",function(t){13===t.which&&(e.$apply(function(){e.$eval(n.ngEnter)}),t.preventDefault())})}}),angular.module("vkEmoji",[]).directive("vkEmoji",[function(){return{link:function(){}}}]),angular.module("parseVkUrls",[]).filter("parseVkUrls",[function(){return function(e,t){if(e){for(var n=/\[club([0-9]*)\|([^\]]*)\]/g,r=/\[id([0-9]*)\|([^\]]*)\]/g,a=[],o=0;o<e.length;++o)a.push(e.charCodeAt(o));e=emojiParseInText(e);var s=e.autoLink();return s=t?s.replace(n,"<span>$2</span>"):s.replace(n,'<a class="link" href="/public/$1/">$2</a>'),s=s.replace(r,"<span>$2</span>").replace(/\n/g,"<br />")}}}]),angular.module("S_eventer",[]).service("S_eventer",["$rootScope",function(e){var t={};return t.sendEvent=function(t,n){e.$broadcast(t,n)},t}]),angular.module("S_location",[]).service("S_location",["$location",function(e){var t;return t={setAttr:function(t,n){var r={};r[t]=n,e.search(angular.extend(e.$$search,r))},setDay:function(t){t="string"==typeof t?t:moment(t).format("YYYYMMDD"),e.search(angular.extend(e.$$search,{day:t}))},setFromTo:function(t,n){t="string"==typeof t?t:moment(t).format("YYYYMMDD"),n="string"==typeof n?n:moment(n).format("YYYYMMDD"),e.search(angular.extend(e.$$search,{from:t,to:n}))},setBranch:function(t){t=t[0],e.search(angular.extend(e.$$search,{branch:t.id}))},setBranches:function(t){var n=_.map(t,function(e){return e.id}).join("-");""===n&&(n=void 0),e.search(angular.extend(e.$$search,{branch:n}))},getAnalyticTimeIntervals:function(){return analyticTimeIntervals}}}]),angular.module("S_mapping",[]).service("S_mapping",[function(){var e={};return e}]),angular.module("S_selfapi",[]).service("S_selfapi",["$http","__api",function(e,t){var n={},r=t.baseUrl;return n.getVkToken=function(){return e({url:r+t.paths.getVkToken,method:"GET"})},n.addGroup=function(n){return e({url:r+t.paths.addGroup,method:"POST",data:{group_id:n}})},n.addSecretToGroup=function(n,a,o){return e({url:r+t.paths.addSecretToGroup,method:"POST",data:{group_id:n,appId:a,secret:o}})},n.sendApplicationCode=function(n,a){return e({url:r+t.paths.sendCode,method:"POST",data:{code:n,hash:a}})},n.loadAdminGroups=function(n){return e({url:r+t.paths.loadAdminGroups,method:"GET",data:{group_id:n}})},n}]),angular.module("S_utils",[]).service("S_utils",["$modal",function(e){var t={};return t.openAddGroupDialog=function(){return e.open({templateUrl:"cabinet/modals/addGroup.html",controller:"CCM_addGroup as ctr",size:"md"}).result},t}]),angular.module("S_vk",[]).service("S_vk",["$q","$http","S_utils",function(e,t){var n={};n.default={version:"5.26",language:"ru"};var r=[];return n.request=function(r,a,o){var s=e.defer();return n.getToken().then(function(e){var i="/method/"+r+"?access_token="+e;a.v=a.v||n.default.version,a.lang=a.lang||n.default.language;for(var u in a)"message"===u?i+="&"+u+"="+encodeURIComponent(a[u]):"object"==typeof a[u]&&a[u].length?_.forEach(a[u],function(e){i+="&"+u+"[]="+e}):i+="&"+u+"="+a[u];t.jsonp("https://api.vk.com"+i,{params:{callback:"JSON_CALLBACK"}}).then(function(e){"function"==typeof o?o(e.data):s.resolve(e.data)})}),s.promise},n.setToken=function(e){n.token=e,r.length>0&&angular.forEach(r,function(t){t.resolve(e)})},n.testRequest=function(){var t=e.defer();return n.request("users.get",{},function(e){e.response?t.resolve():t.reject()}),t.promise},n.getToken=function(){var t=e.defer();return n.token?t.resolve(n.token):r.push(t),t.promise},n}]),angular.module("CCV_index",[]).controller("CCV_index",["$scope",function(){var e=this;return e}]),angular.module("Cabinet").controller("CCM_addGroup",["$scope","$modalInstance","S_vk","S_selfapi",function(e,t,n,r){var a=this;return a.url="",a.resolveAndAdd=function(){return a.error="",""===a.url?void(a.error="пустой запрос"):void n.request("utils.resolveScreenName",{screen_name:a.url.split("/").pop()}).then(function(e){if(_.isObject(e.response)){if("group"!==e.response.type)return void(a.error="это не похоже на ссылку группы");r.addGroup(e.response.object_id).then(function(e){return e.data.error?("enemy"===e.data.error_code&&(a.error="звезды сказали, что ты не являешься создателем этой группы"),void("already"===e.data.error_code&&(a.error="группа уже добавлена"))):void(e.data.success&&t.close(!0))})}else a.error="это какая-то неправильная ссылка"})},a}]),angular.module("CCV_groups",[]).controller("CCV_groups",["$scope","S_vk","S_selfapi",function(e,t){var n=this;return n.setOrder=function(e){n.paramOrdering!==e?(n.reverseOrdering=!0,n.paramOrdering=e):n.reverseOrdering=!n.reverseOrdering},t.request("groups.get",{extended:1,filter:"admin,editor",fields:"members_count"}).then(function(e){n.groups=e.response.items,n.timeStatus=moment().format("HH:mm / DD.MM.YYYY"),t.request("execute.getGroupsListInfo",{groupsArray:_.map(n.groups,function(e){return"-"+e.id})}).then(function(e){console.log(e);var t;_.forEach(e.response,function(e){t=_.find(n.groups,function(t){return Math.abs(e.id)==t.id}),t&&(t.lastPostUnix=e.last_posts.length?e.last_posts[0].date:0,t.lastPostHuman=t.lastPostUnix?moment(t.lastPostUnix,"X").fromNow():"еще не было")})})}),n}]),angular.module("CCV_groups.page",[]).controller("CCV_groups.page",["$scope","$state","S_vk","S_selfapi","S_location","__vkAppId",function(e,t,n,r,a){function o(){s.endDate=t.params.to?moment(t.params.to,"YYYYMMDD").toDate():moment().toDate(),s.startDate=t.params.from?moment(t.params.from,"YYYYMMDD").toDate():moment(s.endDate).add(-6,"days").toDate()}var s=this;s.today=new Date,s.isOpen={start:!1,end:!1},e.$watch(function(){return s.startDate&&s.endDate?s.startDate.toString()+s.endDate.toString():void 0},function(e){e&&a.setFromTo(s.startDate,s.endDate)}),s.openCalendar=function(e,t){t.preventDefault(),t.stopPropagation(),"start"===e?s.isOpen.start=!s.isOpen.start:s.isOpen.end=!s.isOpen.end};var i=t.params.id;return n.request("groups.getById",{group_id:i,fields:"city,country,place,description,wiki_page,members_count,counters,start_date,finish_date,can_post,can_see_all_posts,activity,status,contacts,links,fixed_post,site"}).then(function(e){e.response?(s.info=e.response[0],console.log(s.info)):alert("Какой-то неверный ID группы. Или что-то сломалось... Попробуйте обновить страницу")}),e.$on("$stateChangeSuccess",function(e,t){o(t.name)}),o(),s}]),angular.module("CCV_search",[]).controller("CCV_search",["$scope","S_vk","S_selfapi",function(e,t){function n(e){var t=[],n=(e.profiles,e.groups);return console.log(e),_.forEach(e.items,function(e){if(!(e.copy_history||e.from_id>0)){var r=Math.abs(e.source_id||e.owner_id),a=_.find(n,function(e){return e.id===r});t.push({date:e.date,dateHuman:moment(e.date,"X").format("HH:mm / DD.MM.YYYY"),post_id:e.post_id,text:e.text,comments:e.comments.count,reposts:e.reposts.count,likes:e.likes.count,attachments:e.attachments,owner_id:a.id,owner_photo:a.photo_100,owner_name:a.name,owner_screen_name:a.screen_name,owner_members:a.members_count,strange:e.likes.count?(e.reposts.count/e.likes.count*100).toFixed(2):0,total:a.members_count?(e.likes.count/a.members_count*100).toFixed(2):0})}}),t}var r=this;return r.today=new Date,r.isOpen={start:!1,end:!1},r.posts=[],r.resetQuery=function(){delete r.query,r.query="-46281060,-7089825"},r.openCalendar=function(e,t){t.preventDefault(),t.stopPropagation(),"start"===e?r.isOpen.start=!r.isOpen.start:r.isOpen.end=!r.isOpen.end},t.request("wall.getById",{posts:"-46281060_1239",extended:1}).then(function(e){r.posts=n(e.response)}),r.search=function(){var e=r.query;if(r.posts.length=0,e&&""!==e&&" "!==e&&r.searchType)switch(r.searchType){case"word":var a={return_banned:1,q:e,extended:1,fields:"members_count"};r.startDate&&(a.start_time=moment(r.startDate).format("X")),r.endDate&&(a.end_time=moment(r.endDate).format("X")),t.request("newsfeed.search",a).then(function(e){r.posts=n(e.response)});break;case"list":var a={filters:"post",return_banned:1,source_ids:e,fields:"members_count"};r.startDate&&(a.start_time=moment(r.startDate).format("X")),r.endDate&&(a.end_time=moment(r.endDate).format("X")),t.request("newsfeed.get",a).then(function(e){r.posts=n(e.response)})}},r}]),angular.module("Cabinet").controller("CCV_admin_groups",["$scope","S_vk","S_selfapi","S_utils",function(e,t,n,r){var a=this;return a.addGroup=function(){r.openAddGroupDialog().then(function(){a.loadGroups()})},a.loadGroups=function(){n.loadAdminGroups().then(function(e){a.groups=e.data.groups})},a.loadGroups(),a}]),angular.module("CCV_admin_groups.page",[]).controller("CCV_admin_groups.page",["$scope","$state","S_vk","S_selfapi","S_location","__vkAppId",function(e,t,n,r){var a=this;a.appId="4631997",a.secret="9tIzZR8WHBqtEzw8KskJ";var o=t.params.id;return a.authApp=function(){var e=a.appId,t=a.secret;r.addSecretToGroup(o,e,t).then(function(t){t.data.success&&(window.open("https://oauth.vk.com/authorize?client_id="+e+"&redirect_uri=http://oauth.vk.com/blank.html&response_type=code&v=5.9&scope=groups,photos,friends,video,audio,wall,offline,email,docs,stats","_blank"),a.hash=t.data.hash)})},a.sendCode=function(){var e=a.code,t=a.hash;r.sendApplicationCode(e,t).then(function(e){e.data.success&&alert("Все получилось!")})},a}]);
+angular.module('Cabinet', [
+  'configuraion',
+  'ui.router',
+  'ngSanitize',
+  'ui.bootstrap',
+  'cabinet.templates',
+  'S_eventer',
+  'S_selfapi',
+  'S_vk',
+  'S_utils',
+  'S_location',
+  'S_enviroment',
+  'complexGroupChart',
+  'extendedWallPost',
+  'ngEnter',
+  'vkEmoji',
+  'datePickers',
+  'parseVkUrls',
+  'C_cabinet',
+  'CCV_index',
+  'CCV_sets'
+]);
+
+angular.module('Cabinet').config([
+  '$stateProvider',
+  '$urlRouterProvider', 
+  '$locationProvider', 
+  '$httpProvider',
+  function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+
+    $httpProvider.defaults.withCredentials = true;
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    //$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=utf8';
+
+    $locationProvider.html5Mode(true).hashPrefix('!');
+
+    $urlRouterProvider.otherwise("/");
+
+    $stateProvider 
+      .state('index', {
+        url: "/",
+        controller: 'CCV_index as ctr',
+        templateUrl: "cabinet/views/index.html"
+      }) 
+      .state('channels', {
+        url: "/sets/",
+        controller: 'CCV_sets as ctr',
+        templateUrl: "cabinet/views/sets/index.html"
+      })
+      
+  }
+]);
+
+angular.module('Cabinet').run([
+  'S_vk',
+  function(S_vk) {
+
+  }
+]);
+var App = angular.module('App', [
+  'configuraion',
+  'S_selfapi',
+  'C_index'
+]);
+  
+App.config([
+  function() {
+
+  }
+]);
+
+angular.module('configuraion',[])
+  .constant('__afterLoginUrl', '/cabinet/')
+  .constant('__timezone', 6)
+  .constant('__api', { 
+    baseUrl: 'http://api.smm.dev/',
+    paths: {
+      addVkGroup: 'channels/vk',
+      addIgAccount: 'channels/ig',
+      signIn: 'signIn',
+      signUp: 'signUp',
+      sets: 'sets',
+      getVkToken: 'vkToken',
+      extension:{
+        afterInstall: '/pages/afterInstall.html'
+      }
+    }
+  })
+  .constant('__extensionId','njbifdlkgjknapheokjpilhjpemjbmnk')
+
+App.run([
+  function() {
+
+  }
+]);
+(function() {
+  var autoLink,
+    __slice = [].slice;
+
+  autoLink = function() {
+    var k, linkAttributes, option, options, pattern, v;
+    options = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+
+    pattern = /(^|[\s\n]|<br\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
+    if (!(options.length > 0)) {
+      return this.replace(pattern, "$1<a href='$2'>$2</a>");
+    }
+    option = options[0];
+    linkAttributes = ((function() {
+      var _results;
+      _results = [];
+      for (k in option) {
+        v = option[k];
+        if (k !== 'callback') {
+          _results.push(" " + k + "='" + v + "'");
+        }
+      }
+      return _results;
+    })()).join('');
+    return this.replace(pattern, function(match, space, url) {
+      var link;
+      link = (typeof option.callback === "function" ? option.callback(url) : void 0) || ("<a href='" + url + "'" + linkAttributes + ">" + url + "</a>");
+      return "" + space + link;
+    });
+  };
+
+  String.prototype['autoLink'] = autoLink;
+
+}).call(this);
+(function replaceEmojiWithImages(root) {
+
+  var REGIONAL_INDICATOR_A = parseInt("1f1e6", 16),
+    REGIONAL_INDICATOR_Z = parseInt("1f1ff", 16),
+    IMAGE_HOST = "assets.github.com",
+    IMAGE_PATH = "/images/icons/emoji/unicode/",
+    IMAGE_EXT = ".png";
+
+  // String.fromCodePoint is super helpful
+  if (!String.fromCodePoint) {
+    /*!
+     * ES6 Unicode Shims 0.1
+     * (c) 2012 Steven Levithan <http://slevithan.com/>
+     * MIT License
+     **/
+    String.fromCodePoint = function fromCodePoint() {
+      var chars = [],
+        point, offset, units, i;
+      for (i = 0; i < arguments.length; ++i) {
+        point = arguments[i];
+        offset = point - 0x10000;
+        units = point > 0xFFFF ? [0xD800 + (offset >> 10), 0xDC00 + (offset & 0x3FF)] : [point];
+        chars.push(String.fromCharCode.apply(null, units));
+      }
+      return chars.join("");
+    }
+  }
+
+  /**
+   * Create a treewalker to walk an element and return an Array of Text Nodes.
+   * This function is (hopefully) smart enough to exclude unwanted text nodes
+   * like whitespace and script tags.
+   * https://gist.github.com/mwunsch/4693383
+   */
+  function getLegitTextNodes(element) {
+    if (!document.createTreeWalker) return [];
+
+    var blacklist = ['SCRIPT', 'OPTION', 'TEXTAREA'],
+      textNodes = [],
+      walker = document.createTreeWalker(
+        element,
+        NodeFilter.SHOW_TEXT,
+        function excludeBlacklistedNodes(node) {
+          if (blacklist.indexOf(node.parentElement.nodeName.toUpperCase()) >= 0) return NodeFilter.FILTER_REJECT;
+          if (String.prototype.trim && !node.nodeValue.trim().length) return NodeFilter.FILTER_SKIP;
+          return NodeFilter.FILTER_ACCEPT;
+        },
+        false
+      );
+
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+    return textNodes;
+  }
+
+  /**
+   * Determine if this browser supports emoji.
+   */
+  function doesSupportEmoji() {
+    var context, smiley;
+    if (!document.createElement('canvas').getContext) return;
+    context = document.createElement('canvas').getContext('2d');
+    if (typeof context.fillText != 'function') return;
+    smile = String.fromCodePoint(0x1F604); // :smile: String.fromCharCode(55357) + String.fromCharCode(56835)
+
+    context.textBaseline = "top";
+    context.font = "32px Arial";
+    context.fillText(smile, 0, 0);
+    return context.getImageData(16, 16, 1, 1).data[0] !== 0;
+  }
+
+  /**
+   * For a UTF-16 (JavaScript's preferred encoding...kinda) surrogate pair,
+   * return a Unicode codepoint.
+   */
+  function surrogatePairToCodepoint(lead, trail) {
+    return (lead - 0xD800) * 0x400 + (trail - 0xDC00) + 0x10000;
+  }
+
+  /**
+   * Get an Image element for an emoji codepoint (in hex).
+   */
+  function getImageForCodepoint(hex) {
+    var img = document.createElement('IMG');
+    
+    img.src = "//" + IMAGE_HOST + IMAGE_PATH + hex + IMAGE_EXT;
+    img.className = "emoji";
+    return img;
+  }
+
+  /**
+   * Convert an HTML string into a DocumentFragment, for insertion into the dom.
+   */
+  function fragmentForString(htmlString) {
+    var tmpDoc = document.createElement('DIV'),
+      fragment = document.createDocumentFragment(),
+      childNode;
+
+    tmpDoc.innerHTML = htmlString;
+
+    while (childNode = tmpDoc.firstChild) {
+      fragment.appendChild(childNode);
+    }
+    return fragment;
+  }
+
+  /**
+   * Iterate through a list of nodes, find emoji, replace with images.
+   */
+  function emojiReplace(nodes) {
+    var PATTERN = /([\ud800-\udbff])([\udc00-\udfff])/g;
+
+    nodes.forEach(function(node) {
+      var replacement,
+        value = node.nodeValue,
+        matches = value.match(PATTERN);
+
+      if (matches) {
+        replacement = value.replace(PATTERN, function(match, p1, p2) {
+          var codepoint = surrogatePairToCodepoint(p1.charCodeAt(0), p2.charCodeAt(0)),
+            img = getImageForCodepoint(codepoint.toString(16));
+          return img.outerHTML;
+        });
+
+        node.parentNode.replaceChild(fragmentForString(replacement), node);
+      }
+    });
+  }
+
+
+  function emojiReplaceText(value) {
+    var PATTERN = /([\ud800-\udbff])([\udc00-\udfff])/g;
+
+    var replacement,
+      matches = value.match(PATTERN);
+
+    if (matches) {
+      replacement = value.replace(PATTERN, function(match, p1, p2) {
+        var codepoint = surrogatePairToCodepoint(p1.charCodeAt(0), p2.charCodeAt(0)),
+          img = getImageForCodepoint(codepoint.toString(16));
+        return img.outerHTML;
+      });
+      value = replacement;
+    }
+    return value;
+  }
+ 
+  // Call everything we've defined
+  //if (!doesSupportEmoji()) {
+  //  emojiReplace(getLegitTextNodes(document.body));
+  //}
+
+  window.emojiParseInText = emojiReplaceText;
+
+}(this));
+
+angular.module('C_index', []).controller('C_index', [
+  '$scope',
+  '$window',
+  'S_selfapi',
+  '__afterLoginUrl',
+  function($scope, $window, S_selfapi, __afterLoginUrl) {
+    var ctr = this;
+    ctr.signIn = function() {
+      S_selfapi.signIn(ctr.email, ctr.password).then(function(resp){
+        if (resp.data.success){
+          $window.location.href = __afterLoginUrl;
+        }
+      }); 
+    }
+
+    ctr.signUp = function() {
+      S_selfapi.signUp(ctr.email, ctr.password, ctr.name).then(function(resp){
+        if (resp.data.success){
+          $window.location.href = __afterLoginUrl;
+        }
+      }); 
+    }
+
+
+    ctr.email = 'altro@211.ru';
+
+
+    return ctr;
+  }
+]);
+
+angular.module('C_cabinet', []).controller('C_cabinet', [
+  '$scope',
+  'S_selfapi',
+  'S_vk',
+  function($scope, S_selfapi, S_vk) {
+    var ctr = this;
+
+    $scope.$on('showAddExtensionLayer',function(){
+      ctr.showAddExtensionLayer = true;
+    });
+
+    return ctr;
+  }
+]);
+
+angular.module('complexGroupChart', [])
+  .controller('CD_complexGroupChart', [
+    '$q',
+    '$filter',
+    'S_vk',
+    '__vkAppId',
+    '__timezone',
+    function($q, $filter, S_vk, __vkAppId, __timezone) {
+      var ctr = this;
+      ctr.getDataForChart = function(start, end, groupId) {
+        var defer = $q.defer();
+        var format = 'yyyy-MM-dd';
+        S_vk.request('stats.get', {
+          group_id: groupId,
+          app_id: __vkAppId,
+          date_from: $filter('date')(start, format, __timezone),
+          date_to: $filter('date')(end, format, __timezone),
+        }).then(function(resp) {
+          var input = resp.response;
+          var data = {
+            views: {
+              name: 'Посещения',
+              data: [],
+              color: '#F90'
+            },
+            visitors: {
+              name: 'Визиты',
+              data: [],
+              color: '#a60'
+            },
+            subscribed: {
+              name: 'Подписки',
+              data: [],
+              color: '#36638E'
+            },
+            unsubscribed: {
+              name: 'Отписки',
+              data: [],
+              color: '#B05C91'
+            }
+          };
+          var time;
+          _.forEach(input.reverse(), function(day) {
+            time = +moment(day.day, 'YYYY-MM-DD').format('X') * 1000 + __timezone * 3600000;
+          
+            data.views.data.push([time, (+day.views)]);
+            data.visitors.data.push([time, (+day.visitors)]);
+            data.subscribed.data.push([time, (+day.subscribed)]);
+            data.unsubscribed.data.push([time, (+day.unsubscribed)]);
+          });
+
+          defer.resolve(data);
+        });
+
+        return defer.promise;
+      }
+      return ctr;
+    }
+  ])
+  .directive('complexGroupChart', [function() {
+    return {
+      scope: {
+        startDate: '=',
+        endDate: '=',
+        groupId: '='
+      },
+      controller: 'CD_complexGroupChart',
+      templateUrl: 'cabinet/directives/complexGroupChart.html',
+      link: function($scope, $element, attrs, CD_complexGroupChart) {
+
+        $scope.$watch('startDate', watch);
+        $scope.$watch('endDate', watch);
+        $scope.$watch('groupId', watch);
+
+        function watch(newValue) {
+          if (typeof $scope.startDate === 'undefined' || typeof $scope.endDate === 'undefined' || typeof $scope.groupId === 'undefined') {
+            return;
+          }
+
+
+          CD_complexGroupChart.getDataForChart($scope.startDate, $scope.endDate, $scope.groupId).then(function(data) {
+            var series = _.map(data, function(value) {
+              return value;
+            });
+
+            var graphObject = {
+              chart: {
+              },
+              title: {
+                text: ''
+              },
+              subtitle: {
+                text: ''
+              },
+              plotOptions: {
+                line: {
+                  marker: {
+                    enabled: true,
+                    radius: 5,
+                    symbol: 'circle'
+                  },
+                  lineWidth: 2
+                }
+              },
+              tooltip: {
+                shared: true,
+                backgroundColor: '#fff',
+                formatter: function() {
+                  //return S_calculation.formatterAnalyticTooltip(this.points, meta.scale);
+                },
+                useHTML: true,
+                borderColor: 'transparent',
+                backgroundColor: 'transparent',
+                borderRadius: 0,
+                shadow: false
+              },
+              legend: {
+                enabled: true
+              }
+            }
+
+
+            angular.extend(graphObject, {
+              xAxis: {
+                tickmarkPlacement: 'on',
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                  day: '%d.%m',
+                  week: '%d.%m', 
+                  month: '%B',
+                  year: '%Y'
+                },
+                minTickInterval: 24 * 3600 * 1000,
+                tickPixelInterval: 40,
+                labels: {
+                  //formatter: function() {
+                  //  return S_calculation.formatterAnalyticLabels(this.value, meta.scale);
+                  //}
+                }
+              },
+              yAxis: {
+
+                min: 0,
+                title: {
+                  text: 'Temperature (°C)'
+                },
+                plotLines: [{
+                  value: 0,
+                  width: 1,
+                  color: '#808080'
+                }]
+              },
+              series: series
+            });
+
+
+            $element.highcharts(graphObject).find('text:contains("Highcharts.com")').remove();
+
+          });
+        }
+      }
+    }
+  }]);
+
+angular.module('datePickers',[])
+  .directive('dateInterval', [
+    '$filter',
+    '_timezone',
+    function($filter, _timezone) {
+      return {
+        scope: {
+          start: '=',
+          end: '=',
+          format: '='
+        },
+        templateUrl: 'cabinet/directives/dateInterval.html',
+        link: function($scope, $element, attrs) {
+          var filterFormat = $scope.format || 'dd.MM.yyyy'
+
+
+          $scope.$watch(function() {
+            return $scope.start;
+          }, function() {
+            $scope.filteredStart = $filter('date')($scope.start, filterFormat, _timezone);
+          });
+
+          $scope.$watch(function() {
+            return $scope.end;
+          }, function() {
+            $scope.filteredEnd = $filter('date')($scope.end, filterFormat, _timezone);
+          })
+        }
+      }
+    }
+  ])
+  .directive('selectDate', [
+    '$filter',
+    function($filter) {
+      return {
+        scope: {
+          isOpen: '=',
+          hideInputs: '=',
+          minDate: '=',
+          maxDate: '=',
+          model: '='
+        },
+        templateUrl: 'cabinet/directives/selectDate.html',
+        link: function($scope, element, attrs) {
+
+          $scope.editdate = {
+            day: undefined,
+            month: undefined,
+            year: undefined
+          };
+
+          $scope.$watch('model', function(date) {
+            applyNewDate($scope, date);
+          });
+
+          element.find('.inputs input').on('blur', function() {
+
+            if (typeof $scope.editdate.day === 'undefined' || typeof $scope.editdate.month === 'undefined' || typeof $scope.editdate.year === 'undefined')
+              return;
+
+            var date = new Date(parseInt($scope.editdate.year), parseInt($scope.editdate.month) - 1, parseInt($scope.editdate.day));
+
+            if (!isNaN(date)) {
+              $scope.$apply(function() {
+                $scope.model = date;
+                applyNewDate($scope, date);
+              });
+
+            } else {
+              $scope.$apply(function() {
+                applyNewDate($scope, $scope.model);
+              });
+
+            }
+          }).on('keypress', function(e) {
+            if (e.which == 13) {
+              $(this).trigger('blur');
+            }
+          });
+
+          function applyNewDate(scope, date) {
+            if (!date) {
+              return
+            }
+            scope.editdate.day = $filter('date')(date, 'dd', 0);
+            scope.editdate.month = $filter('date')(date, 'MM', 0);
+            scope.editdate.year = $filter('date')(date, 'yyyy', 0);
+          }
+        }
+      }
+    }
+  ])
+
+angular.module('extendedWallPost', [])
+  .directive('extendedWallPost', ['$timeout', function($timeout) {
+    return {
+      link: {
+        post: function($scope, $element, attrs) {
+
+          $timeout(function() {
+            var $t = $element.find('.text');
+            var $more;
+            var lh = parseInt($element.find('.text').css('line-height'));
+            var h = $t.height();
+            var c = Math.floor(h / lh);
+            if (h > lh * 10) {
+              $t.height(lh * 10);
+              $element.addClass('big');
+              var last = c - 10;
+              $element.attr('data-lines', last);
+              $more = $(document.createElement('div')).addClass('more').html('еще ' + last + ' строк').insertAfter($t).on('click', function() {
+                $element.toggleClass('extended');
+                if ($element.hasClass('extended')) {
+                  $more.html('скрыть');
+                  $t.height(h);
+                } else {
+                  $("html, body").animate({
+                    scrollTop: "-=" + (last * lh) + "px"
+                  }, 0);
+                  $more.html('еще ' + last + ' строк');
+                  $t.height(lh * 10);
+                }
+              });
+            }
+          }, 0);
+
+        }
+      }
+    }
+  }]);
+
+angular.module('ngEnter',[]).directive('ngEnter', function() {
+  return function(scope, element, attrs) {
+    element.bind("keydown keypress", function(event) {
+      if (event.which === 13) {
+        scope.$apply(function() {
+          scope.$eval(attrs.ngEnter);
+        });
+
+        event.preventDefault();
+      }
+    });
+  };
+});
+
+angular.module('vkEmoji', []).directive('vkEmoji', [function() {
+  return {
+    link: function($scope, $element, $attrs) {
+      debugger
+    }
+  }
+}]);
+
+/*
+angular.module('App').filter('lastfmDateToLocal', ['localization',function(localization) {
+  return function(date) {
+    if (!date) {
+      return;
+    } 
+
+    var parsed = moment(date,'DD MMM YYYY HH:mm'); 
+
+    return parsed.format('DD') + ' ' + localization.months[parsed.month()] + ' ' + parsed.format('YYYY');
+  }
+}]);
+*/
+angular.module('parseVkUrls', []).filter('parseVkUrls', [function() {
+  return function(input, removeLink) {
+    if (!input) {
+      return;
+    }
+
+    var regClub = /\[club([0-9]*)\|([^\]]*)\]/g;
+    var regId = /\[id([0-9]*)\|([^\]]*)\]/g;
+
+
+
+    var bytes = [];
+
+    for (var i = 0; i < input.length; ++i) {
+      bytes.push(input.charCodeAt(i));
+    }
+
+    var ranges = [
+      '\ud83c[\udf00-\udfff]', // U+1F300 to U+1F3FF
+      '\ud83d[\udc00-\ude4f]', // U+1F400 to U+1F64F
+      '\ud83d[\ude80-\udeff]' // U+1F680 to U+1F6FF
+    ];
+
+    input = emojiParseInText(input);
+      
+    var text = input.autoLink();
+
+    text = (removeLink) ? text.replace(regClub, '<span>$2</span>') : text.replace(regClub, '<a class="link" href="/public/$1/">$2</a>');
+    text = text.replace(regId, '<span>$2</span>').replace(/\n/g, "<br />");
+
+    return text;
+  }
+}]);
+
+angular.module('S_enviroment', [])
+  .service('S_enviroment', [
+    '$q',
+    '$http',
+    '__extensionId',
+    function($q, $http, __extensionId) {
+      var service = {};
+
+      service.extensionIsset = function() {
+        var defer = $q.defer();
+        $http({
+          withCredentials: false,
+          url: 'chrome-extension://' + __extensionId + '/pages/createPost.html',
+          method: 'GET'
+        }).then(function() {
+          defer.resolve(true);
+        }, function() {
+          defer.resolve(false);
+        });
+        return defer.promise; 
+      }
+
+      service.callExtensionVkAuth = function() {
+        var win = window.open('chrome-extension://' + __extensionId+'/pages/afterInstall.html', '_blank');
+      }
+
+      return service;
+    }
+  ])
+
+angular.module('S_eventer',[])
+  .service('S_eventer', [
+    '$rootScope',
+    function($rootScope) {
+      var service = {};
+
+      service.sendEvent = function(name, arguments) {
+        $rootScope.$broadcast(name, arguments);
+      }
+      
+      return service;
+    }
+  ]);
+
+angular.module('S_location',[])
+  .service('S_location', [
+    '$location',
+    function($location) {
+      var service;
+
+
+      return service;
+    }
+  ])
+
+angular.module('S_mapping',[])
+  .service('S_mapping', [function() {
+    var service = {};
+    
+    return service;
+  }]);
+
+angular.module('S_selfapi', [])
+  .service('S_selfapi', [
+    '$http',
+    '__api',
+    function($http, __api) {
+      var service = {};
+      var base = __api.baseUrl;
+
+      service.getVkToken = function() {
+        return $http({
+          url: base + __api.paths.getVkToken,
+          method: 'GET'
+        });
+      }
+
+      service.signIn = function(email, password) {
+        return $http({
+          withCredentials: true,
+          url: base + __api.paths.signIn,
+          method: 'POST',
+          data: {
+            email: email,
+            password: password
+          }
+        });
+      }
+
+      service.signUp = function(email, password, name) {
+        return $http({
+          withCredentials: true,
+          url: base + __api.paths.signUp,
+          method: 'POST',
+          data: {
+            email: email,
+            password: password,
+            name: name
+          }
+        });
+      }
+
+      service.addNewSet = function(setName) {
+        return $http({
+          url: base + __api.paths.sets,
+          method: 'POST',
+          data: {
+            name: setName
+          }
+        });
+      }
+
+      service.getUserOwnSets = function() {
+        return $http({
+          url: base + __api.paths.sets,
+          method: 'GET'
+        });
+      }
+
+      service.addVkGroup = function(group_id, setId) {
+        return $http({
+          url: base + __api.paths.addVkGroup,
+          method: 'POST',
+          data: {
+            group_id: group_id,
+            set_id: setId
+          }
+        });
+      }
+      service.addIgAccount = function(username, password, setId) {
+        return $http({
+          url: base + __api.paths.addIgAccount,
+          method: 'POST',
+          data: {
+            username: username,
+            password: password,
+            set_id: setId
+          }
+        });
+      }
+
+
+
+      return service;
+    }
+  ]);
+
+angular.module('S_utils', [])
+  .service('S_utils', ['$modal', function($modal) {
+    var service = {};
+
+    service.openAddChannelDialog = function(type, setId) {
+      switch (type) {
+        case 'vk':
+          {
+            return $modal.open({
+              templateUrl: 'cabinet/modals/addChannelVk.html',
+              controller: 'CCM_addChannelVk as ctr',
+              size: 'md',
+              resolve: {
+                setId: function() {
+                  return setId;
+                }
+              }
+            }).result;
+          }
+
+        case 'ig':
+          {
+            return $modal.open({
+              templateUrl: 'cabinet/modals/addChannelIg.html',
+              controller: 'CCM_addChannelIg as ctr',
+              size: 'md',
+              resolve: {
+                setId: function() {
+                  return setId;
+                }
+              }
+            }).result;
+          }
+      }
+
+    }
+
+    return service;
+  }]);
+
+angular.module('S_vk', [])
+  .service('S_vk', [
+    '$q',
+    '$http',
+    'S_utils',
+    function($q, $http, S_utils) {
+      var service = {};
+
+      service.default = {
+        version: '5.26',
+        language: 'ru'
+      };
+
+      var _requestStack = [];
+
+      service.request = function(_method, _params, _response) {
+        var defer = $q.defer();
+
+        service.getToken().then(function(token) {
+          var path = '/method/' + _method + '?' + 'access_token=' + token;
+          _params['v'] = _params['v'] || service.default.version;
+          _params['lang'] = _params['lang'] || service.default.language;
+
+          for (var key in _params) {
+            if (key === "message") {
+              path += ('&' + key + '=' + encodeURIComponent(_params[key]));
+            } else {
+              if (typeof _params[key] === 'object' && _params[key].length){
+                _.forEach(_params[key],function(val){
+                  path += ('&' + key + '[]=' + val);
+                });
+              } else {
+                path += ('&' + key + '=' + _params[key]);
+              }
+              
+            }
+          }
+
+          $http.jsonp('https://api.vk.com' + path, {
+            params: {
+              callback: 'JSON_CALLBACK'
+            }
+          }).then(function(res) {
+            if (typeof _response === 'function') {
+              _response(res.data);
+            } else {
+              defer.resolve(res.data);
+            }
+          });
+
+        });
+
+        return defer.promise;
+        
+
+      };
+
+      service.setToken = function(token) {
+        service.token = token;
+        if (_requestStack.length > 0) {
+          angular.forEach(_requestStack, function(request) {
+            request.resolve(token);
+          });
+        }
+      };
+
+      service.testRequest = function() {
+        var defer = $q.defer();
+        service.request('users.get', {}, function(resp) {
+          if (resp.response) {
+            defer.resolve();
+          } else {
+            defer.reject();
+          }
+        })
+        return defer.promise;
+      }
+
+      service.getToken = function() {
+        var defer = $q.defer();
+
+        if (service.token) {
+          defer.resolve(service.token);
+        } else {
+          _requestStack.push(defer);
+        }
+
+        return defer.promise;
+      };
+
+      return service;
+    }
+  ]);
+
+angular.module('Cabinet').controller('CCM_addChannelIg', [
+  '$scope',
+  '$modalInstance',
+  'S_vk',
+  'S_selfapi',
+  'S_enviroment',
+  'S_eventer',
+  'setId',
+  function($scope, $modalInstance, S_vk, S_selfapi, S_enviroment, S_eventer, setId) {
+    var ctr = this;
+    ctr.url = '';
+
+    ctr.resolveAndAdd = function() {
+
+      ctr.error = '';
+      if (ctr.username === '') {
+        ctr.error = 'укажи логин';
+        return;
+      }
+      if (ctr.password === '') {
+        ctr.error = 'укажи пароль';
+        return;
+      }
+
+
+      S_selfapi.addIgAccount(ctr.username, ctr.password, setId).then(function(resp) {
+        if (resp.data.error) {
+          if (resp.data.code === 'enemy') {
+            ctr.error = 'звезды сказали, что ты не являешься создателем этой группы';
+          }
+          if (resp.data.code === 'already') {
+            ctr.error = 'группа уже добавлена';
+          }
+
+          return;
+        }
+
+        if (resp.data.success) {
+          $modalInstance.close(true);
+        }
+      });
+
+    }
+
+    return ctr;
+  }
+]);
+
+angular.module('Cabinet').controller('CCM_addChannelVk', [
+  '$scope',
+  '$modalInstance',
+  'S_vk',
+  'S_selfapi',
+  'S_enviroment',
+  'S_eventer',
+  'setId',
+  function($scope, $modalInstance, S_vk, S_selfapi, S_enviroment, S_eventer, setId) {
+    var ctr = this;
+    ctr.url = '';
+
+    ctr.resolveAndAdd = function() {
+
+      ctr.error = '';
+      if (ctr.url === '') {
+        ctr.error = 'пустой запрос';
+        return;
+      }
+
+
+
+
+      S_vk.request('utils.resolveScreenName', {
+        screen_name: ctr.url.split('/').pop()
+      }).then(function(resp) {
+        if (_.isObject(resp.response)) {
+          if (resp.response.type !== 'group') {
+            ctr.error = 'это не похоже на ссылку группы';
+            return
+          }
+
+          S_selfapi.addVkGroup(resp.response.object_id, setId).then(function(resp) {
+            if (resp.data.error) {
+              if (resp.data.code === 'enemy') {
+                ctr.error = 'звезды сказали, что ты не являешься создателем этой группы';
+              }
+              if (resp.data.code === 'already') {
+                ctr.error = 'группа уже добавлена';
+              }
+
+              return;
+            }
+
+            if (resp.data.success) {
+              $modalInstance.close(true);
+            }
+          });
+        } else {
+          ctr.error = 'это какая-то неправильная ссылка';
+        }
+      });
+
+
+    }
+
+
+    S_selfapi.getVkToken().then(function(resp) {
+      if (!resp.data.data) {
+
+        S_enviroment.extensionIsset().then(function(resp) {
+          if (resp) {
+            S_enviroment.callExtensionVkAuth();
+          } else {
+            S_eventer.sendEvent('showAddExtensionLayer');
+          }
+        });
+      } else {
+        S_vk.setToken(resp.data.data);
+        S_vk.testRequest().then(function() {
+          // валидный токен
+        }, function() {
+          // невалидный токен
+          S_enviroment.extensionIsset().then(function(resp) {
+            if (resp) {
+              S_enviroment.callExtensionVkAuth();
+            } else {
+              S_eventer.sendEvent('showAddExtensionLayer');
+            }
+          });
+        })
+      }
+    });
+
+    return ctr;
+  }
+]);
+
+angular.module('CCV_index',[]).controller('CCV_index', ['$scope', function($scope) {
+  var ctr = this;
+
+  
+ 
+  return ctr;
+}]);
+
+angular.module('CCV_sets', []).controller('CCV_sets', [
+  '$scope',
+  'S_vk',
+  'S_utils',
+  'S_selfapi',
+  function($scope, S_vk, S_utils, S_selfapi) {
+    var ctr = this;
+
+    ctr.openedSet = {};
+
+    ctr.addNewSet = function(setName) {
+      if (!setName || setName === '') return;
+      S_selfapi.addNewSet(setName).then(function(resp) {
+        ctr.updateSets(true);
+      });
+    }
+
+    ctr.updateSets = function(onlyOwn) {
+      if (onlyOwn) {
+        S_selfapi.getUserOwnSets().then(function(resp) {
+          ctr.sets = resp.data.data;
+        });
+      } else {
+
+      }
+    }
+
+    ctr.openSet = function(set) {
+      ctr.openedSet = set;
+    }
+
+
+
+
+
+    ctr.addChannel = function(type, set) {
+      S_utils.openAddChannelDialog(type, set.id).then(function(resp) {
+        ctr.loadGroups();
+      });
+    }
+
+
+
+
+
+
+
+
+    ctr.updateSets(true);
+
+    return ctr;
+  }
+]);

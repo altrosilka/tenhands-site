@@ -1,0 +1,28 @@
+<div class="clearfix">
+  <div class="pull-right">
+    <form ng-submit="ctr.addNewSet(ctr.newSetName)">
+      <input type="form-control" placeholder="название набора" ng-model="ctr.newSetName">
+      <button class="btn btn-primary">Новый набор</button>
+    </form>
+  </div>
+</div>
+
+<div class="setsarea">
+  <div class="setslist" ng-show="ctr.sets.length">
+    <div class="set" ng-repeat="set in ctr.sets" ng-click="ctr.openSet(set)">
+      <span ng-bind="set.name"></span>
+      <div class="channelsarea" ng-show="ctr.openedSet.id === set.id">
+        <div class="addChannelsLine">
+          <span class="title">добавить каналы</span>  
+          <span class="btn vk socialBg" ng-click="ctr.addChannel('vk', set)"><i class="fa fa-vk"></i></span>
+          <span class="btn fb socialBg"><i class="fa fa-facebook"></i></span>
+          <span class="btn tw socialBg"><i class="fa fa-twitter"></i></span>
+          <span class="btn ig socialBg" ng-click="ctr.addChannel('ig', set)"><i class="fa fa-instagram"></i></span>
+          <span class="btn gp socialBg"><i class="fa fa-google-plus"></i></span>
+          <span class="btn ok socialBg"><i class="fa fa-ok"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nosets" ng-hide="ctr.sets.length">Пока еще нет ни одного набора</div>
+</div>

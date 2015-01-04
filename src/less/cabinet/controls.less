@@ -1,14 +1,26 @@
 .btn {
-	transition:0.2s;
-	padding: 6px 16px 7px;
-  border-radius:3px;
+  transition: 0.2s;
+  padding: 6px 16px 7px;
+  border-radius: 3px;
+  border: none;
+  outline: none;
   &.btn-primary {
     background-color: #6287AE;
     font-size: 13px;
     line-height: 1.385em;
-    border:none;
     &:hover {
       background-color: #678EB5;
+    }
+  }
+  &:focus, &:active {
+    border: none!important;
+    outline: none!important;
+  }
+  &.btn-trans {
+    background-color: transparent;
+    height: 31px;
+    &:hover {
+      background-color: #E6E8EC;
     }
   }
 }

@@ -10,24 +10,26 @@
   <link rel="stylesheet" type="text/css" href="/pack/cabinet.css" />
   <title>Личный кабинет</title>
   <base href="/cabinet/" />
-</head>
+</head> 
 
 <body ng-app="Cabinet" ng-controller="C_cabinet as ctr" class="cabinet">
+  <ng-include src="'cabinet/other/downloadExtension.html'"></ng-include>
   <nav class="toppanel">
     <div class="container">
       <menu>
-        <a href="http://smm.dev/">Обратно на сайт</a>
         <a ui-sref="index">Кабинет</a>
-        <a ui-sref="groups">Группы</a>
-        <a ui-sref="search">Поиск контента</a>
+        <a ui-sref="channels">Наборы и Каналы</a>
       </menu>
     </div>
   </nav>
+  <div class="content">
+    
 
-  <div class="container">
-    <section ui-view class="view">
+    <div class="container" style="height:2000px;">
+      <section ui-view class="view">
 
-    </section>
+      </section>
+    </div>
   </div>
 
   <script type="text/javascript" src="/pack/vendor.js"></script>
