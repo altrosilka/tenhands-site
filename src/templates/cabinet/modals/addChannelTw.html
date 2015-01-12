@@ -1,0 +1,12 @@
+<div class="modal-header">
+  <h3 class="modal-title">Добавление аккаунта Twitter</h3>
+</div>
+<div class="modal-body">
+  <p>Чтобы авторизоваться в Twitter тебе необходимо разрешить нашему приложению размещать записи от твоего аккаунта.</p>
+  <p>Нажми на кнопку "авторизоваться" и разреши в открывшемся окне доступ к нужному аккаунт</p>
+  <p>Данный метод авторизации абсолютно безопасен, мы не храним паролей от твоего аккаунта.</p>
+</div>
+<div class="modal-footer">
+  <a class="btn btn-primary" target="_blank" ng-disabled="!ctr.authUrl" ng-href="{{ctr.authUrl}}">авторизоваться</a>
+  <button class="btn btn-default" ng-click="$dismiss()">отмена</button>
+</div>

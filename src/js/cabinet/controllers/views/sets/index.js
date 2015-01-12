@@ -6,8 +6,8 @@ angular.module('CCV_sets', []).controller('CCV_sets', [
   function($scope, S_vk, S_utils, S_selfapi) {
     var ctr = this;
 
-    ctr.openedSet = {};
-
+    ctr.openedSet = {}; 
+ 
     ctr.addNewSet = function(setName) {
       if (!setName || setName === '') return;
       S_selfapi.addNewSet(setName).then(function(resp) {
@@ -26,25 +26,41 @@ angular.module('CCV_sets', []).controller('CCV_sets', [
     }
 
     ctr.openSet = function(set) {
+      delete ctr.openedSetChannels;
       ctr.openedSet = set;
+      S_selfapi.loadSetFullInfo(set.id).then(function(resp){
+        ctr.openedSetChannels = resp.data.data;
+      });
     }
 
-
-
-
+    
 
     ctr.addChannel = function(type, set) {
       S_utils.openAddChannelDialog(type, set.id).then(function(resp) {
-        ctr.loadGroups();
+        ctr.openSet(ctr.openedSet);
       });
     }
 
 
 
+    ctr.channelsPlural = {
+      0: 'нет каналов',
+      one: '{} канал',
+      few: '{} канала',
+      many: '{} каналов',
+      other: '{} каналов'
+    };
 
 
+    ctr.getChannelsCount = function(q){
+      return ((q) ? q.length : 0);
+    }
 
-
+    ctr.getChannelClass = function(c){
+      var classList = {};
+      classList[c.network] = true;
+      return classList;
+    }
 
     ctr.updateSets(true);
 

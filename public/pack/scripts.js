@@ -3,7 +3,7 @@ angular.module('Cabinet', [
   'ui.router',
   'ngSanitize',
   'ui.bootstrap',
-  'cabinet.templates',
+  'cabinet.templates', 
   'S_eventer',
   'S_selfapi',
   'S_vk',
@@ -12,7 +12,7 @@ angular.module('Cabinet', [
   'S_enviroment',
   'complexGroupChart',
   'extendedWallPost',
-  'ngEnter',
+  'ngEnter', 
   'vkEmoji',
   'datePickers',
   'parseVkUrls',
@@ -56,8 +56,10 @@ angular.module('Cabinet').run([
   'S_vk',
   function(S_vk) {
 
+
   }
 ]);
+  
 var App = angular.module('App', [
   'configuraion',
   'S_selfapi',
@@ -74,7 +76,7 @@ angular.module('configuraion',[])
   .constant('__afterLoginUrl', '/cabinet/')
   .constant('__timezone', 6)
   .constant('__api', { 
-    baseUrl: 'http://api.smm.dev/',
+    baseUrl: 'http://api.smm.dev/', 
     paths: {
       addVkGroup: 'channels/vk',
       addIgAccount: 'channels/ig',
@@ -82,6 +84,7 @@ angular.module('configuraion',[])
       signUp: 'signUp',
       sets: 'sets',
       getVkToken: 'vkToken',
+      getTwitterAuthUrl: 'auth/twitter/getUrl',
       extension:{
         afterInstall: '/pages/afterInstall.html'
       }
@@ -283,37 +286,6 @@ App.run([
   window.emojiParseInText = emojiReplaceText;
 
 }(this));
-
-angular.module('C_index', []).controller('C_index', [
-  '$scope',
-  '$window',
-  'S_selfapi',
-  '__afterLoginUrl',
-  function($scope, $window, S_selfapi, __afterLoginUrl) {
-    var ctr = this;
-    ctr.signIn = function() {
-      S_selfapi.signIn(ctr.email, ctr.password).then(function(resp){
-        if (resp.data.success){
-          $window.location.href = __afterLoginUrl;
-        }
-      }); 
-    }
-
-    ctr.signUp = function() {
-      S_selfapi.signUp(ctr.email, ctr.password, ctr.name).then(function(resp){
-        if (resp.data.success){
-          $window.location.href = __afterLoginUrl;
-        }
-      }); 
-    }
-
-
-    ctr.email = 'altro@211.ru';
-
-
-    return ctr;
-  }
-]);
 
 angular.module('C_cabinet', []).controller('C_cabinet', [
   '$scope',
@@ -806,6 +778,23 @@ angular.module('S_selfapi', [])
         });
       }
 
+      service.getTwitterAuthUrl = function(setId) {
+        return $http({
+          url: base + __api.paths.getTwitterAuthUrl,
+          method: 'GET',
+          params: {
+            set_id: setId
+          }
+        });
+      }
+
+      service.loadSetFullInfo = function(setId) {
+        return $http({
+          url: base + __api.paths.sets + '/' + setId,
+          method: 'GET'
+        });
+      }
+
       service.getUserOwnSets = function() {
         return $http({
           url: base + __api.paths.sets,
@@ -823,6 +812,7 @@ angular.module('S_selfapi', [])
           }
         });
       }
+
       service.addIgAccount = function(username, password, setId) {
         return $http({
           url: base + __api.paths.addIgAccount,
@@ -866,6 +856,21 @@ angular.module('S_utils', [])
             return $modal.open({
               templateUrl: 'cabinet/modals/addChannelIg.html',
               controller: 'CCM_addChannelIg as ctr',
+              size: 'md',
+              resolve: {
+                setId: function() {
+                  return setId;
+                }
+              }
+            }).result;
+          }
+
+
+        case 'tw':
+          {
+            return $modal.open({
+              templateUrl: 'cabinet/modals/addChannelTw.html',
+              controller: 'CCM_addChannelTw as ctr',
               size: 'md',
               resolve: {
                 setId: function() {
@@ -975,6 +980,37 @@ angular.module('S_vk', [])
     }
   ]);
 
+angular.module('C_index', []).controller('C_index', [
+  '$scope',
+  '$window',
+  'S_selfapi',
+  '__afterLoginUrl',
+  function($scope, $window, S_selfapi, __afterLoginUrl) {
+    var ctr = this;
+    ctr.signIn = function() {
+      S_selfapi.signIn(ctr.email, ctr.password).then(function(resp){
+        if (resp.data.success){
+          $window.location.href = __afterLoginUrl;
+        }
+      }); 
+    }
+
+    ctr.signUp = function() {
+      S_selfapi.signUp(ctr.email, ctr.password, ctr.name).then(function(resp){
+        if (resp.data.success){
+          $window.location.href = __afterLoginUrl;
+        }
+      }); 
+    }
+
+
+    ctr.email = 'altro@211.ru';
+
+
+    return ctr;
+  }
+]);
+
 angular.module('Cabinet').controller('CCM_addChannelIg', [
   '$scope',
   '$modalInstance',
@@ -1018,6 +1054,28 @@ angular.module('Cabinet').controller('CCM_addChannelIg', [
       });
 
     }
+
+    return ctr;
+  }
+]);
+
+angular.module('Cabinet').controller('CCM_addChannelTw', [
+  '$scope',
+  '$modalInstance',
+  'S_vk',
+  'S_selfapi',
+  'S_enviroment',
+  'S_eventer',
+  'setId',
+  function($scope, $modalInstance, S_vk, S_selfapi, S_enviroment, S_eventer, setId) {
+    var ctr = this;
+   
+
+    S_selfapi.getTwitterAuthUrl(setId).then(function(resp){
+      ctr.authUrl = resp.data.data.url;
+    });
+
+    
 
     return ctr;
   }
@@ -1127,8 +1185,8 @@ angular.module('CCV_sets', []).controller('CCV_sets', [
   function($scope, S_vk, S_utils, S_selfapi) {
     var ctr = this;
 
-    ctr.openedSet = {};
-
+    ctr.openedSet = {}; 
+ 
     ctr.addNewSet = function(setName) {
       if (!setName || setName === '') return;
       S_selfapi.addNewSet(setName).then(function(resp) {
@@ -1147,25 +1205,41 @@ angular.module('CCV_sets', []).controller('CCV_sets', [
     }
 
     ctr.openSet = function(set) {
+      delete ctr.openedSetChannels;
       ctr.openedSet = set;
+      S_selfapi.loadSetFullInfo(set.id).then(function(resp){
+        ctr.openedSetChannels = resp.data.data;
+      });
     }
 
-
-
-
+    
 
     ctr.addChannel = function(type, set) {
       S_utils.openAddChannelDialog(type, set.id).then(function(resp) {
-        ctr.loadGroups();
+        ctr.openSet(ctr.openedSet);
       });
     }
 
 
 
+    ctr.channelsPlural = {
+      0: 'нет каналов',
+      one: '{} канал',
+      few: '{} канала',
+      many: '{} каналов',
+      other: '{} каналов'
+    };
 
 
+    ctr.getChannelsCount = function(q){
+      return ((q) ? q.length : 0);
+    }
 
-
+    ctr.getChannelClass = function(c){
+      var classList = {};
+      classList[c.network] = true;
+      return classList;
+    }
 
     ctr.updateSets(true);
 

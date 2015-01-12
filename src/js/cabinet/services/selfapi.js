@@ -48,6 +48,23 @@ angular.module('S_selfapi', [])
         });
       }
 
+      service.getTwitterAuthUrl = function(setId) {
+        return $http({
+          url: base + __api.paths.getTwitterAuthUrl,
+          method: 'GET',
+          params: {
+            set_id: setId
+          }
+        });
+      }
+
+      service.loadSetFullInfo = function(setId) {
+        return $http({
+          url: base + __api.paths.sets + '/' + setId,
+          method: 'GET'
+        });
+      }
+
       service.getUserOwnSets = function() {
         return $http({
           url: base + __api.paths.sets,
@@ -65,6 +82,7 @@ angular.module('S_selfapi', [])
           }
         });
       }
+
       service.addIgAccount = function(username, password, setId) {
         return $http({
           url: base + __api.paths.addIgAccount,

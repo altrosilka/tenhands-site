@@ -31,6 +31,21 @@ angular.module('S_utils', [])
               }
             }).result;
           }
+
+
+        case 'tw':
+          {
+            return $modal.open({
+              templateUrl: 'cabinet/modals/addChannelTw.html',
+              controller: 'CCM_addChannelTw as ctr',
+              size: 'md',
+              resolve: {
+                setId: function() {
+                  return setId;
+                }
+              }
+            }).result;
+          }
       }
 
     }
