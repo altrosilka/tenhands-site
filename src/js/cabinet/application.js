@@ -18,5 +18,6 @@ angular.module('Cabinet', [
   'parseVkUrls',
   'C_cabinet',
   'CCV_index',
+  'CCV_accounts',
   'CCV_sets'
 ]);

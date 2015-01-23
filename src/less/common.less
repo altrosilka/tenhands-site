@@ -1,21 +1,22 @@
-.vk {
-  background-color: @vkColor;
-}
-.ok {
-  background-color: @okColor;
-}
-.gp {
-  background-color: @gpColor;
-}
-.fb {
-  background-color: @fbColor;
-}
-.tw {
-  background-color: @twColor;
-}
-.ig {
-  background-color: @igColor;
-}
 .socialBg {
   color: #eee;
+  &.vk, &[data-network="vk"] {
+    background-color: @vkColor;
+  }
+  &.ok, &[data-network="ok"] {
+    background-color: @okColor;
+  }
+  &.gp, &[data-network="gp"] {
+    background-color: @gpColor;
+  }
+  &.fb, &[data-network="fb"] {
+    background-color: @fbColor;
+  }
+  &.tw, &[data-network="tw"] {
+    background-color: @twColor;
+  }
+  &.ig, &[data-network="ig"] {
+    background-color: @igColor;
+  }
 }
+ 

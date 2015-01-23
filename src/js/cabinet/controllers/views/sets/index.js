@@ -41,6 +41,12 @@ angular.module('CCV_sets', []).controller('CCV_sets', [
       });
     }
 
+    ctr.toggleChannel = function(channel){
+      channel.disabled = !channel.disabled;
+      S_selfapi.toggleChannel(channel.id, ctr.openedSet.id, channel.disabled).then(function(resp){
+        console.log(resp.data);
+      });
+    }
 
 
     ctr.channelsPlural = {
@@ -59,10 +65,17 @@ angular.module('CCV_sets', []).controller('CCV_sets', [
     ctr.getChannelClass = function(c){
       var classList = {};
       classList[c.network] = true;
+      if (c.disabled){
+        classList.disabled = true;
+      }
       return classList;
     }
 
     ctr.updateSets(true);
+
+    $scope.$on('trigger:updateChannels',function(){
+      ctr.updateSets(true);
+    });
 
     return ctr;
   }

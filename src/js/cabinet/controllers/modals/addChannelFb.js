@@ -1,4 +1,4 @@
-angular.module('Cabinet').controller('CCM_addChannelVk', [
+angular.module('Cabinet').controller('CCM_addChannelFb', [
   '$scope',
   '$state',
   '$location',
@@ -12,17 +12,17 @@ angular.module('Cabinet').controller('CCM_addChannelVk', [
     var ctr = this;
     ctr.url = '';
     ctr.selectedAccount = {};
-    ctr.selectedGroup = {};
     ctr.resolveAndAdd = function() {
 
+      
       ctr.error = '';
 
-      if (!ctr.selectedGroup.id || !ctr.selectedAccount.id) {
+      if (!ctr.selectedPage.id || !ctr.selectedAccount.id) {
         ctr.error = 'выбери аккаунт и группы';
         return;
       }
 
-      S_selfapi.addVkGroup(ctr.selectedGroup.id, setId, ctr.selectedAccount.id).then(function(resp) {
+      S_selfapi.addFbGroup(ctr.selectedPage.id, setId, ctr.selectedAccount.id).then(function(resp) {
         if (resp.data.error) {
           ctr.error = resp.data.text;
           return;
@@ -37,7 +37,7 @@ angular.module('Cabinet').controller('CCM_addChannelVk', [
     ctr.refreshAccounts = function() {
       S_selfapi.getUserAccounts().then(function(resp) {
         ctr.accounts = _.filter(resp.data.data, function(account) {
-          return account.network === 'vk';
+          return account.network === 'fb';
         });
 
         if (ctr.accounts.length) {
@@ -46,30 +46,20 @@ angular.module('Cabinet').controller('CCM_addChannelVk', [
       });
     }
 
+
     $scope.$watch(function(){
       return ctr.selectedAccount.id;
     }, function(id){
       if (!id) return;
-      S_selfapi.loadVkAccountGroups(id).then(function(resp){
-        ctr.groups = resp.data.data.groups;
-        ctr.selectedGroup = ctr.groups[0];
+      S_selfapi.loadFbAccountGroups(id).then(function(resp){
+        ctr.pages = resp.data.data.pages;
+        ctr.selectedPage = ctr.pages[0];
       });
     })
 
 
     ctr.addAccount = function() {
-      S_enviroment.extensionIsset().then(function(resp) {
-        if (resp) {
-          S_enviroment.callExtensionVkAuth();
-        } else {
-          S_eventer.sendEvent('showAddExtensionLayer');
-        }
-      });
-
-      $(window).on('focus', function() {
-        $(window).off('focus');
-        ctr.refreshAccounts();
-      });
+      $state.go('accounts');
     }
 
     ctr.refreshAccounts();

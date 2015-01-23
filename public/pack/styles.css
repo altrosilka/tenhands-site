@@ -1,21 +1,27 @@
-.vk {
-  background-color: #43668a;
-}
-.ok {
-  background-color: #f2952a;
-}
-.gp {
-  background-color: #bc3418;
-}
-.fb {
-  background-color: #3b5998;
-}
-.tw {
-  background-color: #1daced;
-}
-.ig {
-  background-color: #43455f;
-}
 .socialBg {
   color: #eee;
+}
+.socialBg.vk,
+.socialBg[data-network="vk"] {
+  background-color: #43668a;
+}
+.socialBg.ok,
+.socialBg[data-network="ok"] {
+  background-color: #f2952a;
+}
+.socialBg.gp,
+.socialBg[data-network="gp"] {
+  background-color: #bc3418;
+}
+.socialBg.fb,
+.socialBg[data-network="fb"] {
+  background-color: #3b5998;
+}
+.socialBg.tw,
+.socialBg[data-network="tw"] {
+  background-color: #1daced;
+}
+.socialBg.ig,
+.socialBg[data-network="ig"] {
+  background-color: #43455f;
 }

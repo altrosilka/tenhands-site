@@ -1,3 +1,48 @@
+var App = angular.module('App', [
+  'configuraion',
+  'S_selfapi',
+  'C_index'
+]);
+   
+App.config([
+  function() {
+
+  }
+]);
+
+angular.module('configuraion',[])
+  .constant('__afterLoginUrl', '/cabinet/')
+  .constant('__timezone', 6)
+  .constant('__api', { 
+    baseUrl: 'http://api.smm.dev/', 
+    paths: {
+      loadVkAccountGroups: 'social/vk/loadAdminGroups',
+      loadFbAccountGroups: 'social/fb/loadAdminGroups',
+      'channels/toggleDisableState':'channels/toggleDisableState',
+      addVkGroup: 'channels/vk',
+      addFbGroup: 'channels/fb',
+      addIgAccount: 'channels/ig',
+      signIn: 'auth/signin',
+      signUp: 'auth/signup', 
+      accounts: 'accounts',
+      sets: 'sets',
+      channels: 'channels',
+      getVkToken: 'vkToken',
+      getTwitterAuthUrl: 'auth/twitter/getUrl',
+      getFacebookAuthUrl: 'auth/facebook/getUrl',
+      getVkAuthUrl: 'auth/facebook/getUrl',
+      extension:{
+        afterInstall: '/pages/afterInstall.html'
+      }
+    }
+  })
+  .constant('__extensionId','njbifdlkgjknapheokjpilhjpemjbmnk')
+
+App.run([
+  function() {
+
+  }
+]);
 angular.module('Cabinet', [
   'configuraion',
   'ui.router',
@@ -18,6 +63,7 @@ angular.module('Cabinet', [
   'parseVkUrls',
   'C_cabinet',
   'CCV_index',
+  'CCV_accounts',
   'CCV_sets'
 ]);
 
@@ -48,6 +94,12 @@ angular.module('Cabinet').config([
         controller: 'CCV_sets as ctr',
         templateUrl: "cabinet/views/sets/index.html"
       })
+
+      .state('accounts', {
+        url: "/accounts/?error&network&success&account",
+        controller: 'CCV_accounts as ctr',
+        templateUrl: "cabinet/views/accounts/index.html"
+      })
       
   }
 ]);
@@ -60,43 +112,6 @@ angular.module('Cabinet').run([
   }
 ]);
   
-var App = angular.module('App', [
-  'configuraion',
-  'S_selfapi',
-  'C_index'
-]);
-  
-App.config([
-  function() {
-
-  }
-]);
-
-angular.module('configuraion',[])
-  .constant('__afterLoginUrl', '/cabinet/')
-  .constant('__timezone', 6)
-  .constant('__api', { 
-    baseUrl: 'http://api.smm.dev/', 
-    paths: {
-      addVkGroup: 'channels/vk',
-      addIgAccount: 'channels/ig',
-      signIn: 'signIn',
-      signUp: 'signUp',
-      sets: 'sets',
-      getVkToken: 'vkToken',
-      getTwitterAuthUrl: 'auth/twitter/getUrl',
-      extension:{
-        afterInstall: '/pages/afterInstall.html'
-      }
-    }
-  })
-  .constant('__extensionId','njbifdlkgjknapheokjpilhjpemjbmnk')
-
-App.run([
-  function() {
-
-  }
-]);
 (function() {
   var autoLink,
     __slice = [].slice;
@@ -684,12 +699,24 @@ angular.module('S_enviroment', [])
           defer.resolve(true);
         }, function() {
           defer.resolve(false);
-        });
+        }); 
         return defer.promise; 
       }
 
       service.callExtensionVkAuth = function() {
-        var win = window.open('chrome-extension://' + __extensionId+'/pages/afterInstall.html', '_blank');
+        var win = window.open('chrome-extension://' + __extensionId+'/pages/authVk.html', '_blank');
+      }
+
+      service.onPostMessage = function(next) {
+        var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+        var eventer = window[eventMethod];
+        var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+        eventer(messageEvent, function(e) {
+          var key = e.message ? "message" : "data";
+          var data = e[key];
+
+          next(e, data);
+        }, false);
       }
 
       return service;
@@ -778,6 +805,18 @@ angular.module('S_selfapi', [])
         });
       }
 
+      service.toggleChannel = function(channel_id, set_id, disabled) {
+        return $http({
+          url: base + __api.paths['channels/toggleDisableState'],
+          method: 'GET',
+          params: {
+            set_id: set_id,
+            id: channel_id,
+            disabled: disabled
+          }
+        });
+      }
+
       service.getTwitterAuthUrl = function(setId) {
         return $http({
           url: base + __api.paths.getTwitterAuthUrl,
@@ -785,6 +824,20 @@ angular.module('S_selfapi', [])
           params: {
             set_id: setId
           }
+        });
+      }
+
+      service.getFacebookAuthUrl = function() {
+        return $http({
+          url: base + __api.paths.getFacebookAuthUrl,
+          method: 'GET'
+        });
+      }
+
+      service.getVkAuthUrl = function() {
+        return $http({
+          url: base + __api.paths.getVkAuthUrl,
+          method: 'GET'
         });
       }
 
@@ -802,13 +855,53 @@ angular.module('S_selfapi', [])
         });
       }
 
-      service.addVkGroup = function(group_id, setId) {
+      service.getUserAccounts = function() {
+        return $http({
+          url: base + __api.paths.accounts,
+          method: 'GET'
+        });
+      }
+
+      service.loadVkAccountGroups = function(accountId) {
+        return $http({
+          url: base + __api.paths.loadVkAccountGroups,
+          method: 'GET',
+          params: {
+            account_id: accountId
+          }
+        });
+      }
+
+      service.loadFbAccountGroups = function(accountId) {
+        return $http({
+          url: base + __api.paths.loadFbAccountGroups,
+          method: 'GET',
+          params: {
+            account_id: accountId
+          }
+        });
+      }
+
+      service.addVkGroup = function(feed_id, setId, accountId) {
         return $http({
           url: base + __api.paths.addVkGroup,
           method: 'POST',
           data: {
-            group_id: group_id,
-            set_id: setId
+            feed_id: feed_id,
+            set_id: setId,
+            account_id: accountId
+          }
+        });
+      }
+
+      service.addFbGroup = function(page_id, setId, accountId) {
+        return $http({
+          url: base + __api.paths.addFbGroup,
+          method: 'POST',
+          data: {
+            page_id: page_id,
+            set_id: setId,
+            account_id: accountId
           }
         });
       }
@@ -871,6 +964,19 @@ angular.module('S_utils', [])
             return $modal.open({
               templateUrl: 'cabinet/modals/addChannelTw.html',
               controller: 'CCM_addChannelTw as ctr',
+              size: 'md',
+              resolve: {
+                setId: function() {
+                  return setId;
+                }
+              }
+            }).result;
+          }
+        case 'fb':
+          {
+            return $modal.open({
+              templateUrl: 'cabinet/modals/addChannelFb.html',
+              controller: 'CCM_addChannelFb as ctr',
               size: 'md',
               resolve: {
                 setId: function() {
@@ -1011,6 +1117,76 @@ angular.module('C_index', []).controller('C_index', [
   }
 ]);
 
+angular.module('Cabinet').controller('CCM_addChannelFb', [
+  '$scope',
+  '$state',
+  '$location',
+  '$modalInstance',
+  'S_vk',
+  'S_selfapi',
+  'S_enviroment',
+  'S_eventer',
+  'setId',
+  function($scope, $state, $location, $modalInstance, S_vk, S_selfapi, S_enviroment, S_eventer, setId) {
+    var ctr = this;
+    ctr.url = '';
+    ctr.selectedAccount = {};
+    ctr.resolveAndAdd = function() {
+
+      
+      ctr.error = '';
+
+      if (!ctr.selectedPage.id || !ctr.selectedAccount.id) {
+        ctr.error = 'выбери аккаунт и группы';
+        return;
+      }
+
+      S_selfapi.addFbGroup(ctr.selectedPage.id, setId, ctr.selectedAccount.id).then(function(resp) {
+        if (resp.data.error) {
+          ctr.error = resp.data.text;
+          return;
+        }
+
+        if (resp.data.success) {
+          $modalInstance.close(true);
+        }
+      });
+    }
+
+    ctr.refreshAccounts = function() {
+      S_selfapi.getUserAccounts().then(function(resp) {
+        ctr.accounts = _.filter(resp.data.data, function(account) {
+          return account.network === 'fb';
+        });
+
+        if (ctr.accounts.length) {
+          ctr.selectedAccount = ctr.accounts[0];
+        }
+      });
+    }
+
+
+    $scope.$watch(function(){
+      return ctr.selectedAccount.id;
+    }, function(id){
+      if (!id) return;
+      S_selfapi.loadFbAccountGroups(id).then(function(resp){
+        ctr.pages = resp.data.data.pages;
+        ctr.selectedPage = ctr.pages[0];
+      });
+    })
+
+
+    ctr.addAccount = function() {
+      $state.go('accounts');
+    }
+
+    ctr.refreshAccounts();
+
+    return ctr;
+  }
+]);
+
 angular.module('Cabinet').controller('CCM_addChannelIg', [
   '$scope',
   '$modalInstance',
@@ -1075,7 +1251,13 @@ angular.module('Cabinet').controller('CCM_addChannelTw', [
       ctr.authUrl = resp.data.data.url;
     });
 
-    
+    ctr.onAuthStart = function(){
+      $modalInstance.close();
+      $(window).on('focus',function(){
+        S_eventer.sendEvent('trigger:updateChannels');
+        $(window).off('focus');
+      });
+    }
 
     return ctr;
   }
@@ -1083,87 +1265,79 @@ angular.module('Cabinet').controller('CCM_addChannelTw', [
 
 angular.module('Cabinet').controller('CCM_addChannelVk', [
   '$scope',
+  '$state',
+  '$location',
   '$modalInstance',
   'S_vk',
   'S_selfapi',
   'S_enviroment',
   'S_eventer',
   'setId',
-  function($scope, $modalInstance, S_vk, S_selfapi, S_enviroment, S_eventer, setId) {
+  function($scope, $state, $location, $modalInstance, S_vk, S_selfapi, S_enviroment, S_eventer, setId) {
     var ctr = this;
     ctr.url = '';
-
+    ctr.selectedAccount = {};
+    ctr.selectedGroup = {};
     ctr.resolveAndAdd = function() {
 
       ctr.error = '';
-      if (ctr.url === '') {
-        ctr.error = 'пустой запрос';
+
+      if (!ctr.selectedGroup.id || !ctr.selectedAccount.id) {
+        ctr.error = 'выбери аккаунт и группы';
         return;
       }
 
+      S_selfapi.addVkGroup(ctr.selectedGroup.id, setId, ctr.selectedAccount.id).then(function(resp) {
+        if (resp.data.error) {
+          ctr.error = resp.data.text;
+          return;
+        }
+
+        if (resp.data.success) {
+          $modalInstance.close(true);
+        }
+      });
+    }
+
+    ctr.refreshAccounts = function() {
+      S_selfapi.getUserAccounts().then(function(resp) {
+        ctr.accounts = _.filter(resp.data.data, function(account) {
+          return account.network === 'vk';
+        });
+
+        if (ctr.accounts.length) {
+          ctr.selectedAccount = ctr.accounts[0];
+        }
+      });
+    }
+
+    $scope.$watch(function(){
+      return ctr.selectedAccount.id;
+    }, function(id){
+      if (!id) return;
+      S_selfapi.loadVkAccountGroups(id).then(function(resp){
+        ctr.groups = resp.data.data.groups;
+        ctr.selectedGroup = ctr.groups[0];
+      });
+    })
 
 
-
-      S_vk.request('utils.resolveScreenName', {
-        screen_name: ctr.url.split('/').pop()
-      }).then(function(resp) {
-        if (_.isObject(resp.response)) {
-          if (resp.response.type !== 'group') {
-            ctr.error = 'это не похоже на ссылку группы';
-            return
-          }
-
-          S_selfapi.addVkGroup(resp.response.object_id, setId).then(function(resp) {
-            if (resp.data.error) {
-              if (resp.data.code === 'enemy') {
-                ctr.error = 'звезды сказали, что ты не являешься создателем этой группы';
-              }
-              if (resp.data.code === 'already') {
-                ctr.error = 'группа уже добавлена';
-              }
-
-              return;
-            }
-
-            if (resp.data.success) {
-              $modalInstance.close(true);
-            }
-          });
+    ctr.addAccount = function() {
+      S_enviroment.extensionIsset().then(function(resp) {
+        if (resp) {
+          S_enviroment.callExtensionVkAuth();
         } else {
-          ctr.error = 'это какая-то неправильная ссылка';
+          S_eventer.sendEvent('showAddExtensionLayer');
         }
       });
 
-
+      $(window).on('focus', function() {
+        $(window).off('focus');
+        ctr.refreshAccounts();
+      });
     }
 
-
-    S_selfapi.getVkToken().then(function(resp) {
-      if (!resp.data.data) {
-
-        S_enviroment.extensionIsset().then(function(resp) {
-          if (resp) {
-            S_enviroment.callExtensionVkAuth();
-          } else {
-            S_eventer.sendEvent('showAddExtensionLayer');
-          }
-        });
-      } else {
-        S_vk.setToken(resp.data.data);
-        S_vk.testRequest().then(function() {
-          // валидный токен
-        }, function() {
-          // невалидный токен
-          S_enviroment.extensionIsset().then(function(resp) {
-            if (resp) {
-              S_enviroment.callExtensionVkAuth();
-            } else {
-              S_eventer.sendEvent('showAddExtensionLayer');
-            }
-          });
-        })
-      }
-    });
+    ctr.refreshAccounts();
 
     return ctr;
   }
@@ -1176,6 +1350,48 @@ angular.module('CCV_index',[]).controller('CCV_index', ['$scope', function($scop
  
   return ctr;
 }]);
+
+angular.module('CCV_accounts', []).controller('CCV_accounts', [
+  '$scope',
+  '$state',
+  '$location',
+  'S_vk',
+  'S_utils',
+  'S_enviroment',
+  'S_selfapi',
+  'S_eventer',
+  function($scope, $state, $location, S_vk, S_utils, S_enviroment, S_selfapi, S_eventer) {
+    var ctr = this;
+
+
+    ctr.refreshAccounts = function() {
+      S_selfapi.getUserAccounts().then(function(resp) {
+        ctr.accounts = resp.data.data;
+      });
+    }
+
+    S_selfapi.getFacebookAuthUrl().then(function(resp) {
+      ctr.facebookAuthUrl = resp.data.data.url;
+    });
+
+    ctr.onVkAdding = function() {
+      S_enviroment.extensionIsset().then(function(resp) {
+        if (resp) {
+          S_enviroment.callExtensionVkAuth();
+        } else {
+          S_eventer.sendEvent('showAddExtensionLayer');
+        }
+      });
+      $(window).on('focus', function() {
+        $(window).off('focus');
+        ctr.refreshAccounts();
+      });
+    }
+    ctr.refreshAccounts();
+
+    return ctr;
+  }
+]);
 
 angular.module('CCV_sets', []).controller('CCV_sets', [
   '$scope',
@@ -1220,6 +1436,12 @@ angular.module('CCV_sets', []).controller('CCV_sets', [
       });
     }
 
+    ctr.toggleChannel = function(channel){
+      channel.disabled = !channel.disabled;
+      S_selfapi.toggleChannel(channel.id, ctr.openedSet.id, channel.disabled).then(function(resp){
+        console.log(resp.data);
+      });
+    }
 
 
     ctr.channelsPlural = {
@@ -1238,10 +1460,17 @@ angular.module('CCV_sets', []).controller('CCV_sets', [
     ctr.getChannelClass = function(c){
       var classList = {};
       classList[c.network] = true;
+      if (c.disabled){
+        classList.disabled = true;
+      }
       return classList;
     }
 
     ctr.updateSets(true);
+
+    $scope.$on('trigger:updateChannels',function(){
+      ctr.updateSets(true);
+    });
 
     return ctr;
   }

@@ -48,6 +48,18 @@ angular.module('S_selfapi', [])
         });
       }
 
+      service.toggleChannel = function(channel_id, set_id, disabled) {
+        return $http({
+          url: base + __api.paths['channels/toggleDisableState'],
+          method: 'GET',
+          params: {
+            set_id: set_id,
+            id: channel_id,
+            disabled: disabled
+          }
+        });
+      }
+
       service.getTwitterAuthUrl = function(setId) {
         return $http({
           url: base + __api.paths.getTwitterAuthUrl,
@@ -55,6 +67,20 @@ angular.module('S_selfapi', [])
           params: {
             set_id: setId
           }
+        });
+      }
+
+      service.getFacebookAuthUrl = function() {
+        return $http({
+          url: base + __api.paths.getFacebookAuthUrl,
+          method: 'GET'
+        });
+      }
+
+      service.getVkAuthUrl = function() {
+        return $http({
+          url: base + __api.paths.getVkAuthUrl,
+          method: 'GET'
         });
       }
 
@@ -72,13 +98,53 @@ angular.module('S_selfapi', [])
         });
       }
 
-      service.addVkGroup = function(group_id, setId) {
+      service.getUserAccounts = function() {
+        return $http({
+          url: base + __api.paths.accounts,
+          method: 'GET'
+        });
+      }
+
+      service.loadVkAccountGroups = function(accountId) {
+        return $http({
+          url: base + __api.paths.loadVkAccountGroups,
+          method: 'GET',
+          params: {
+            account_id: accountId
+          }
+        });
+      }
+
+      service.loadFbAccountGroups = function(accountId) {
+        return $http({
+          url: base + __api.paths.loadFbAccountGroups,
+          method: 'GET',
+          params: {
+            account_id: accountId
+          }
+        });
+      }
+
+      service.addVkGroup = function(feed_id, setId, accountId) {
         return $http({
           url: base + __api.paths.addVkGroup,
           method: 'POST',
           data: {
-            group_id: group_id,
-            set_id: setId
+            feed_id: feed_id,
+            set_id: setId,
+            account_id: accountId
+          }
+        });
+      }
+
+      service.addFbGroup = function(page_id, setId, accountId) {
+        return $http({
+          url: base + __api.paths.addFbGroup,
+          method: 'POST',
+          data: {
+            page_id: page_id,
+            set_id: setId,
+            account_id: accountId
           }
         });
       }

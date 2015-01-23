@@ -18,6 +18,7 @@
     <div class="container">
       <menu>
         <a ui-sref="index">Кабинет</a>
+        <a ui-sref="accounts">Аккаунты</a>
         <a ui-sref="channels">Наборы и Каналы</a>
       </menu>
     </div>

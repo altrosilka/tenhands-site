@@ -25,6 +25,12 @@ angular.module('Cabinet').config([
         controller: 'CCV_sets as ctr',
         templateUrl: "cabinet/views/sets/index.html"
       })
+
+      .state('accounts', {
+        url: "/accounts/?error&network&success&account",
+        controller: 'CCV_accounts as ctr',
+        templateUrl: "cabinet/views/accounts/index.html"
+      })
       
   }
 ]);

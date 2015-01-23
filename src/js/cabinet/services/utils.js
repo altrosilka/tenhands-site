@@ -46,6 +46,19 @@ angular.module('S_utils', [])
               }
             }).result;
           }
+        case 'fb':
+          {
+            return $modal.open({
+              templateUrl: 'cabinet/modals/addChannelFb.html',
+              controller: 'CCM_addChannelFb as ctr',
+              size: 'md',
+              resolve: {
+                setId: function() {
+                  return setId;
+                }
+              }
+            }).result;
+          }
       }
 
     }

@@ -1,20 +1,20 @@
 <div class="modal-header">
-  <h3 class="modal-title">Добавление группы</h3>
+  <h3 class="modal-title">Добавление аккаунта Facebook</h3>
 </div>
 <div class="modal-body">
   <div ng-if="ctr.accounts.length">
-    <p>Выбери аккаунт, чей паблик ты хочешь добавить</p>
+    <p>Выбери аккаунт, который является владельцем добавляемой группы</p>
     <select class="form-control" ng-options="account.screen_name for account in ctr.accounts" ng-model="ctr.selectedAccount"></select>
 
     <p>Введи ссылку на группу, которую хочешь добавить</p>
-    <select class="form-control" ng-options="group.name for group in ctr.groups" ng-model="ctr.selectedGroup"></select>
+    <select class="form-control" ng-options="page.name for page in ctr.pages" ng-model="ctr.selectedPage"></select>
   </div>
   <div ng-if="!ctr.accounts.length">
     Перед тем как добавлять паблики и группы, нужно <a ng-click="ctr.addAccount();">добавить аккаунт</a>
   </div>
   <strong class="text-danger" ng-bind="ctr.error"></strong>
-</div>
 
+</div>
 <div class="modal-footer">
   <button class="btn btn-primary" ng-click="ctr.resolveAndAdd()">добавить</button>
   <button class="btn btn-default" ng-click="$dismiss()">отмена</button>
