@@ -1,8 +1,7 @@
 body.cabinet {
   font-family: Tahoma, Geneva, sans-serif, arial, verdana;
-  background-color: #fff;
+  background-color: #42424b;
   font-size: 13px;
-  background-color: #f9f9f9;
 }
 body.cabinet:before {
   position: fixed;
@@ -28,32 +27,29 @@ body.cabinet:before {
   padding: 0;
 }
 .toppanel {
-  height: 100px;
-  border-bottom: 1px solid #e9e9e9;
-  background-color: #f1f1f1;
+  height: 70px;
+  border-bottom: 1px solid #4F4F4F;
+  background-color: #2F3238;
 }
 .toppanel menu {
   padding: 0;
-  margin: 0;
+  margin: 0 0 0 8px;
   position: relative;
   z-index: 5;
   overflow: auto;
 }
 .toppanel menu a {
-  line-height: 50px;
-  font-size: 14px;
+  line-height: 66px;
   display: block;
   float: left;
   padding: 0 12px 2px;
   text-decoration: none;
-  color: #222!important;
-  text-transform: uppercase;
+  color: #FFF!important;
   opacity: 0.4;
   transition: 0.3s;
-  text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.01) 1px #000000;
+  font-size: 17px;
 }
 .toppanel menu a:hover {
-  text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.6) 1px #000000;
   opacity: 0.85;
 }
 .toppanel menu a.active,
@@ -118,18 +114,20 @@ body.cabinet:before {
 }
 .btn {
   transition: 0.2s;
-  padding: 6px 16px 7px;
-  border-radius: 3px;
+  padding: 0px 15px;
+  border-radius: 0px;
   border: none;
   outline: none;
+  line-height: 34px;
+  position: relative;
+  top: -1px;
+  font-size: 13px;
 }
 .btn.btn-primary {
-  background-color: #6287AE;
-  font-size: 13px;
-  line-height: 1.385em;
+  background-color: #009ee0;
 }
 .btn.btn-primary:hover {
-  background-color: #678EB5;
+  -webkit-filter: contrast(1.5);
 }
 .btn:focus,
 .btn:active {
@@ -142,6 +140,42 @@ body.cabinet:before {
 }
 .btn.btn-trans:hover {
   background-color: #E6E8EC;
+}
+.form-control {
+  font-size: 15px;
+  background: #2D2E34;
+  border: 1px solid #202125;
+  border-radius: 0px;
+  padding: 0px 15px;
+  color: #eee;
+  line-height: 34px;
+}
+.form-control::-webkit-input-placeholder {
+  color: #555;
+}
+.form-control:focus {
+  border-color: #009ee0;
+  box-shadow: none;
+}
+.stdHeader {
+  height: 70px;
+}
+.stdHeader h1 {
+  color: #aaa;
+  font-size: 28px;
+  margin: 30px 0 0 20px;
+}
+.modal {
+  color: #aaa;
+}
+.modal-content {
+  background-color: #222;
+}
+.modal-header {
+  border-bottom: 1px solid #2D2D2D;
+}
+.modal-footer {
+  border-top: 1px solid #2D2D2D;
 }
 .date-selector {
   width: 100%;
@@ -297,8 +331,139 @@ body.cabinet:before {
 .calendar .btn.btn-default:focus {
   background: transparent;
 }
+.v_sets .createNewSet form {
+  white-space: nowrap;
+  margin-bottom: 20px;
+}
+.v_sets .createNewSet input {
+  display: inline-block;
+  width: 250px;
+}
+.v_sets .section {
+  margin-top: -10px;
+  padding: 0 20px;
+}
+.v_sets .section h2 {
+  font-size: 18px;
+  color: #777070;
+  margin: 0 0 15px;
+}
+.v_sets .set {
+  border-bottom: 1px solid #333;
+  border-top: 1px solid #333;
+  margin-bottom: -1px;
+  transition: 0.2s;
+  color: #ddd;
+  opacity: 0.4;
+}
+.v_sets .set > .title {
+  padding: 35px 20px;
+  font-size: 22px;
+}
+.v_sets .set > .title .plural {
+  color: #999;
+  font-size: 14px;
+  display: inline-block;
+  margin-left: 4px;
+}
+.v_sets .set:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+.v_sets .set.active {
+  opacity: 1;
+  cursor: default!important;
+}
+.v_sets .set .addChannelsLine {
+  font-size: 14px;
+  margin: 20px 0 35px;
+}
+.v_sets .set .addChannelsLine span.btn {
+  font-size: 16px;
+  display: inline-block;
+  width: 49px;
+  text-align: center;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.6);
+  color: #FFF;
+  opacity: 0.9;
+  padding: 0;
+  line-height: 35px;
+}
+.v_sets .set .addChannelsLine span.btn:hover {
+  opacity: 1;
+  background-color: #ddd;
+  color: #000;
+}
+.v_sets .channelsList {
+  padding: 0;
+  margin: 0px;
+}
+.v_sets .channel {
+  display: block;
+  padding: 8px 15px;
+  margin: 3px 0;
+  font-size: 14px;
+}
 .v_sets .channel.disabled {
   opacity: 0.4;
+  box-shadow: inset 0px 0px 0px 4px rgba(0, 0, 0, 0.8);
+}
+.v_sets .bar {
+  width: 40%;
+  float: left;
+  margin-right: 10%;
+}
+.v_sets .smTitle {
+  display: block;
+  color: #777070;
+  margin-bottom: 10px;
+  font-size: 11px;
+}
+.v_sets .addNewUserForm {
+  white-space: nowrap;
+}
+.v_sets .addNewUserForm input {
+  width: 250px;
+  display: inline-block;
+}
+.v_sets .usersArea {
+  width: 45%;
+  margin: 0;
+}
+.v_sets .usersArea .user {
+  border-bottom: 1px solid #393939;
+  border-top: 1px solid #393939;
+  margin-bottom: -1px;
+  padding: 7px 0;
+}
+.v_sets .usersArea .user.notConfirmed {
+  opacity: 0.8;
+  color: #fbb;
+}
+.v_sets .usersArea .user .removeUser {
+  opacity: 0.3;
+  transition: 0.2s;
+}
+.v_sets .usersArea .user .removeUser:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+.v_sets .usersArea .user .removeUser span {
+  font-size: 10px;
+  position: relative;
+  top: -1px;
+}
+.v_sets .usersArea .user .mood {
+  margin-right: 15px;
+  font-size: 16px;
+  position: relative;
+  top: -2px;
+}
+.v_sets .noResults {
+  margin-bottom: 35px;
+}
+.v_sets .btnMinus .btn {
+  top: -2px;
 }
 .downloadExtension {
   position: fixed;

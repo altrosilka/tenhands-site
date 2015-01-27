@@ -26,7 +26,7 @@
   <div class="content">
     
 
-    <div class="container" style="height:2000px;">
+    <div class="container">
       <section ui-view class="view">
 
       </section>

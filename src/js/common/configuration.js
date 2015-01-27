@@ -7,6 +7,7 @@ angular.module('configuraion',[])
       loadVkAccountGroups: 'social/vk/loadAdminGroups',
       loadFbAccountGroups: 'social/fb/loadAdminGroups',
       'channels/toggleDisableState':'channels/toggleDisableState',
+      'sets/attachUser': 'sets/attachUser/',
       addVkGroup: 'channels/vk',
       addFbGroup: 'channels/fb',
       addIgAccount: 'channels/ig',

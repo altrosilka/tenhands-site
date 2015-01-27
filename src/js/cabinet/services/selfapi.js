@@ -59,6 +59,16 @@ angular.module('S_selfapi', [])
           }
         });
       }
+      service.attachUserToSet = function(set_id, email) {
+        return $http({
+          url: base + __api.paths['sets/attachUser'],
+          method: 'GET',
+          params: {
+            id: set_id,
+            email: email
+          }
+        });
+      }
 
       service.getTwitterAuthUrl = function(setId) {
         return $http({
@@ -86,8 +96,11 @@ angular.module('S_selfapi', [])
 
       service.loadSetFullInfo = function(setId) {
         return $http({
-          url: base + __api.paths.sets + '/' + setId,
-          method: 'GET'
+          url: base + __api.paths.sets,
+          method: 'GET',
+          params:{
+            id: setId
+          }
         });
       }
 
