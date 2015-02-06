@@ -10,113 +10,181 @@ var gulp = require("gulp"),
   git = require('gulp-git'),
   less = require('gulp-less'),
   moment = require('moment'),
-  templateCache = require('gulp-angular-templatecache');
+  rename = require("gulp-rename"),
+  templateCache = require('gulp-angular-templatecache'),
+  ngAnnotate = require('gulp-ng-annotate');
+
+
+var SRC = {
+  cabinet: {
+    vendor: {
+      js: [
+        './bower_components/jquery/dist/jquery.js',
+        './bower_components/lodash/dist/lodash.js',
+        './bower_components/bootstrap/dist/js/bootstrap.js',
+        './bower_components/angular/angular.js',
+        './bower_components/angular-sanitize/angular-sanitize.js',
+        './bower_components/angular-ui-router/release/angular-ui-router.js',
+        './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+        './bower_components/momentjs/moment.js',
+        './bower_components/momentjs/locale/ru.js',
+        './bower_components/fancybox/source/jquery.fancybox.js',
+        './bower_components/highcharts/highcharts.src.js',
+        './bower_components/angular-cookies/angular-cookies.js'
+      ],
+      css: [
+        './bower_components/bootstrap/dist/css/bootstrap.min.css',
+        './bower_components/font-awesome/css/font-awesome.css',
+        './bower_components/ionicons/css/ionicons.css'
+      ]
+    },
+    js: ['./src/cabinet/js/**/*.js'],
+    css: ['./src/cabinet/less/main.less'],
+    cssWatch: ['./src/cabinet/less/**/*.less'],
+    templates: ['./src/cabinet/templates/**/*.html']
+  },
+  site: {
+    vendor: {
+      js: [
+        './bower_components/jquery/dist/jquery.js',
+        './bower_components/lodash/dist/lodash.js',
+        './bower_components/bootstrap/dist/js/bootstrap.js',
+        './bower_components/angular/angular.js',
+        './bower_components/angular-sanitize/angular-sanitize.js',
+        './bower_components/angular-ui-router/release/angular-ui-router.js',
+        './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+        './bower_components/momentjs/moment.js',
+        './bower_components/momentjs/locale/ru.js',
+        './bower_components/fancybox/source/jquery.fancybox.js',
+        './bower_components/highcharts/highcharts.src.js'
+      ],
+      css: [
+        './bower_components/bootstrap/dist/css/bootstrap.min.css',
+        './bower_components/font-awesome/css/font-awesome.css',
+        './bower_components/ionicons/css/ionicons.css'
+      ]
+    },
+    js: ['./src/site/js/**/*.js'],
+    css: ['./src/site/less/main.less'],
+    cssWatch: ['./src/site/less/**/*.less'],
+    templates: ['./src/site/templates/**/*.html']
+  }
+};
 
 
 
-
-var vendorLibs = [
-  './bower_components/jquery/dist/jquery.js',
-  './bower_components/lodash/dist/lodash.js',
-  './bower_components/bootstrap/dist/js/bootstrap.js',
-  './bower_components/angular/angular.js',
-  './bower_components/angular-sanitize/angular-sanitize.js',
-  './bower_components/angular-ui-router/release/angular-ui-router.js',
-  './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-  './bower_components/momentjs/moment.js',
-  './bower_components/momentjs/locale/ru.js',
-  './bower_components/fancybox/source/jquery.fancybox.js',
-  './bower_components/highcharts/highcharts.src.js'
-];
+var PATH = {
+  pack: './public/pack'
+}
 
 
-gulp.task('scripts', function() {
-  gulp.src(['./src/js/**/*.js'])
-    .pipe(concat('scripts.js'))
-    //.pipe(uglify())
-    .pipe(gulp.dest('./public/pack'))
-  gulp.src(vendorLibs)
-    .pipe(concat('vendor.js'))
-    // .pipe(uglify())
-    .pipe(gulp.dest('./public/pack'))
+var DEST = {
+  cabinet: {
+    vendor: {
+      js: 'cabinet-vendor.js',
+      css: 'cabinet-vendor.css'
+    },
+    js: 'cabinet-scripts.js',
+    css: 'cabinet-styles.css',
+    templates: 'cabinet-templates.js'
+  },
+  site: {
+    vendor: {
+      js: 'site-vendor.js',
+      css: 'site-vendor.css'
+    },
+    js: 'site-scripts.js',
+    css: 'site-styles.css',
+    templates: 'site-templates.js'
+  }
+}
+
+
+gulp.task('pack:scripts-site', function() {
+  gulp.src(SRC.site.js)
+    .pipe(ngAnnotate())
+    .pipe(concat(DEST.site.js))
+    .pipe(gulp.dest(PATH.pack))
+
+  gulp.src(SRC.site.vendor.js)
+    .pipe(concat(DEST.site.vendor.js))
+    .pipe(gulp.dest(PATH.pack))
 });
 
+gulp.task('pack:scripts-cabinet', function() {
+  gulp.src(SRC.cabinet.js)
+    .pipe(ngAnnotate())
+    .pipe(concat(DEST.cabinet.js))
+    .pipe(gulp.dest(PATH.pack))
 
-gulp.task('scripts-deploy', function() {
-  gulp.src(['./src/js/**/*.js'])
-    .pipe(concat('scripts.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('./public/pack'))
-  gulp.src(vendorLibs)
-    .pipe(concat('vendor.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('./public/pack'))
+  gulp.src(SRC.cabinet.vendor.js)
+    .pipe(concat(DEST.cabinet.vendor.js))
+    .pipe(gulp.dest(PATH.pack))
 });
 
-
-gulp.task('styles-deploy', function() {
-  gulp.src([
-      './public/pack/styles.css'
-    ])
+gulp.task('pack:styles-cabinet', function() {
+  gulp.src(SRC.cabinet.vendor.css)
     .pipe(minifyCSS({
-      keepBreaks: true
+      keepBreaks: false
     }))
-    .pipe(concat('styles.css'))
-    .pipe(gulp.dest('./public/pack'))
+    .pipe(concat(DEST.cabinet.vendor.css))
+    .pipe(gulp.dest(PATH.pack))
+
+  gulp.src(SRC.cabinet.css)
+    .pipe(less(DEST.cabinet.css))
+    .pipe(rename(DEST.cabinet.css))
+    .pipe(gulp.dest(PATH.pack));
 });
 
+gulp.task('pack:styles-site', function() {
+  gulp.src(SRC.site.vendor.css)
+    .pipe(minifyCSS({
+      keepBreaks: false
+    }))
+    .pipe(concat(DEST.site.vendor.css))
+    .pipe(gulp.dest(PATH.pack))
 
-
-
-gulp.task('less', function() {
-  gulp.src(['./src/less/styles.less', './src/less/cabinet.less'])
+  gulp.src(SRC.site.css)
     .pipe(less())
-    .pipe(gulp.dest('./public/pack'));
+    .pipe(rename(DEST.site.css))
+    .pipe(gulp.dest(PATH.pack));
 });
 
-gulp.task('vendors-styles', function() {
-  gulp.src([
-      './bower_components/bootstrap/dist/css/bootstrap.min.css',
-      './bower_components/font-awesome/css/font-awesome.css',
-      './bower_components/fancybox/source/jquery.fancybox.css'
-    ])
-    .pipe(minifyCSS({
-      keepBreaks: true
-    }))
-    .pipe(concat('vendors.css'))
-    .pipe(gulp.dest('./public/pack'))
-});
-
-gulp.task('templates', function() {
-  gulp.src(['./src/templates/**/*.html', '!./src/templates/cabinet/**.html'])
-    .pipe(templateCache('templates.js', {
+gulp.task('pack:templates-cabinet', function() {
+  gulp.src(SRC.cabinet.templates)
+    .pipe(templateCache(DEST.cabinet.templates, {
       standalone: true,
-      root: './templates/'
+      root: './templates/',
+      module: 'templates'
     }))
-    .pipe(gulp.dest('./public/pack'));
+    .pipe(gulp.dest(PATH.pack));
 });
 
 
-
-gulp.task('cabinet-templates', function() {
-  gulp.src('./src/templates/cabinet/**/*.html')
-    .pipe(templateCache('cabinet-templates.js', {
+gulp.task('pack:templates-site', function() {
+  gulp.src(SRC.site.templates)
+    .pipe(templateCache(DEST.site.templates, {
       standalone: true,
-      root: './cabinet/',
-      module: 'cabinet.templates'
+      root: './templates/',
+      module: 'templates'
     }))
-    .pipe(gulp.dest('./public/pack'));
+    .pipe(gulp.dest(PATH.pack));
 });
 
 
 
 gulp.task("watch", function() {
-  gulp.watch('./src/js/**', ["scripts"]);
-  gulp.watch('./src/less/**/*.less', ["less"]);
-  gulp.watch('./tmp/css/**', ["styles"]);
-  gulp.watch(['./src/templates/**', '!./src/templates/cabinet/**.html'], ["templates"]);
-  gulp.watch('./src/templates/cabinet/**/*.html', ["cabinet-templates"]);
+  gulp.watch(SRC.site.js, ["pack:scripts-site"]);
+  gulp.watch(SRC.site.cssWatch, ["pack:styles-site"]);
+  gulp.watch(SRC.site.templates, ["pack:templates-site"]);
+
+  gulp.watch(SRC.cabinet.js, ["pack:scripts-cabinet"]);
+  gulp.watch(SRC.cabinet.cssWatch, ["pack:styles-cabinet"]);
+  gulp.watch(SRC.cabinet.templates, ["pack:templates-cabinet"]);
 });
+
+
+
 
 gulp.task('build', [
     'less',

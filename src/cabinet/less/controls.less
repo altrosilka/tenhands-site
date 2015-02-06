@@ -1,0 +1,85 @@
+.btn {
+  transition: 0.2s;
+  padding: 0px 15px;
+  border-radius: 0px;
+  border: none;
+  outline: none;
+  line-height: 34px;
+  position: relative;
+  top: -1px;
+  font-size: 13px;
+  &.btn-primary {
+    background-color: @colorPrimary;
+    &:hover {
+      -webkit-filter: contrast(1.5);
+    }
+  }
+  &:focus, &:active {
+    border: none!important;
+    outline: none!important;
+  }
+  &.btn-trans { 
+    background-color: transparent;
+    height: 31px;
+    &:hover {
+      background-color: #E6E8EC;
+    } 
+  }
+}
+.form-control {
+  font-size: 15px;
+  background: #fff;
+  border: 1px solid @additionalColor_light;
+  border-radius: 0px;
+  padding: 0px 15px;
+  color: @additionalColor_dark;
+  line-height: 34px;
+  box-shadow: none;
+  &::-webkit-input-placeholder {
+    color: #aaa;
+  }
+  &:focus {
+    border-color: @colorPrimary;
+    box-shadow: none;
+  }
+}
+.stdHeader {
+  overflow: auto;
+  margin-bottom: 30px;
+  padding:0 30px;
+  h1 {
+    font-size: 18px;
+    margin: 0px 0 0 0px;
+    float: left;
+  }
+}
+.modal {
+  color: #aaa;
+}
+.modal-content {
+  background-color: #222;
+}
+.modal-header {
+  border-bottom: 1px solid #2D2D2D;
+}
+.modal-footer {
+  border-top: 1px solid #2D2D2D;
+}
+
+a.link, span.link{
+  text-decoration: none;
+  border-bottom: 1px solid;
+  color:@linkColor;
+  transition: 0.3s;
+  &:hover{
+    border-bottom-color: transparent;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  &.inverse{
+    border-bottom-color: transparent;
+    &:hover{
+      border-bottom-color: @linkColor;
+    }
+  }
+}

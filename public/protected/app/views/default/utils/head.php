@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-  <link rel="stylesheet" type="text/css" href="/pack/vendors.css" />
-  <link rel="stylesheet" type="text/css" href="/pack/styles.css" />
+  
+  <link rel="stylesheet" type="text/css" href="/pack/site-vendor.css" />
+  <link rel="stylesheet" type="text/css" href="/pack/site-styles.css" />
 
-
+<!--
   <title>Кто круче: Майкл Джордан или Кобе Брайант? - Записки латгальского француза - Блоги - Sports.ru</title>
   <meta name="description" content="Блог «Записки латгальского француза» представляет сравнительную инфографику о карьерах двух великих защитников." />
   <meta name="copyright" content="copyright © 2013, Sports.ru" />
@@ -52,4 +53,4 @@
   <meta property="og:image" content="http://s5o.sports.ru/storage/simple/ru/edt/55/35/88/53/rue875cb04bc0.jpg" />
 
   <meta property="fb:app_id" content="109556845805232" />
-  <meta property="fb:page_id" content="110179310119" />
+  <meta property="fb:page_id" content="110179310119" /> -->

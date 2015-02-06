@@ -1,0 +1,24 @@
+<div class="panel" ng-if="ctr.state.reqName">
+  <h2>Представьтесь, пожалуйста</h2>
+  <p>Напишите нам как к Вам обращаться. И Вам приятно и нам приятно</p>
+  <form ng-submit="ctr.saveName(ctr.userName)">
+    <input type="text" class="form-control" ng-model="ctr.userName">
+    <button class="btn btn-primary">Сохранить</button>
+  </form>
+</div>
+
+
+<div class="panel" ng-if="ctr.state.emailNotVerified">
+  <h2>Подтвердите E-Mail</h2>
+  <p>Тогда Вы сможете восстанавливать пароль и работа с системой будет безопаснее</p>
+</div>
+
+<div class="panel" ng-if="ctr.state.unknownCompany">
+  <h2>Название Вашей компании</h2>
+  <p>Будет здорово, если Вы укажите компанию, в которой Вы работаете. Так мы сможем лучше подстроиться под Ваши задачи</p>
+    <form ng-submit="ctr.saveUserCompany(ctr.userCompany)">
+    <input type="text" class="form-control" ng-model="ctr.userCompany">
+    <button class="btn btn-primary">Сохранить</button>
+    <button class="btn btn-default" ng-click="ctr.saveUserCompany('unknown')">Скрыть</button>
+  </form>
+</div>

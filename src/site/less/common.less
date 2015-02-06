@@ -1,0 +1,39 @@
+body {
+  font-size: 13px;
+  font-family: 'Ubuntu';
+  font-weight: 300;
+}
+.strong, b, strong, h1, h2, h3 {
+  font-weight: 500;
+}
+.socialBg {
+  color: #eee;
+  &.vk, &[data-network="vk"] {
+    background-color: @vkColor;
+  }
+  &.ok, &[data-network="ok"] {
+    background-color: @okColor;
+  }
+  &.gp, &[data-network="gp"] {
+    background-color: @gpColor;
+  }
+  &.fb, &[data-network="fb"] {
+    background-color: @fbColor;
+  }
+  &.tw, &[data-network="tw"] {
+    background-color: @twColor;
+  }
+  &.ig, &[data-network="ig"] {
+    background-color: @igColor;
+  }
+}
+.link {
+  text-decoration: none;
+  border-bottom: 1px solid;
+  transition: 0.2s;
+  cursor: pointer;
+  &.noBorder {} &:hover {
+    text-decoration: none;
+    border-color: transparent;
+  }
+}

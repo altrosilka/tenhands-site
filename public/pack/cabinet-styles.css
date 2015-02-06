@@ -1,0 +1,639 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:300,500&subset=latin,cyrillic);
+/* dark theme */
+/* цвет основного фона */
+/* цвет основного фона */
+body.cabinet {
+  font-family: Tahoma, Geneva, sans-serif, arial, verdana;
+  background-color: #f2f9ff;
+  font-size: 13px;
+  color: #222222;
+  font-family: 'Ubuntu', Verdana;
+  font-weight: 300;
+  line-height: 1.5em;
+}
+body.cabinet .view {
+  background: #FFF;
+  border-radius: 3px;
+  padding: 30px;
+}
+.content {
+  width: 960px;
+  margin: 20px auto;
+}
+.emoji {
+  width: 1.4em;
+  vertical-align: top;
+}
+.container {
+  width: 960px!important;
+  padding: 0;
+}
+.toppanel {
+  height: 60px;
+  border-bottom: 1px solid #4F4F4F;
+  background-color: #323d4f;
+}
+.toppanel menu {
+  padding: 0;
+  margin: 0 0 0 8px;
+  position: relative;
+  z-index: 5;
+  overflow: auto;
+}
+.toppanel menu a {
+  line-height: 66px;
+  display: block;
+  float: left;
+  padding: 0 12px 2px;
+  text-decoration: none;
+  color: #FFF!important;
+  opacity: 0.6;
+  transition: 0.3s;
+  font-size: 17px;
+}
+.toppanel menu a:hover {
+  opacity: 0.85;
+}
+.toppanel menu a.active,
+.toppanel menu a.active:hover {
+  background-color: #4c7198;
+}
+.toppanel .userInfo {
+  color: #FFF;
+  margin-top: 19px;
+}
+.toppanel .userInfo > div {
+  display: inline-block;
+}
+.toppanel .userInfo .sep {
+  margin: 0 8px;
+  font-size: 13px;
+  color: #666;
+}
+.toppanel .userInfo .sep:after {
+  content: '|';
+}
+.toppanel .userInfo .name {
+  font-size: 12px;
+}
+.toppanel .userInfo .quit {
+  opacity: 0.4;
+  transition: 0.2s;
+}
+.toppanel .userInfo .quit span {
+  font-size: 12px;
+}
+.toppanel .userInfo .quit i {
+  font-size: 18px;
+  position: relative;
+  top: 3px;
+  margin-left: 6px;
+}
+.toppanel .userInfo .quit:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+.panel {
+  box-shadow: 0 1px 2px rgba(6, 33, 63, 0.13);
+  border-radius: 2px;
+  border: none;
+}
+.panel .panel-body {
+  padding: 30px;
+}
+.panel.panel-default > .panel-heading {
+  padding: 0px 30px;
+  position: relative;
+  background-color: #F7F8FA;
+  border-bottom: 1px solid #EEF0F3;
+}
+.panel.panel-default > .panel-heading .btn.pull-right {
+  margin: 18px 0 0;
+}
+.panel.panel-default > .panel-heading .h_label {
+  line-height: 64px;
+  font-size: 1.46em;
+  color: #2B2F33;
+  font-weight: normal;
+}
+.panel.panel-default > .panel-heading .h_menu {
+  margin: 18px 0 0;
+}
+.panel.panel-left {
+  float: left;
+  width: 288px;
+}
+.panel.panel-right {
+  float: left;
+  width: 612px;
+  margin-left: 30px;
+}
+.bg {
+  border: 1px solid;
+  padding: 15px;
+}
+.bg .title {
+  font-size: 12px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+.bg.bg-warning {
+  border-color: #D4BC4C;
+}
+.bg.bg-danger {
+  border-color: #B24646;
+}
+.ntm {
+  margin-top: 0px!important;
+}
+.ntp {
+  padding-top: 0px!important;
+}
+h1,
+h2,
+h3 {
+  color: #323d4f;
+}
+h1,
+h2,
+h3,
+strong,
+b,
+.strong {
+  font-weight: 500;
+}
+.btn {
+  transition: 0.2s;
+  padding: 0px 15px;
+  border-radius: 0px;
+  border: none;
+  outline: none;
+  line-height: 34px;
+  position: relative;
+  top: -1px;
+  font-size: 13px;
+}
+.btn.btn-primary {
+  background-color: #009ee0;
+}
+.btn.btn-primary:hover {
+  -webkit-filter: contrast(1.5);
+}
+.btn:focus,
+.btn:active {
+  border: none!important;
+  outline: none!important;
+}
+.btn.btn-trans {
+  background-color: transparent;
+  height: 31px;
+}
+.btn.btn-trans:hover {
+  background-color: #E6E8EC;
+}
+.form-control {
+  font-size: 15px;
+  background: #fff;
+  border: 1px solid #eeeeee;
+  border-radius: 0px;
+  padding: 0px 15px;
+  color: #222222;
+  line-height: 34px;
+  box-shadow: none;
+}
+.form-control::-webkit-input-placeholder {
+  color: #aaa;
+}
+.form-control:focus {
+  border-color: #009ee0;
+  box-shadow: none;
+}
+.stdHeader {
+  overflow: auto;
+  margin-bottom: 30px;
+  padding: 0 30px;
+}
+.stdHeader h1 {
+  font-size: 18px;
+  margin: 0px 0 0 0px;
+  float: left;
+}
+.modal {
+  color: #aaa;
+}
+.modal-content {
+  background-color: #222;
+}
+.modal-header {
+  border-bottom: 1px solid #2D2D2D;
+}
+.modal-footer {
+  border-top: 1px solid #2D2D2D;
+}
+a.link,
+span.link {
+  text-decoration: none;
+  border-bottom: 1px solid;
+  color: #009ee0;
+  transition: 0.3s;
+}
+a.link:hover,
+span.link:hover {
+  border-bottom-color: transparent;
+  cursor: pointer;
+  text-decoration: none;
+}
+a.link.inverse,
+span.link.inverse {
+  border-bottom-color: transparent;
+}
+a.link.inverse:hover,
+span.link.inverse:hover {
+  border-bottom-color: #009ee0;
+}
+.date-selector {
+  width: 100%;
+}
+.date-selector .inputs {
+  position: relative;
+  width: 168px;
+  margin: -3px 0 0 3px;
+  border: 1px solid #E0E0E0;
+  height: 30px;
+}
+.date-selector .inputs input {
+  border: none;
+  outline: 0;
+  float: left;
+  height: 100%;
+  line-height: 19px;
+  background: 0 0;
+  color: #000;
+  text-align: center;
+}
+.date-selector .inputs:after,
+.date-selector .inputs:before {
+  position: absolute;
+  content: '';
+  top: 7px;
+  height: 13px;
+  width: 1px;
+  background: #ccc;
+}
+.date-selector .inputs:after {
+  left: 85px;
+}
+.date-selector .inputs:before {
+  left: 42px;
+}
+.date-selector .inputs .day,
+.date-selector .inputs .month {
+  width: 43px;
+}
+.date-selector .inputs .year {
+  width: 80px;
+}
+.date-selector .hidden-input {
+  opacity: 0;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  display: none;
+}
+.calendar {
+  outline: none!important;
+}
+.calendar .btn.btn-default {
+  padding: 0px 3px;
+  font-size: 14px;
+  outline: none;
+  border: none;
+  line-height: 16px;
+  color: #000;
+}
+.calendar .btn-default[disabled] {
+  background: #f9f9f9;
+  cursor: default!important;
+  color: #ccc!important;
+}
+.calendar .text-info {
+  color: #3A65BE;
+  font-weight: bold;
+}
+.calendar table {
+  border-collapse: collapse;
+  width: 100%;
+  border-spacing: 0;
+  outline: none!important;
+}
+.calendar table tr:first-child th {
+  background-color: #e7e7e7;
+  overflow: hidden;
+  font-size: 16px;
+  line-height: 43px;
+  height: 43px;
+  text-align: center;
+  padding: 0;
+  min-width: 34px;
+  border: none;
+}
+.calendar table tr:first-child th:nth-child(1),
+.calendar table tr:first-child th:nth-child(3) {
+  width: 34px;
+}
+.calendar table tr:first-child th:nth-child(2) {
+  width: 184px;
+}
+.calendar table tr:first-child th:nth-child(2) .btn {
+  font-size: 14px;
+  background: #e7e7e7!important;
+  cursor: default!important;
+}
+.calendar table tr:first-child th:nth-child(1) i:before {
+  content: "\f104" !important;
+}
+.calendar table tr:first-child th:nth-child(3) i:before {
+  content: "\f105" !important;
+}
+.calendar table tr:first-child th .btn:hover {
+  background-color: #eee;
+}
+.calendar table tr:first-child th .btn:active {
+  background-color: #ddd;
+}
+.calendar table tr:first-child th:nth-child(2) .btn strong {
+  font-weight: normal;
+}
+.calendar table tr:first-child th .btn {
+  height: 100%;
+  padding: 0;
+  width: 100%;
+}
+.calendar table tr:first-child th .btn i {
+  padding: 0 10px;
+  font-family: FontAwesome!important;
+  font-size: 32px;
+  color: #707070;
+}
+.calendar table tr:last-child th {
+  background-color: #fff;
+  color: #575757;
+  font-weight: 400;
+  font-size: 12px;
+  padding: 4px;
+}
+.calendar table td {
+  border: 1px solid #E3E3E3;
+  background-color: #FFF;
+  text-align: center;
+  height: 32px;
+  width: 32px;
+  font-size: 14px;
+  padding: 0;
+}
+.calendar table td .btn {
+  height: 100%;
+  box-shadow: inset 0px 0px 0px 2px transparent;
+}
+.calendar .text-muted {
+  color: #ddd;
+}
+.calendar button.btn.btn-default.btn-sm.btn-info.active {
+  box-shadow: inset 0px 0px 0px 2px #009ee0;
+  color: #000;
+}
+.calendar .btn.btn-default:focus {
+  background: transparent;
+}
+.v_sets {
+  margin: 0 -30px;
+}
+.v_sets .createNewSet form {
+  white-space: nowrap;
+}
+.v_sets .createNewSet input {
+  display: inline-block;
+  width: 250px;
+}
+.v_sets .section {
+  margin-top: -10px;
+  padding: 0 30px;
+}
+.v_sets .section h2 {
+  font-size: 18px;
+  margin: 0 0 15px;
+  opacity: 0.3;
+  font-weight: 300;
+}
+.v_sets .set {
+  border-bottom: 1px solid #f5f5f5;
+  border-top: 1px solid #f5f5f5;
+  margin-bottom: -1px;
+  transition: 0.2s;
+  opacity: 0.8;
+}
+.v_sets .set > .title {
+  padding: 35px 30px;
+  font-size: 22px;
+}
+.v_sets .set > .title .plural {
+  font-size: 14px;
+  display: inline-block;
+  margin-left: 4px;
+}
+.v_sets .set:hover {
+  opacity: 1;
+}
+.v_sets .set.active {
+  opacity: 1;
+  cursor: default!important;
+}
+.v_sets .set .addChannelsLine {
+  font-size: 14px;
+  margin: 20px 0 35px;
+}
+.v_sets .set .addChannelsLine span.btn {
+  font-size: 16px;
+  display: inline-block;
+  width: 49px;
+  text-align: center;
+  color: #FFF;
+  opacity: 0.9;
+  padding: 0;
+  line-height: 35px;
+}
+.v_sets .set .addChannelsLine span.btn:hover {
+  opacity: 1;
+  background-color: #ddd;
+  color: #000;
+}
+.v_sets .channelsList {
+  padding: 0;
+  margin: 0px;
+}
+.v_sets .channel {
+  display: block;
+  padding: 4px 0px;
+  margin: 3px 0;
+  font-size: 14px;
+  position: relative;
+}
+.v_sets .channel.disabled .name,
+.v_sets .channel.disabled .socialBg {
+  opacity: 0.3;
+}
+.v_sets .channel.disabled .add {
+  display: block;
+}
+.v_sets .channel.disabled .remove {
+  display: none;
+}
+.v_sets .channel .socialBg {
+  transition: 0.3s;
+  width: 20px;
+  position: absolute;
+  top: 3px;
+  left: 0;
+  bottom: 0;
+  line-height: 21px;
+  text-align: center;
+  height: 20px;
+  font-size: 10px;
+}
+.v_sets .channel .name {
+  margin-left: 28px;
+}
+.v_sets .toggler .add {
+  display: none;
+}
+.v_sets .toggler .add,
+.v_sets .toggler .remove {
+  cursor: pointer;
+}
+.v_sets .bar {
+  width: 40%;
+  float: left;
+  margin-right: 10%;
+}
+.v_sets .smTitle {
+  display: block;
+  opacity: 0.5;
+  margin-bottom: 10px;
+  font-size: 11px;
+}
+.v_sets .addNewUserForm {
+  white-space: nowrap;
+  margin-top: 30px;
+}
+.v_sets .addNewUserForm input {
+  width: 250px;
+  display: inline-block;
+}
+.v_sets .usersArea {
+  width: 45%;
+  margin: 0;
+}
+.v_sets .usersArea .user {
+  margin-bottom: -1px;
+  padding: 7px 0;
+}
+.v_sets .usersArea .user.notConfirmed {
+  color: #a55;
+}
+.v_sets .usersArea .user .email {
+  transition: 0.3s;
+}
+.v_sets .usersArea .user.disabled .email {
+  opacity: 0.3;
+}
+.v_sets .usersArea .user.disabled .add {
+  display: block;
+}
+.v_sets .usersArea .user.disabled .remove {
+  display: none;
+}
+.v_sets .usersArea .user .mood {
+  margin-right: 15px;
+  font-size: 16px;
+  position: relative;
+  top: -2px;
+}
+.v_sets .noResults {
+  margin-bottom: 35px;
+}
+.v_sets .btnMinus .btn {
+  top: -2px;
+}
+.v_accounts {
+  margin: 0 -30px;
+}
+.v_login a.homelink {
+  font-size: 14px;
+  position: fixed;
+  top: 60px;
+  left: 60px;
+  color: black;
+}
+.v_login .scaled {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: #f2f9ff;
+  z-index: 200;
+}
+.v_login .blackBlock {
+  width: 400px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  padding: 0px;
+  margin: -100px 0 0 -200px;
+  color: #555;
+}
+.v_login .blackBlock input[type="text"],
+.v_login .blackBlock input[type="password"] {
+  background: #FFF;
+  border: 1px solid #ECECEC;
+  display: block;
+  margin-bottom: -1px;
+  padding: 16px 20px;
+  font-size: 16px;
+  line-height: 16px;
+  width: 100%;
+  color: #000;
+}
+.v_login .blackBlock input[type="text"]:focus,
+.v_login .blackBlock input[type="password"]:focus {
+  outline: none;
+  border-color: #aaa;
+  z-index: 2;
+  position: relative;
+}
+.v_login .errorMessage {
+  margin-top: 7px;
+  color: #C00;
+  display: none;
+}
+.v_login .errorMessage.active {
+  display: inline-block;
+}
+.v_login .actions {
+  margin-top: 30px;
+}
+.downloadExtension {
+  position: fixed;
+  z-index: 10000;
+  background-color: #f1f1f1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+.downloadExtension.active {
+  opacity: 1;
+  visibility: visible;
+}

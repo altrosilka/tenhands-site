@@ -1,0 +1,28 @@
+<section class="v_login">
+
+  <div class="scaled" ng-class="{'after': ctr.preloading}">
+    <a href="/" class="homelink">Обратно на сайт</a>
+
+    <div class="blackBlock">
+
+      <form name="ctr.form" ng-submit=" ctr.form.$valid && ctr.signIn()" novalidate>
+
+        <input type="text" require ng-model="ctr.email" ng-minlength="2" ng-maxlength="30" placeholder="Логин" autofocus>
+        <input type="password" require ng-model="ctr.password" ng-maxlength="30" placeholder="Пароль">
+
+
+
+
+        <div class="actions">
+
+          <div class="errorMessage pull-left" ng-class="{'active':ctr.error}">
+            Неверный логин или пароль.
+          </div>
+
+          <button type="submit" class="btn btn-on-blue pull-right">Войти</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</section>

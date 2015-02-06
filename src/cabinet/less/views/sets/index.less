@@ -1,0 +1,168 @@
+.v_sets {
+  margin: 0 -30px;
+  .createNewSet {
+    form {
+      white-space: nowrap;
+    }
+    input {
+      display: inline-block;
+      width: 250px;
+    }
+  }
+  .section {
+    margin-top: -10px;
+    padding: 0 30px;
+    h2 {
+      font-size: 18px;
+      margin: 0 0 15px;
+      opacity: 0.3;
+      font-weight: 300;
+    }
+  }
+  .set {
+    border-bottom: 1px solid @additionalColor_light3;
+    border-top: 1px solid @additionalColor_light3;
+    margin-bottom: -1px;
+    transition: 0.2s;
+    opacity: 0.8;
+    >.title {
+      padding: 35px 30px;
+      font-size: 22px;
+      .name {} .plural {
+ 
+        font-size: 14px;
+        display: inline-block;
+        margin-left: 4px;
+      }
+    }
+    &:hover {
+      opacity: 1;
+    }
+    &.active {
+      opacity: 1;
+      cursor: default!important;
+    }
+    .addChannelsLine {
+      font-size: 14px;
+      margin: 20px 0 35px;
+      span.btn {
+        font-size: 16px;
+        display: inline-block;
+        width: 49px;
+        text-align: center;
+        color: #FFF;
+        opacity: 0.9;
+        padding: 0;
+        line-height: 35px;
+        &:hover {
+          opacity: 1;
+          background-color: #ddd;
+          color: #000;
+        }
+      }
+    }
+  }
+  .channelsList {
+    padding: 0;
+    margin: 0px;
+  }
+  .channel {
+    display: block;
+    padding: 4px 0px;
+    margin: 3px 0;
+    font-size: 14px;
+    position: relative;
+    &.disabled {
+      .name, .socialBg {
+        opacity: 0.3;
+      }
+      .add {
+        display: block;
+      }
+      .remove {
+        display: none;
+      }
+    }
+    .socialBg {
+      transition: 0.3s;
+      width: 20px;
+      position: absolute;
+      top: 3px;
+      left: 0;
+      bottom: 0;
+      line-height: 21px;
+      text-align: center;
+      height: 20px;
+      font-size: 10px;
+    }
+    .name {
+      margin-left: 28px;
+    }
+  }
+  .toggler {
+    .add {
+      display: none;
+    }
+    .add, .remove {
+      cursor: pointer;
+    }
+  }
+  .bar {
+    width: 40%;
+    float: left;
+    margin-right: 10%;
+  }
+  .smTitle {
+    display: block;
+    opacity: 0.5;
+    margin-bottom: 10px;
+    font-size: 11px;
+  }
+  .addNewUserForm {
+    white-space: nowrap;
+    margin-top: 30px;
+    input {
+      width: 250px;
+      display: inline-block;
+    }
+  }
+  .usersArea {
+    width: 45%;
+    margin: 0;
+    .user {
+      margin-bottom: -1px;
+      padding: 7px 0;
+      &.notConfirmed {
+        color: #a55;
+      }
+      .email{
+      	transition:0.3s;
+      }
+      &.disabled {
+      	.email{
+      		opacity: 0.3;
+      	}
+        .add {
+          display: block;
+        }
+        .remove {
+          display: none;
+        }
+      }
+      .mood {
+        margin-right: 15px;
+        font-size: 16px;
+        position: relative;
+        top: -2px;
+      }
+    }
+  }
+  .noResults {
+    margin-bottom: 35px;
+  }
+  .btnMinus {
+    .btn {
+      top: -2px;
+    }
+  }
+}
