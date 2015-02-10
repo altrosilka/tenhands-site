@@ -12,8 +12,9 @@ angular.module('Cabinet').controller('C_cabinet',
     });
 
     ctr.logout = function() {
-      $cookies.caramba = undefined;
-      $state.go('login');
+      S_selfapi.signOut().then(function() {
+        $state.go('login');
+      });
     }
 
     return ctr;

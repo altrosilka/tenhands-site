@@ -11,7 +11,7 @@
       <div class="pull-right">
       <a class="link cabinet" href="/cabinet/">Войти в личный кабинет</a>
       </div>
-      <h1 class="main-title">Hellotio</h1>
+      <h1 class="main-title">Десять рук</h1>
       <h2>Управляйте социальными сетями<br>быстро и эффективно</h2>
       <h3 style="display:none;">Публикуй записи парой кликов сразу во все социальные сети, подключай модераторов и анализируй статистику</h3>
     </div>
@@ -93,8 +93,8 @@
 
 
   <section class="section clientsSection">
-    <h2>Кто пользуется Hellotio</h2>
-    <div class="text-center" style="margin-bottom: 70px;">Пока никто :(</div>
+    <h2>У кого десять рук?</h2>
+    <div class="text-center" style="margin-bottom: 70px;">Пока у всех по две :(</div>
 
 
     <div class="enterForm light">

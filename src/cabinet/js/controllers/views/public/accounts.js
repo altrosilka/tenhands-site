@@ -1,9 +1,9 @@
-angular.module('Cabinet').controller('CV_accounts', [
+angular.module('Cabinet').controller('CV_public_accounts', [
   '$scope',
   '$state',
   '$location',
   'S_vk',
-  'S_utils',
+  'S_utils', 
   'S_enviroment',
   'S_selfapi',
   'S_eventer',
@@ -19,6 +19,10 @@ angular.module('Cabinet').controller('CV_accounts', [
 
     S_selfapi.getFacebookAuthUrl().then(function(resp) {
       ctr.facebookAuthUrl = resp.data.data.url;
+    });
+
+    S_selfapi.getVkAuthUrl().then(function(resp) {
+      ctr.vkAuthUrl = resp.data.data.url;
     });
 
     ctr.onVkAdding = function() {

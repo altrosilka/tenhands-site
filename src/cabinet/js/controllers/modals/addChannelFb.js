@@ -56,12 +56,7 @@ angular.module('Cabinet').controller('CCM_addChannelFb', [
         ctr.selectedPage = ctr.pages[0];
       });
     })
-
-
-    ctr.addAccount = function() {
-      $state.go('accounts');
-    }
-
+    
     ctr.refreshAccounts();
 
     return ctr;

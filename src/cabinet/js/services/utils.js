@@ -7,7 +7,7 @@ angular.module('Cabinet')
         case 'vk':
           {
             return $modal.open({
-              templateUrl: 'cabinet/modals/addChannelVk.html',
+              templateUrl: 'templates/modals/addChannelVk.html',
               controller: 'CCM_addChannelVk as ctr',
               size: 'md',
               resolve: {
@@ -21,7 +21,7 @@ angular.module('Cabinet')
         case 'ig':
           {
             return $modal.open({
-              templateUrl: 'cabinet/modals/addChannelIg.html',
+              templateUrl: 'templates/modals/addChannelIg.html',
               controller: 'CCM_addChannelIg as ctr',
               size: 'md',
               resolve: {
@@ -36,7 +36,7 @@ angular.module('Cabinet')
         case 'tw':
           {
             return $modal.open({
-              templateUrl: 'cabinet/modals/addChannelTw.html',
+              templateUrl: 'templates/modals/addChannelTw.html',
               controller: 'CCM_addChannelTw as ctr',
               size: 'md',
               resolve: {
@@ -49,7 +49,7 @@ angular.module('Cabinet')
         case 'fb':
           {
             return $modal.open({
-              templateUrl: 'cabinet/modals/addChannelFb.html',
+              templateUrl: 'templates/modals/addChannelFb.html',
               controller: 'CCM_addChannelFb as ctr',
               size: 'md',
               resolve: {
@@ -60,7 +60,6 @@ angular.module('Cabinet')
             }).result;
           }
       }
-
     }
 
     service.getChannelLink = function(network, screenName){

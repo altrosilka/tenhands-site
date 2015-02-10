@@ -1,0 +1,29 @@
+<section class="v_sets">
+  <header class="stdHeader">
+    <div class="createNewSet">
+      <form class="btnMinus" ng-submit="ctr.addNewSet(ctr.newSetName)">
+        <input class="form-control" type="text" placeholder="Название нового набора" ng-model="ctr.newSetName">
+        <button class="btn btn-primary">Создать набор</button>
+      </form>
+    </div>
+
+  </header>
+  <div class="setsarea">
+    <div class="setslist" ng-show="ctr.sets.own.length">
+      <div class="set" set="set" ng-repeat="set in ctr.sets.own" ng-class="{'active':ctr.setIsAvtive(set)}">
+
+      </div>
+    </div>
+    <div class="nosets" ng-hide="ctr.sets.own.length">Пока еще нет ни одного набора</div>
+  </div>
+
+
+  <div class="setsarea" ng-if="ctr.sets.guest.length">
+    <h2>Гостевой доступ</h2>
+    <div class="setslist">
+      <div class="set" set="set" guest-access="true" ng-repeat="set in ctr.sets.guest" ng-class="{'active':ctr.setIsAvtive(set)}">
+
+      </div>
+    </div>
+  </div>
+</section>

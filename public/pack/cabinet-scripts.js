@@ -35,16 +35,21 @@ angular.module('Cabinet').config([
         controller: 'CV_index as ctr',
         templateUrl: "templates/views/index.html"
       })
-      .state('channels', {
-        url: "/sets/",
-        controller: 'CV_sets as ctr',
-        templateUrl: "templates/views/sets/index.html"
+      .state('public', {
+        url: "/public/",
+        abstract: false,
+        templateUrl: "templates/views/public/index.html"
+      })
+      .state('public.sets', {
+        url: "sets/",
+        controller: 'CV_public_sets as ctr',
+        templateUrl: "templates/views/public/sets.html"
       })
 
-    .state('accounts', {
-      url: "/accounts/?error&network&success&account",
-      controller: 'CV_accounts as ctr',
-      templateUrl: "templates/views/accounts/index.html"
+    .state('public.accounts', {
+      url: "accounts/?error&network&success&account",
+      controller: 'CV_public_accounts as ctr',
+      templateUrl: "templates/views/public/accounts.html"
     })
 
   }
@@ -67,6 +72,7 @@ angular.module('Cabinet')
       addIgAccount: 'channels/ig',
       signIn: 'auth/signin',
       signUp: 'auth/signup',  
+      signOut: 'auth/signout',  
       accounts: 'accounts',
       sets: 'sets',
       channels: 'channels', 
@@ -74,10 +80,11 @@ angular.module('Cabinet')
       getUserState: 'users/getState',
       setUserName: 'users/setUserName',
       setUserCompanyName: 'users/setUserCompanyName',
+      setUserPassword: 'users/setUserPassword',
       getVkToken: 'vkToken',
       getTwitterAuthUrl: 'auth/twitter/getUrl',
       getFacebookAuthUrl: 'auth/facebook/getUrl',
-      getVkAuthUrl: 'auth/facebook/getUrl',
+      getVkAuthUrl: 'auth/vk/getUrl',
       extension:{
         afterInstall: '/pages/afterInstall.html' 
       }
@@ -115,8 +122,9 @@ angular.module('Cabinet').controller('C_cabinet',
     });
 
     ctr.logout = function() {
-      $cookies.caramba = undefined;
-      $state.go('login');
+      S_selfapi.signOut().then(function() {
+        $state.go('login');
+      });
     }
 
     return ctr;
@@ -125,15 +133,17 @@ angular.module('Cabinet').controller('C_cabinet',
 
 angular.module('Cabinet')
   .controller('CV_login',
-    ["S_selfapi", "$state", "$timeout", function(S_selfapi, $state, $timeout) {
+    ["S_selfapi", "S_eventer", "$state", "$timeout", function(S_selfapi, S_eventer, $state, $timeout) {
       var ctr = {};
 
       ctr.signIn = function() {
         ctr.error = false;
 
         S_selfapi.signIn(ctr.email, ctr.password).then(function(resp) {
+
           if (resp.data.success) {
             $state.go('index');
+            S_eventer.sendEvent('setUserName', resp.data.data.name);
           } else {
             ctr.error = true;
           }
@@ -143,6 +153,172 @@ angular.module('Cabinet')
       return ctr;
     }]
   );
+
+angular.module('Cabinet').directive('set', [function() {
+  return {
+    scope: {
+      set: '=',
+      guestAccess: '='
+    },
+    templateUrl: 'templates/directives/set.html',
+    link: function($scope, $element) {
+
+    },
+    controller: ["S_selfapi", "S_utils", function(S_selfapi, S_utils) {
+      var ctr = this;
+
+      ctr.addNewUser = function(email) {
+        if (!email || email === '') return;
+        S_selfapi.attachUserToSetByEmail(ctr.openedSet.id, email).then(function(resp) {
+          if (resp.data.success) {
+            ctr.loadSetInfo(ctr.openedSet);
+          }
+        });
+      }
+
+
+      ctr.openSet = function(set, type) {
+        if (ctr.activeMode === type) {
+          return;
+        }
+        ctr.activeMode = type;
+        delete ctr.openedSetChannels;
+        ctr.openedSet = set;
+        ctr.loadSetInfo(set);
+      }
+
+
+
+
+      ctr.addChannel = function(type, set) {
+        S_utils.openAddChannelDialog(type, set.id).then(function(resp) {
+          ctr.openSet(ctr.openedSet);
+        });
+      }
+
+      ctr.toggleChannel = function(channel) {
+        channel.disabled = !channel.disabled;
+        S_selfapi.toggleChannel(channel.id, ctr.openedSet.id, channel.disabled).then(function(resp) {
+          console.log(resp.data);
+        });
+      }
+
+      ctr.toggleUser = function(user) {
+        user.disabled = !user.disabled;
+
+        if (user.disabled) {
+          S_selfapi.detachUserFromSet(user.id, ctr.openedSet.id).then(function(resp) {
+            console.log(resp.data);
+          });
+        } else {
+          S_selfapi.attachUserToSet(user.id, ctr.openedSet.id).then(function(resp) {
+
+          });
+        }
+      }
+
+
+
+      ctr.loadSetInfo = function(set) {
+        S_selfapi.loadSetFullInfo(set.id).then(function(resp) {
+          ctr.openedSetChannels = resp.data.data.channels;
+          ctr.openedSetUsers = resp.data.data.users;
+        });
+      }
+
+
+
+
+
+      ctr.channelsPlural = {
+        0: 'нет каналов',
+        one: '{} канал',
+        few: '{} канала',
+        many: '{} каналов',
+        other: '{} канала'
+      };
+
+      ctr.usersPlural = {
+        0: 'нет пользователей',
+        one: '{} пользователь',
+        few: '{} пользователя',
+        many: '{} пользователей',
+        other: '{} пользователя'
+      };
+
+
+      ctr.getChannelsCount = function(q) {
+        return ((q) ? q.length : 0);
+      }
+
+      ctr.getUsersCount = function(q) {
+        return ((q) ? q.length : 0);
+      }
+
+      ctr.setIsAvtive = function(set) {
+        return ctr.openedSet.id === set.id;
+      }
+
+      ctr.getChannelClass = function(c) {
+        var classList = {};
+        classList[c.network] = true;
+        if (c.disabled) {
+          classList.disabled = true;
+        }
+        return classList;
+      }
+
+      ctr.getUserClass = function(c) {
+        var classList = {};
+        classList[c.network] = true;
+        if (c.verified_email) {
+          classList.verified = true;
+        }
+        if (c.not_confirmed) {
+          classList.notConfirmed = true;
+        }
+        if (c.disabled) {
+          classList.disabled = true;
+        }
+        return classList;
+      }
+
+      ctr.getNetworkIconClass = function(network) {
+        var q = {};
+        switch (network) {
+          case 'vk':
+            {
+              q['fa-vk'] = true;
+              break;
+            }
+          case 'fb':
+            {
+              q['fa-facebook'] = true;
+              break;
+            }
+          case 'tw':
+            {
+              q['fa-twitter'] = true;
+              break;
+            }
+          case 'ig':
+            {
+              q['fa-instagram'] = true;
+              break;
+            }
+        }
+        return q;
+      }
+
+
+      ctr.getChannelLink = function(network, screenName) {
+        return S_utils.getChannelLink(network, screenName);
+      }
+
+    }],
+    controllerAs: 'ctr'
+  }
+}]);
 
 /*
 angular.module('App').filter('lastfmDateToLocal', ['localization',function(localization) {
@@ -278,15 +454,23 @@ angular.module('Cabinet')
           url: base + __api.paths.getUserState,
           method: 'GET'
         });
-      }  
+      }
 
       service.setUserName = function(name) {
         return $http({
           url: base + __api.paths.setUserName,
           method: 'POST',
-          data:{
+          data: {
             name: name
           }
+        });
+      }
+
+      service.setUserPassword = function(obj) {
+        return $http({
+          url: base + __api.paths.setUserPassword,
+          method: 'POST',
+          data: obj
         });
       }
 
@@ -294,15 +478,22 @@ angular.module('Cabinet')
         return $http({
           url: base + __api.paths.setUserCompanyName,
           method: 'POST',
-          data:{
+          data: {
             company: company
           }
         });
-      }  
+      }
 
       service.getUserInfo = function() {
         return $http({
           url: base + __api.paths.getUserInfo,
+          method: 'GET'
+        });
+      }
+
+      service.signOut = function() {
+        return $http({
+          url: base + __api.paths.signOut,
           method: 'GET'
         });
       }
@@ -411,11 +602,18 @@ angular.module('Cabinet')
         });
       }
 
+      service.getVkAuthUrl = function() {
+        return $http({
+          url: base + __api.paths.getVkAuthUrl,
+          method: 'GET'
+        });
+      }
+
       service.loadSetFullInfo = function(setId) {
         return $http({
           url: base + __api.paths.sets,
           method: 'GET',
-          params:{
+          params: {
             id: setId
           }
         });
@@ -506,7 +704,7 @@ angular.module('Cabinet')
         case 'vk':
           {
             return $modal.open({
-              templateUrl: 'cabinet/modals/addChannelVk.html',
+              templateUrl: 'templates/modals/addChannelVk.html',
               controller: 'CCM_addChannelVk as ctr',
               size: 'md',
               resolve: {
@@ -520,7 +718,7 @@ angular.module('Cabinet')
         case 'ig':
           {
             return $modal.open({
-              templateUrl: 'cabinet/modals/addChannelIg.html',
+              templateUrl: 'templates/modals/addChannelIg.html',
               controller: 'CCM_addChannelIg as ctr',
               size: 'md',
               resolve: {
@@ -535,7 +733,7 @@ angular.module('Cabinet')
         case 'tw':
           {
             return $modal.open({
-              templateUrl: 'cabinet/modals/addChannelTw.html',
+              templateUrl: 'templates/modals/addChannelTw.html',
               controller: 'CCM_addChannelTw as ctr',
               size: 'md',
               resolve: {
@@ -548,7 +746,7 @@ angular.module('Cabinet')
         case 'fb':
           {
             return $modal.open({
-              templateUrl: 'cabinet/modals/addChannelFb.html',
+              templateUrl: 'templates/modals/addChannelFb.html',
               controller: 'CCM_addChannelFb as ctr',
               size: 'md',
               resolve: {
@@ -559,7 +757,6 @@ angular.module('Cabinet')
             }).result;
           }
       }
-
     }
 
     service.getChannelLink = function(network, screenName){
@@ -734,12 +931,7 @@ angular.module('Cabinet').controller('CCM_addChannelFb', [
         ctr.selectedPage = ctr.pages[0];
       });
     })
-
-
-    ctr.addAccount = function() {
-      $state.go('accounts');
-    }
-
+    
     ctr.refreshAccounts();
 
     return ctr;
@@ -924,6 +1116,25 @@ angular.module('Cabinet').controller('CV_index', ["$scope", "S_selfapi", "S_even
     S_selfapi.setUserCompanyName(name);
   }
 
+
+  ctr.changePassword = function(password) {
+    if (password === '') {
+      return
+    }
+
+    S_selfapi.setUserPassword({
+      password: password
+    }).then(function(resp) {
+      if (resp.data.success) {
+        ctr.state.randomPassword = false;
+      }
+
+      if (resp.data.error){
+
+      }
+    });
+  }
+
   S_selfapi.getUserState().then(function(resp) {
     ctr.state = resp.data.data;
   });
@@ -931,12 +1142,12 @@ angular.module('Cabinet').controller('CV_index', ["$scope", "S_selfapi", "S_even
   return ctr;
 }]);
 
-angular.module('Cabinet').controller('CV_accounts', [
+angular.module('Cabinet').controller('CV_public_accounts', [
   '$scope',
   '$state',
   '$location',
   'S_vk',
-  'S_utils',
+  'S_utils', 
   'S_enviroment',
   'S_selfapi',
   'S_eventer',
@@ -952,6 +1163,10 @@ angular.module('Cabinet').controller('CV_accounts', [
 
     S_selfapi.getFacebookAuthUrl().then(function(resp) {
       ctr.facebookAuthUrl = resp.data.data.url;
+    });
+
+    S_selfapi.getVkAuthUrl().then(function(resp) {
+      ctr.vkAuthUrl = resp.data.data.url;
     });
 
     ctr.onVkAdding = function() {
@@ -973,7 +1188,7 @@ angular.module('Cabinet').controller('CV_accounts', [
   }
 ]);
 
-angular.module('Cabinet').controller('CV_sets', [
+angular.module('Cabinet').controller('CV_public_sets', [
   '$scope',
   'S_vk',
   'S_utils',
@@ -990,14 +1205,7 @@ angular.module('Cabinet').controller('CV_sets', [
       });
     }
 
-    ctr.addNewUser = function(email) {
-      if (!email || email === '') return;
-      S_selfapi.attachUserToSetByEmail(ctr.openedSet.id, email).then(function(resp) {
-        if (resp.data.success) {
-          ctr.loadSetInfo(ctr.openedSet);
-        }
-      });
-    }
+    
 
     ctr.updateSets = function(onlyOwn) {
       if (onlyOwn) {
@@ -1007,138 +1215,6 @@ angular.module('Cabinet').controller('CV_sets', [
       } else {
 
       }
-    }
-
-    ctr.openSet = function(set, type) {
-      if (set.id === ctr.openedSet.id && ctr.activeMode === type) {
-        return;
-      }
-      ctr.activeMode = type;
-      delete ctr.openedSetChannels;
-      ctr.openedSet = set;
-      ctr.loadSetInfo(set);
-    }
-
-    ctr.loadSetInfo = function(set) {
-      S_selfapi.loadSetFullInfo(set.id).then(function(resp) {
-        ctr.openedSetChannels = resp.data.data.channels;
-        ctr.openedSetUsers = resp.data.data.users;
-      });
-    }
-
-
-
-    ctr.addChannel = function(type, set) {
-      S_utils.openAddChannelDialog(type, set.id).then(function(resp) {
-        ctr.openSet(ctr.openedSet);
-      });
-    }
-
-    ctr.toggleChannel = function(channel) {
-      channel.disabled = !channel.disabled;
-      S_selfapi.toggleChannel(channel.id, ctr.openedSet.id, channel.disabled).then(function(resp) {
-        console.log(resp.data);
-      });
-    }
-
-    ctr.toggleUser = function(user) {
-      user.disabled = !user.disabled;
-
-      if (user.disabled) {
-        S_selfapi.detachUserFromSet(user.id, ctr.openedSet.id).then(function(resp) {
-          console.log(resp.data);
-        });
-      } else {
-        S_selfapi.attachUserToSet(user.id, ctr.openedSet.id).then(function(resp) {
-
-        });
-      }
-    }
-
-
-    ctr.channelsPlural = {
-      0: 'нет каналов',
-      one: '{} канал',
-      few: '{} канала',
-      many: '{} каналов',
-      other: '{} канала'
-    };
-
-    ctr.usersPlural = {
-      0: 'нет пользователей',
-      one: '{} пользователь',
-      few: '{} пользователя',
-      many: '{} пользователей',
-      other: '{} пользователя'
-    };
-
-
-    ctr.getChannelsCount = function(q) {
-      return ((q) ? q.length : 0);
-    }
-
-    ctr.getUsersCount = function(q) {
-      return ((q) ? q.length : 0);
-    }
-
-    ctr.setIsAvtive = function(set) {
-      return ctr.openedSet.id === set.id;
-    }
-
-    ctr.getChannelClass = function(c) {
-      var classList = {};
-      classList[c.network] = true;
-      if (c.disabled) {
-        classList.disabled = true;
-      }
-      return classList;
-    }
-
-    ctr.getUserClass = function(c) {
-      var classList = {};
-      classList[c.network] = true;
-      if (c.verified_email) {
-        classList.verified = true;
-      }
-      if (c.not_confirmed) {
-        classList.notConfirmed = true;
-      }
-      if (c.disabled) {
-        classList.disabled = true;
-      }
-      return classList;
-    }
-
-    ctr.getNetworkIconClass = function(network) {
-      var q = {};
-      switch (network) {
-        case 'vk':
-          {
-            q['fa-vk'] = true;
-            break;
-          }
-        case 'fb':
-          {
-            q['fa-facebook'] = true;
-            break;
-          }
-        case 'tw':
-          {
-            q['fa-twitter'] = true;
-            break;
-          }
-        case 'ig':
-          {
-            q['fa-instagram'] = true;
-            break;
-          }
-      }
-      return q;
-    }
-
-
-    ctr.getChannelLink = function(network, screenName) {
-      return S_utils.getChannelLink(network, screenName);
     }
 
 

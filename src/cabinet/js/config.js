@@ -27,16 +27,21 @@ angular.module('Cabinet').config([
         controller: 'CV_index as ctr',
         templateUrl: "templates/views/index.html"
       })
-      .state('channels', {
-        url: "/sets/",
-        controller: 'CV_sets as ctr',
-        templateUrl: "templates/views/sets/index.html"
+      .state('public', {
+        url: "/public/",
+        abstract: false,
+        templateUrl: "templates/views/public/index.html"
+      })
+      .state('public.sets', {
+        url: "sets/",
+        controller: 'CV_public_sets as ctr',
+        templateUrl: "templates/views/public/sets.html"
       })
 
-    .state('accounts', {
-      url: "/accounts/?error&network&success&account",
-      controller: 'CV_accounts as ctr',
-      templateUrl: "templates/views/accounts/index.html"
+    .state('public.accounts', {
+      url: "accounts/?error&network&success&account",
+      controller: 'CV_public_accounts as ctr',
+      templateUrl: "templates/views/public/accounts.html"
     })
 
   }

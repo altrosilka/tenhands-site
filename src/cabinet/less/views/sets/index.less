@@ -1,5 +1,12 @@
 .v_sets {
   margin: 0 -30px;
+  h2 {
+    margin: 60px 0px 10px 30px;
+    font-size: 20px;
+    color: #AAA;
+    font-weight: 300;
+  }
+
   .createNewSet {
     form {
       white-space: nowrap;
@@ -29,7 +36,6 @@
       padding: 35px 30px;
       font-size: 22px;
       .name {} .plural {
- 
         font-size: 14px;
         display: inline-block;
         margin-left: 4px;
@@ -135,13 +141,13 @@
       &.notConfirmed {
         color: #a55;
       }
-      .email{
-      	transition:0.3s;
+      .email {
+        transition: 0.3s;
       }
       &.disabled {
-      	.email{
-      		opacity: 0.3;
-      	}
+        .email {
+          opacity: 0.3;
+        }
         .add {
           display: block;
         }
@@ -164,5 +170,8 @@
     .btn {
       top: -2px;
     }
+  }
+  .nosets {
+    padding: 0 30px;
   }
 }

@@ -15,6 +15,7 @@ angular.module('Cabinet')
       addIgAccount: 'channels/ig',
       signIn: 'auth/signin',
       signUp: 'auth/signup',  
+      signOut: 'auth/signout',  
       accounts: 'accounts',
       sets: 'sets',
       channels: 'channels', 
@@ -22,10 +23,11 @@ angular.module('Cabinet')
       getUserState: 'users/getState',
       setUserName: 'users/setUserName',
       setUserCompanyName: 'users/setUserCompanyName',
+      setUserPassword: 'users/setUserPassword',
       getVkToken: 'vkToken',
       getTwitterAuthUrl: 'auth/twitter/getUrl',
       getFacebookAuthUrl: 'auth/facebook/getUrl',
-      getVkAuthUrl: 'auth/facebook/getUrl',
+      getVkAuthUrl: 'auth/vk/getUrl',
       extension:{
         afterInstall: '/pages/afterInstall.html' 
       }

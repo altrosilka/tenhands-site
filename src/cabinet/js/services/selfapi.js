@@ -11,15 +11,23 @@ angular.module('Cabinet')
           url: base + __api.paths.getUserState,
           method: 'GET'
         });
-      }  
+      }
 
       service.setUserName = function(name) {
         return $http({
           url: base + __api.paths.setUserName,
           method: 'POST',
-          data:{
+          data: {
             name: name
           }
+        });
+      }
+
+      service.setUserPassword = function(obj) {
+        return $http({
+          url: base + __api.paths.setUserPassword,
+          method: 'POST',
+          data: obj
         });
       }
 
@@ -27,15 +35,22 @@ angular.module('Cabinet')
         return $http({
           url: base + __api.paths.setUserCompanyName,
           method: 'POST',
-          data:{
+          data: {
             company: company
           }
         });
-      }  
+      }
 
       service.getUserInfo = function() {
         return $http({
           url: base + __api.paths.getUserInfo,
+          method: 'GET'
+        });
+      }
+
+      service.signOut = function() {
+        return $http({
+          url: base + __api.paths.signOut,
           method: 'GET'
         });
       }
@@ -144,11 +159,18 @@ angular.module('Cabinet')
         });
       }
 
+      service.getVkAuthUrl = function() {
+        return $http({
+          url: base + __api.paths.getVkAuthUrl,
+          method: 'GET'
+        });
+      }
+
       service.loadSetFullInfo = function(setId) {
         return $http({
           url: base + __api.paths.sets,
           method: 'GET',
-          params:{
+          params: {
             id: setId
           }
         });

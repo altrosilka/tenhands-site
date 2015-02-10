@@ -35,15 +35,15 @@ body.cabinet {
     z-index: 5;
     overflow: auto;
     a {
-      line-height: 66px;
+      line-height: 60px;
       display: block;
       float: left;
       padding: 0 12px 2px;
       text-decoration: none;
-      color: #FFF!important;
+      color: #FFF;
       opacity: 0.6;
       transition: 0.3s;
-      font-size: 17px;
+      font-size: 13px;
       &:hover {
         opacity: 0.85;
       }
@@ -54,7 +54,7 @@ body.cabinet {
   }
   .userInfo {
     color: #FFF;
-    margin-top: 19px;
+    margin-top: 18px;
     >div {
       display: inline-block;
     }
@@ -71,7 +71,7 @@ body.cabinet {
     }
     .quit {
       opacity: 0.4;
-      transition:0.2s;
+      transition: 0.2s;
       span {
         font-size: 12px;
       }
@@ -81,7 +81,7 @@ body.cabinet {
         top: 3px;
         margin-left: 6px;
       }
-      &:hover{
+      &:hover {
         opacity: 1;
         cursor: pointer;
       }
@@ -151,4 +151,52 @@ h1, h2, h3 {
 }
 h1, h2, h3, strong, b, .strong {
   font-weight: 500;
+}
+.viewNavigation {
+  background: #FFF;
+  border-bottom: 1px solid #F1F1FF;
+  height: 70px;
+  padding: 0 30px;
+  a {
+    display: inline-block;
+    font-size: 13px;
+    color: #323D4F;
+    line-height: 47px;
+    border-bottom: 3px solid rgba(0, 0, 0, 0);
+    padding: 0 20px;
+    float: left;
+    margin-right: 10px;
+    text-decoration: none!important;
+    margin-top: 20px;
+    &:hover {
+      border-color: #ddd;
+    }
+    &.active, &.active:hover {
+      border-color: @backgroundHeader;
+    }
+  }
+}
+.socialBg {
+  color: #eee;
+  &.vk, &[data-network="vk"] {
+    background-color: @vkColor;
+  }
+  &.ok, &[data-network="ok"] {
+    background-color: @okColor;
+  }
+  &.gp, &[data-network="gp"] {
+    background-color: @gpColor;
+  }
+  &.fb, &[data-network="fb"] {
+    background-color: @fbColor;
+  }
+  &.tw, &[data-network="tw"] {
+    background-color: @twColor;
+  }
+  &.ig, &[data-network="ig"] {
+    background-color: @igColor;
+  }
+}
+.ib {
+  display: inline-block;
 }

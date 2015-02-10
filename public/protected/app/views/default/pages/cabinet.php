@@ -16,9 +16,9 @@
   <nav class="toppanel">
     <div class="container">
       <menu class="pull-left">
-        <a ui-sref="index">Кабинет</a>
-        <a ui-sref="accounts">Аккаунты</a>
-        <a ui-sref="channels">Наборы и Каналы</a>
+        <a ui-sref="index">Главная</a>
+        <a ui-sref="public.sets">Публикация</a>
+        <a class="ng-hide" ui-sref="analytic">Аналитика</a>
       </menu>
 
       <div class="pull-right userInfo">
@@ -35,7 +35,7 @@
     
 
     <div class="container">
-      <section ui-view class="view">
+      <section ui-view>
 
       </section>
     </div>
