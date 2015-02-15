@@ -22,12 +22,12 @@ angular.module('Cabinet').config([
       templateUrl: "templates/views/login.html"
     })
 
-    .state('index', {
-        url: "/",
-        controller: 'CV_index as ctr',
-        templateUrl: "templates/views/index.html"
-      })
-      .state('public', {
+    $stateProvider.state('index', {
+      url: "/?successEmail",
+      controller: 'CV_index as ctr',
+      templateUrl: "templates/views/index.html"
+    })
+    $stateProvider.state('public', {
         url: "/public/",
         abstract: false,
         templateUrl: "templates/views/public/index.html"
@@ -37,12 +37,20 @@ angular.module('Cabinet').config([
         controller: 'CV_public_sets as ctr',
         templateUrl: "templates/views/public/sets.html"
       })
-
-    .state('public.accounts', {
-      url: "accounts/?error&network&success&account",
-      controller: 'CV_public_accounts as ctr',
-      templateUrl: "templates/views/public/accounts.html"
-    })
-
+      .state('public.accounts', {
+        url: "accounts/?error&network&success&account",
+        controller: 'CV_public_accounts as ctr',
+        templateUrl: "templates/views/public/accounts.html"
+      })
+    $stateProvider.state('analytic', {
+        url: "/analytic/",
+        templateUrl: "templates/views/analytic/index.html"
+      })
+      .state('analytic.sandbox', {
+        url: "sandbox/?branch&branches&from&to&param&param2",
+        controller: 'CV_analytic_sandbox as fC',
+        templateUrl: "templates/views/analytic/sandbox.html",
+        reloadOnSearch: false
+      })
   }
 ]);

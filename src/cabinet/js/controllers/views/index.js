@@ -1,4 +1,4 @@
-angular.module('Cabinet').controller('CV_index', function($scope, S_selfapi, S_eventer, $timeout) {
+angular.module('Cabinet').controller('CV_index', function($scope, $stateParams, S_selfapi, S_eventer, $timeout) {
   var ctr = this;
 
   ctr.saveName = function(name) {
@@ -39,9 +39,17 @@ angular.module('Cabinet').controller('CV_index', function($scope, S_selfapi, S_e
     });
   }
 
+  ctr.closeSuccessEmail = function(){
+    ctr.showSuccessEmail = false;
+  }
+
   S_selfapi.getUserState().then(function(resp) {
     ctr.state = resp.data.data;
   });
+
+  if ($stateParams.successEmail){
+    ctr.showSuccessEmail = true;
+  }
 
   return ctr;
 });

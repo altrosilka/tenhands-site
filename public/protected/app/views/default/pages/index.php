@@ -94,11 +94,14 @@
 
   <section class="section clientsSection">
     <h2>У кого десять рук?</h2>
-    <div class="text-center" style="margin-bottom: 70px;">Пока у всех по две :(</div>
+    <div class="text-center logos">
+      <img src="/images/logos/sports.png" alt="Sports.ru">
+      <img src="/images/logos/2gis.png" alt="2GIS">
+    </div>
 
 
     <div class="enterForm light">
-      <h3 class="text-center">Будь первым и получи 14 дней тестового периода!</h3>
+      <h3 class="text-center">Присоединяйтесь и Вы и получите 14 дней тестового периода!</h3>
       <form name="signUp" data-ng-submit="signUp.$valid && ctr.signUp(ctr.email, ctr.password)" novalidate="">
         <input ng-model="ctr.email" name="email"  autocomplete="off" type="email" required="" placeholder="Ваш E-Mail">
         <button><i class="ion-ios-arrow-right"></i></button>

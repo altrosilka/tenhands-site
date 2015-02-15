@@ -1,0 +1,468 @@
+.v_analytic_sandbox {
+  min-height: 790px;
+  .header {
+    position: relative;
+    border-bottom: 1px solid #eee;
+    padding: 0 0 13px;
+    height: 40px;
+    transition: 0.4s;
+    .pickup_area {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+    }
+    .full {
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.6s;
+      top: -200px;
+    }
+    .small {
+      opacity: 1;
+      visibility: visible;
+      transition: 0.6s;
+      top: 0px;
+    }
+    .switcher {
+      position: absolute;
+      right: 18px;
+      top: 100%;
+      border: 1px solid #eee;
+      padding: 0 11px;
+      border-top: 0;
+      height: 23px;
+      z-index: 5;
+      background: #fff;
+      cursor: pointer;
+      i {
+        font-size: 27px;
+        line-height: 20px;
+        transition: 0.3s;
+      }
+    }
+  }
+  .branch-list {
+    overflow: auto;
+    .type-checkbox {
+      label {
+        .ring {
+          div:before {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+  .full {
+    .branch-list {
+      margin-bottom: -5px;
+      .branch {
+        float: left;
+        margin-right: 25px;
+      }
+    }
+  }
+  .area {
+    margin-bottom: 20px;
+    .param {
+      position: relative;
+      float: left;
+      font-size: 12px;
+      padding: 4px 11px 6px;
+      margin: 0 5px 5px 0;
+      color: #333;
+      .bottomLine {
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 0px;
+        white-space: nowrap;
+        overflow: hidden;
+        line-height: 0px;
+        transition: 0.2s;
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+    .param.disabled {
+      opacity: 0.25;
+    }
+    .param.active {
+      .bottomLine {
+        opacity: 1;
+        visibility: visible;
+        bottom: -1px;
+        height: 6px;
+      }
+    }
+    .bottomLine {
+      .line {
+        height: 100%;
+        display: inline-block;
+        position: relative;
+      }
+      .line:last-child {
+        padding-right: 1px;
+        box-sizing: content-box;
+        -moz-box-sizing: content-box;
+      }
+    }
+  }
+  .paramsArea {
+    float: left;
+    width: 440px;
+    padding: 0;
+  }
+  .paramsArea.col1.active {
+    opacity: 1;
+    visibility: visible;
+    margin-left: 0px;
+  }
+  .plus.active {
+    opacity: 1;
+    visibility: visible;
+    margin-left: 15px;
+  }
+  .plus {
+    float: left;
+    height: 83px;
+    background: #ccc;
+    width: 1px;
+    position: relative;
+    margin: 0 50px 0 0px;
+    div {
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      width: 23px;
+      height: 23px;
+      top: 50%;
+      margin-top: -12px;
+      margin-left: -11px;
+      background: #fff;
+      position: absolute;
+      text-align: center;
+      padding-top: 1px;
+      i {
+        font-size: 13px;
+        color: #ccc;
+      }
+    }
+  }
+  .paramsArea.col1 {
+    .bottomLine {
+      .line:after {
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        content: '';
+        left: 0;
+        top: 0;
+        position: absolute;
+      }
+    }
+  }
+  .topLegend {
+    display: block;
+    overflow: auto;
+    margin: 20px 0 -10px;
+    .point {
+      float: left;
+      margin-right: 20px;
+      .line {
+        position: relative;
+        height: 7px;
+        width: 50px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .line:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        right: 0;
+        bottom: 0;
+        background: #000;
+        opacity: 0.5;
+      }
+      span {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 12px;
+        margin-left: 5px;
+      }
+    }
+  }
+  .chartField {
+    opacity: 1;
+    transition: 0.4s;
+  }
+  .chartField.lowOpacity {
+    opacity: 0;
+  }
+  .chart {
+    width: 100%;
+    height: 450px;
+    margin-top: 40px;
+  }
+  .full-header {
+    margin: 3px 0 7px;
+    padding-bottom: 8px;
+    position: relative;
+    .date {
+      font-size: 24px;
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+      z-index: 22;
+      cursor: pointer;
+    }
+    .calicon {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 5px 0 10px;
+      position: relative;
+      z-index: 22;
+      transition: 0.2s;
+    }
+    .intervalButton {
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 12px;
+      margin-right: 6px;
+      line-height: 21px;
+      color: #333;
+    }
+  }
+  .intervalArea {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: -10px;
+    border: 1px solid #ccc;
+    transition: 0.5s;
+    background: #fff;
+    z-index: 60;
+    top: -21px;
+    padding-top: 0px;
+    box-shadow: 0 0 0 2px #36B3E7, 0 6px 12px rgba(0, 0, 0, .275);
+    border-radius: 2px;
+    .calicon {
+      background-size: cover;
+      display: inline-block;
+      vertical-align: middle;
+      margin: -1px 20px 0 7px;
+      z-index: 30;
+      position: relative;
+      transition: 0.2s;
+    }
+    .head {
+      padding: 10px 9px;
+    }
+    .date {
+      display: inline-block;
+      vertical-align: middle;
+      z-index: 30;
+      position: relative;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .datePickers {
+      padding: 0 5px;
+    }
+    .calendar {
+      width: 232px;
+      display: inline-block;
+      margin: 5px;
+    }
+  }
+  .fake-bg {
+    opacity: 0;
+    position: fixed;
+    z-index: 59;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+  }
+  .intervalArea.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .loading {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: -24px 0 0 -24px;
+      display: block;
+    }
+  }
+  .small {
+    margin-top: -10px;
+    .col1 {
+      .bottomLine {
+        .line:after {
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, .4);
+          content: '';
+          left: 0;
+          top: 0;
+          position: absolute;
+        }
+      }
+    }
+    .textLabel {
+      margin: 0 12px;
+      vertical-align: middle;
+    }
+    .date {
+      display: inline-block;
+      vertical-align: middle;
+      z-index: 30;
+      position: relative;
+      cursor: pointer;
+    }
+    .calicon {
+      background-size: cover;
+      display: inline-block;
+      vertical-align: middle;
+      margin: -2px 20px 0 8px;
+      z-index: 30;
+      position: relative;
+      transition: 0.2s; 
+    }
+    .select {
+      vertical-align: middle;
+      min-width: 160px;
+      display: inline-block;
+      position: relative;
+    }
+    .custom_select {
+      width: 100%;
+    }
+    .bottomLine {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 0px;
+      white-space: nowrap;
+      overflow: hidden;
+      line-height: 0px;
+      transition: 0.2s;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 5;
+      opacity: 1;
+      visibility: visible;
+      bottom: -1px;
+      height: 5px;
+      .line {
+        height: 100%;
+        display: inline-block;
+        position: relative;
+      }
+    }
+  }
+  .branchesMenu {
+    .branch-list {
+      margin: 0;
+      .branch {
+        label {
+          span {
+            white-space: nowrap;
+            font-size: 12px;
+          }
+        }
+      }
+      .type-checkbox {
+        label {
+          .ring {
+            margin-top: -1px;
+            div:after {
+              background-size: 10px;
+            }
+          }
+        }
+      }
+    }
+    label {
+      width: 100%;
+      display: block;
+      padding: 0 10px;
+      white-space: nowrap;
+      margin-bottom: 1px;
+    }
+  }
+}
+.v_analytics_filials.fullState {
+  .header {
+    height: 172px;
+    .switcher {
+      i {
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        transform: rotate(180deg);
+      }
+    }
+    .full {
+      opacity: 1;
+      visibility: visible;
+      top: -20px;
+    }
+    .small {
+      opacity: 0;
+      visibility: hidden;
+      top: -100px;
+    }
+  }
+  .topLegend {
+    display: none;
+  }
+  .chart {
+    height: 350px;
+  }
+  .intervalArea {
+    top: 16px;
+  }
+}
+.v_analytics_filials .intervalButton:hover, .v_analytics_filials .param:hover {
+  border: 1px solid #AAA;
+}
+.v_analytics_filials .area .param.active, .v_analytics_filials .intervalButton.active {
+  box-shadow: none!important;
+  outline: none;
+  background: #eee;
+}
+.v_analytics_filials .paramsArea.col1, .v_analytics_filials .plus {
+  opacity: 0;
+  transition: 0.7s;
+  margin-left: -5px;
+  visibility: hidden;
+}
+body[data-status="loading"] {
+  .v_analytics_filials {
+    .chartField {
+      opacity: 0.2;
+    }
+  }
+}
+.v_analytics_filials .branchesMenu .branch-list .type-checkbox label .ring, .v_analytics_filials .branchesMenu .branch-list .type-checkbox label .ring div {
+  width: 12px;
+  height: 12px;
+}
+.calicon {
+  &:hover {
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+  }
+}

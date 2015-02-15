@@ -30,12 +30,12 @@ angular.module('Cabinet').config([
       templateUrl: "templates/views/login.html"
     })
 
-    .state('index', {
-        url: "/",
-        controller: 'CV_index as ctr',
-        templateUrl: "templates/views/index.html"
-      })
-      .state('public', {
+    $stateProvider.state('index', {
+      url: "/?successEmail",
+      controller: 'CV_index as ctr',
+      templateUrl: "templates/views/index.html"
+    })
+    $stateProvider.state('public', {
         url: "/public/",
         abstract: false,
         templateUrl: "templates/views/public/index.html"
@@ -45,13 +45,21 @@ angular.module('Cabinet').config([
         controller: 'CV_public_sets as ctr',
         templateUrl: "templates/views/public/sets.html"
       })
-
-    .state('public.accounts', {
-      url: "accounts/?error&network&success&account",
-      controller: 'CV_public_accounts as ctr',
-      templateUrl: "templates/views/public/accounts.html"
-    })
-
+      .state('public.accounts', {
+        url: "accounts/?error&network&success&account",
+        controller: 'CV_public_accounts as ctr',
+        templateUrl: "templates/views/public/accounts.html"
+      })
+    $stateProvider.state('analytic', {
+        url: "/analytic/",
+        templateUrl: "templates/views/analytic/index.html"
+      })
+      .state('analytic.sandbox', {
+        url: "sandbox/?branch&branches&from&to&param&param2",
+        controller: 'CV_analytic_sandbox as fC',
+        templateUrl: "templates/views/analytic/sandbox.html",
+        reloadOnSearch: false
+      })
   }
 ]);
 
@@ -69,6 +77,7 @@ angular.module('Cabinet')
       'sets/detachUserById': 'sets/removeUserFromSet',
       addVkGroup: 'channels/vk',
       addFbGroup: 'channels/fb',
+      addOkGroup: 'channels/ok',
       addIgAccount: 'channels/ig',
       signIn: 'auth/signin',
       signUp: 'auth/signup',  
@@ -87,10 +96,12 @@ angular.module('Cabinet')
       getVkAuthUrl: 'auth/vk/getUrl',
       extension:{
         afterInstall: '/pages/afterInstall.html' 
-      }
+      },
+      getVkWallPosts: 'analytic/getWallPosts'
     } 
   })
   .constant('__extensionId','njbifdlkgjknapheokjpilhjpemjbmnk')
+  .value('_timezone',6)
 
 angular.module('Cabinet').run(
   ["$state", "S_selfapi", "S_eventer", function($state, S_selfapi, S_eventer) {
@@ -101,9 +112,8 @@ angular.module('Cabinet').run(
       if (resp.data.error) {
         //localStorageService.set('redirectUrl', $location.url());
         $state.go('login');
-      } else {
-
-        S_eventer.sendEvent('setUserName', resp.data.data.name);
+      } else { 
+        S_eventer.sendEvent('setUserName', resp.data.data.name || resp.data.data.email);
       }
     })
   }]);
@@ -154,6 +164,184 @@ angular.module('Cabinet')
     }]
   );
 
+angular.module('Cabinet').directive('customSelect', function() {
+  return {
+    transclude: true,
+    scope: {
+      selectId: '=customSelect',
+      closeOnSelect: '=',
+      options: '=',
+      sectionFormat: '=',
+      sectionDefault: '=',
+      optionFormat: '=',
+      optionDisabled: '&',
+      optionActive: '&',
+      onSelect: '&',
+      options: '=',
+      customContent: '=' 
+    },
+    controller: 'CD_customSelect as cSCtr',
+    templateUrl: 'templates/directives/customSelect.html',
+    link: function(scope, element, attrs, ctrl, transclude) {
+      var parent = scope.$parent.$new();
+      var current = scope;
+
+      transclude(parent, function(clone, scope) {
+        scope.$close = current.cSCtr.close;
+        element.find('[data-role="custom-content"]').append(clone);
+      });
+
+      element.find('menu').on('click', function(event) {
+        event.stopPropagation();
+      });
+    }
+  }
+})
+
+angular.module('Cabinet')
+  .directive('dateInterval', ["$filter", "_timezone", function($filter, _timezone) {
+    return {
+      scope: {
+        start: '=',
+        end: '=',
+        format: '=' 
+      },
+      templateUrl: 'templates/directives/dateInterval.html',
+      link: function($scope, $element, attrs) {
+        var filterFormat = $scope.format || 'dd.MM.yyyy'
+
+
+        $scope.$watch(function() {
+          return $scope.start;
+        }, function() {
+          $scope.filteredStart = $filter('date')($scope.start, filterFormat, _timezone);
+        });
+
+        $scope.$watch(function() {
+          return $scope.end;
+        }, function() {
+          $scope.filteredEnd = $filter('date')($scope.end, filterFormat, _timezone);
+        })
+      }
+    }
+  }])
+
+angular.module('Cabinet')
+
+.directive('sandboxChart', [
+  'S_calculation',
+  '_colors',
+  function(S_calculation, _colors) {
+    return {
+      scope: {
+        categories: '=',
+        metaInfo: '=',
+        colors: '=',
+        axis: '=',
+        series: '='
+      },
+      link: function($scope, element, attrs) {
+
+        $scope.$watch('series', function(q) {
+          if (!q) {
+            return;
+          }
+          drawGraph($scope.series);
+        });
+
+        function drawGraph(series) {
+
+          var graphObject = {
+            chart: {
+              animation: {
+                duration: 2500,
+                easing: 'easeOutBounce'
+              }
+            },
+            title: {
+              text: ''
+            },
+            subtitle: {
+              text: ''
+            },
+            plotOptions: {
+              line: {
+                marker: {
+                  enabled: true,
+                  radius: 3,
+                  symbol: 'circle'
+                },
+                lineWidth: 1
+              }
+            },
+            tooltip: {
+              shared: true,
+              backgroundColor: '#fff',
+              formatter: function() {
+                //return S_calculation.formatterAnalyticTooltip(this.points, meta.scale);
+              },
+              useHTML: true,
+              borderColor: 'transparent',
+              backgroundColor: 'transparent',
+              borderRadius: 0,
+              shadow: false
+            },
+            legend: {
+              enabled: false
+            }
+          }
+
+          /*if (meta.scale === 'date' || meta.scale === 'week' || meta.scale === 'month') {
+
+            angular.extend(graphObject, {
+              xAxis: [{
+                tickmarkPlacement: 'on',
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                  day: '%d.%m',
+                  week: '%d.%m',
+                  month: '%B',
+                  year: '%Y'
+                },
+                minTickInterval: 24 * 3600 * 1000,
+                tickPixelInterval: S_calculation.getAnalyticTickIntervals(meta.scale),
+                labels: {
+                  //formatter: function() {
+                  //  return S_calculation.formatterAnalyticLabels(this.value, meta.scale);
+                  //}
+                }
+              }],
+              yAxis: axis,
+              series: series
+            });
+
+          } else {
+
+            angular.extend(graphObject, {
+              xAxis: [{
+                categories: categories,
+                minTickInterval: 24 * 3600 * 1000,
+                tickmarkPlacement: 'on',
+                tickPixelInterval: S_calculation.getAnalyticTickIntervals(meta.scale),
+                labels: {
+                  formatter: function() {
+
+                    return S_calculation.formatterAnalyticLabels(this.value, meta.scale);
+                  }
+                }
+              }],
+              yAxis: axis,
+              series: series
+            });
+          }*/
+          element.find('.chart').highcharts(graphObject).find('text:contains("Highcharts.com")').remove();
+        }
+
+      }
+    }
+  }
+])
+
 angular.module('Cabinet').directive('set', [function() {
   return {
     scope: {
@@ -174,6 +362,7 @@ angular.module('Cabinet').directive('set', [function() {
             ctr.loadSetInfo(ctr.openedSet);
           }
         });
+        ctr.newUserEmail = '';
       }
 
 
@@ -424,15 +613,26 @@ angular.module('Cabinet')
   ]);
 
 angular.module('Cabinet')
-  .service('S_location', [
-    '$location',
-    function($location) {
-      var service;
+  .service('S_location', ["$location", function($location) {
+    var service = {};
 
-
-      return service;
+    service.setFromTo = function(from, to) {
+      from = (typeof from === 'string') ? from : moment(from).format('YYYYMMDD');
+      to = (typeof to === 'string') ? to : moment(to).format('YYYYMMDD');
+      $location.search(angular.extend($location.$$search, {
+        from: from,
+        to: to
+      }));
     }
-  ])
+
+    service.setAttr = function(attr, value) {
+      var obj = {};
+      obj[attr] = value;
+      $location.search(angular.extend($location.$$search, obj));
+    }
+
+    return service;
+  }])
 
 angular.module('Cabinet')
   .service('S_mapping', [function() {
@@ -462,6 +662,16 @@ angular.module('Cabinet')
           method: 'POST',
           data: {
             name: name
+          }
+        });
+      }
+
+      service.getVkWallPosts = function(owner_id) {
+        return $http({
+          url: base + __api.paths.getVkWallPosts,
+          method: 'GET',
+          params: {
+            owner_id: owner_id
           }
         });
       }
@@ -653,6 +863,18 @@ angular.module('Cabinet')
         });
       }
 
+      service.addOkGroup = function(feed_id, setId, accountId) {
+        return $http({
+          url: base + __api.paths.addOkGroup,
+          method: 'POST',
+          data: {
+            page_id: feed_id,
+            set_id: setId,
+            account_id: accountId
+          }
+        });
+      }
+
       service.addVkGroup = function(feed_id, setId, accountId) {
         return $http({
           url: base + __api.paths.addVkGroup,
@@ -710,6 +932,20 @@ angular.module('Cabinet')
               resolve: {
                 setId: function() {
                   return setId;
+                } 
+              }
+            }).result;
+          }
+
+        case 'ok':
+          {
+            return $modal.open({
+              templateUrl: 'templates/modals/addChannelOk.html',
+              controller: 'CCM_addChannelOk as ctr',
+              size: 'md',
+              resolve: {
+                setId: function() {
+                  return setId;
                 }
               }
             }).result;
@@ -759,20 +995,24 @@ angular.module('Cabinet')
       }
     }
 
-    service.getChannelLink = function(network, screenName){
-      switch(network){
-        case 'vk':{
-         return 'https://vk.com/'+screenName;
-        }
-        case 'fb':{
-          return 'https://www.facebook.com/'+screenName;
-        }
-        case 'tw':{
-         return 'https://twitter.com/'+screenName;
-        }
-        case 'ig':{
-          return 'https://instagram.com/'+screenName;
-        }
+    service.getChannelLink = function(network, screenName) {
+      switch (network) {
+        case 'vk':
+          {
+            return 'https://vk.com/' + screenName;
+          }
+        case 'fb':
+          {
+            return 'https://www.facebook.com/' + screenName;
+          }
+        case 'tw':
+          {
+            return 'https://twitter.com/' + screenName;
+          }
+        case 'ig':
+          {
+            return 'https://instagram.com/' + screenName;
+          }
       }
     }
 
@@ -870,6 +1110,76 @@ angular.module('Cabinet')
       };
 
       return service;
+    }
+  ]);
+
+angular.module('Cabinet')
+  .controller('CD_customSelect', [
+    '$timeout',
+    '$scope',
+    '$interpolate', 
+    '$sce',
+    function($timeout, $scope, $interpolate, $sce) {
+
+      var ctr = this;
+      $scope.length = 123;
+ 
+      $scope.$watch('sectionFormat', function() {
+
+        $scope.section = $sce.trustAsHtml($interpolate('<span>' + $scope.sectionFormat + '</span>')($scope));
+      })
+
+      ctr.close = function() {
+        ctr.opened = false;
+        $('body').off('click');
+      }
+
+      ctr.open = function() {
+  
+        ctr.opened = !ctr.opened;
+
+        if (ctr.opened) {
+          $timeout(function() {
+            $('body').on('click', function(event) {
+
+              $scope.$apply(function() {
+                ctr.opened = false;
+              });
+              $(this).off('click');
+            });
+          });
+        } else {
+          $('body').off('click');
+        }
+      }
+
+      ctr.isDisabled = function(option) {
+        if (!$scope.optionDisabled()) {
+          return;
+        }
+        return $scope.optionDisabled()(option, $scope.selectId);
+      }
+
+      ctr.isActive = function(option) {
+        if (!$scope.optionActive()) {
+          return;
+        }
+        return $scope.optionActive()(option, $scope.selectId);
+      }
+
+      ctr.selectOption = function($event, option) {
+        $event.stopPropagation();
+        $scope.selected = option;
+        //$scope.onSelect()(option, $scope.selectId);
+
+        //$scope.section = $sce.trustAsHtml($interpolate('<span>'+$scope.sectionFormat+'</span>')($scope));
+
+        if ($scope.closeOnSelect) {
+          ctr.open();
+        }
+      }
+
+      return ctr;
     }
   ]);
 
@@ -986,6 +1296,54 @@ angular.module('Cabinet').controller('CCM_addChannelIg', [
   }
 ]);
 
+angular.module('Cabinet').controller('CCM_addChannelOk', [
+  '$scope',
+  '$modalInstance',
+  'S_vk',
+  'S_selfapi',
+  'S_enviroment',
+  'S_eventer',
+  'setId',
+  function($scope, $modalInstance, S_vk, S_selfapi, S_enviroment, S_eventer, setId) {
+    var ctr = this;
+
+    ctr.selectedAccount = {};
+    ctr.refreshAccounts = function() {
+      S_selfapi.getUserAccounts().then(function(resp) {
+        ctr.accounts = _.filter(resp.data.data, function(account) {
+          return account.network === 'ok';
+        });
+
+        if (ctr.accounts.length) {
+          ctr.selectedAccount = ctr.accounts[0];
+        }
+      });
+    }
+
+    ctr.resolveAndAdd = function() {
+      ctr.error = '';
+      S_selfapi.addOkGroup(ctr.gid, setId, ctr.selectedAccount.id).then(function(resp) {
+        if (resp.data.success) {
+          $modalInstance.close();
+          S_eventer.sendEvent('trigger:updateChannels');
+        } else {
+          ctr.error = resp.data.text;
+        }
+      });
+      /*
+      
+      $(window).on('focus',function(){
+       
+        $(window).off('focus');
+      });*/
+    }
+
+    ctr.refreshAccounts();
+
+    return ctr;
+  }
+]);
+
 angular.module('Cabinet').controller('CCM_addChannelTw', [
   '$scope',
   '$modalInstance',
@@ -1094,7 +1452,7 @@ angular.module('Cabinet').controller('CCM_addChannelVk', [
   }
 ]);
 
-angular.module('Cabinet').controller('CV_index', ["$scope", "S_selfapi", "S_eventer", "$timeout", function($scope, S_selfapi, S_eventer, $timeout) {
+angular.module('Cabinet').controller('CV_index', ["$scope", "$stateParams", "S_selfapi", "S_eventer", "$timeout", function($scope, $stateParams, S_selfapi, S_eventer, $timeout) {
   var ctr = this;
 
   ctr.saveName = function(name) {
@@ -1135,23 +1493,23 @@ angular.module('Cabinet').controller('CV_index', ["$scope", "S_selfapi", "S_even
     });
   }
 
+  ctr.closeSuccessEmail = function(){
+    ctr.showSuccessEmail = false;
+  }
+
   S_selfapi.getUserState().then(function(resp) {
     ctr.state = resp.data.data;
   });
 
+  if ($stateParams.successEmail){
+    ctr.showSuccessEmail = true;
+  }
+
   return ctr;
 }]);
 
-angular.module('Cabinet').controller('CV_public_accounts', [
-  '$scope',
-  '$state',
-  '$location',
-  'S_vk',
-  'S_utils', 
-  'S_enviroment',
-  'S_selfapi',
-  'S_eventer',
-  function($scope, $state, $location, S_vk, S_utils, S_enviroment, S_selfapi, S_eventer) {
+angular.module('Cabinet').controller('CV_public_accounts',
+  ["$scope", "$state", "$filter", "$location", "S_vk", "S_utils", "S_enviroment", "S_selfapi", "S_eventer", function($scope, $state, $filter, $location, S_vk, S_utils, S_enviroment, S_selfapi, S_eventer) {
     var ctr = this;
 
 
@@ -1165,9 +1523,6 @@ angular.module('Cabinet').controller('CV_public_accounts', [
       ctr.facebookAuthUrl = resp.data.data.url;
     });
 
-    S_selfapi.getVkAuthUrl().then(function(resp) {
-      ctr.vkAuthUrl = resp.data.data.url;
-    });
 
     ctr.onVkAdding = function() {
       S_enviroment.extensionIsset().then(function(resp) {
@@ -1184,9 +1539,20 @@ angular.module('Cabinet').controller('CV_public_accounts', [
     }
     ctr.refreshAccounts();
 
+
+    ctr.getExpiresString = function(exp) {
+      if (exp === 0) {
+        return 'доступ открыт';
+      }
+
+      if (exp > 0) {
+        return 'доступ до ' + $filter('date')(exp * 1000, 'dd-MM-yyyy');
+      }
+    }
+
     return ctr;
-  }
-]);
+  }]
+);
 
 angular.module('Cabinet').controller('CV_public_sets', [
   '$scope',
@@ -1200,6 +1566,8 @@ angular.module('Cabinet').controller('CV_public_sets', [
 
     ctr.addNewSet = function(setName) {
       if (!setName || setName === '') return;
+
+      ctr.newSetName = '';
       S_selfapi.addNewSet(setName).then(function(resp) {
         ctr.updateSets(true);
       });
@@ -1228,3 +1596,254 @@ angular.module('Cabinet').controller('CV_public_sets', [
     return ctr;
   }
 ]);
+
+angular.module('Cabinet')
+  .controller('CV_analytic_sandbox',
+    ["$timeout", "$scope", "$stateParams", "$filter", "_timezone", "S_location", "S_selfapi", "S_utils", function($timeout, $scope, $stateParams, $filter, _timezone, S_location, S_selfapi, S_utils) {
+      var ctr = {};
+
+      ctr.shortState = true;
+
+      ctr.paramsArray = [{
+        description: "Лайки",
+        name: "likes"
+      },{
+        description: "Репосты",
+        name: "reposts"
+      },{
+        description: "Комментарии",
+        name: "comments"
+      },{
+        description: "ER",
+        name: "er"
+      }];
+
+      ctr.selectedParams = [
+        _.find(ctr.paramsArray, function(param) {
+          return param.name === ($stateParams.param || ctr.paramsArray[0].name)
+        }), (!$stateParams.param2) ? {} : _.find(ctr.paramsArray, function(param) {
+          return param.name === $stateParams.param2
+        })
+      ];
+
+
+      ctr.selectedParams = [{}, {}];
+      ctr.timeIntervals = [{
+        title: 'Неделя',
+        id: 'week'
+      }, {
+        title: 'Месяц',
+        id: 'month'
+      }, {
+        title: 'Год',
+        id: 'year'
+      }];
+      ctr.selectedInterval = ctr.timeIntervals[0];
+      ctr.selectedBranches = [];
+
+      $scope.$watch(function() {
+        return ctr.startDate.toString() + ctr.endDate.toString();
+      }, function(date) {
+        if (!date) {
+          return;
+        }
+        if (ctr.selectIntervalArea) {
+          ctr.selectedInterval = {};
+        }
+
+        S_location.setFromTo(ctr.startDate, ctr.endDate);
+
+        loadInfo();
+      });
+
+      $scope.$watch(function() {
+        return ctr.selectedParams[0].name;
+      }, function(param) {
+        if (!ctr.paramsArray) return;
+        S_location.setAttr('param', param);
+        loadInfo();
+      });
+
+      $scope.$watch(function() {
+        return ctr.selectedParams[1].name;
+      }, function(param) {
+        if (!ctr.paramsArray) return;
+        S_location.setAttr('param2', param);
+        loadInfo();
+      });
+
+      ctr.endDate = (!$stateParams.to) ? moment().add(-1, 'days').toDate() : moment($stateParams.to, 'YYYYMMDD').toDate();
+      ctr.startDate = (!$stateParams.from) ? moment().add(-7, 'days').toDate() : moment($stateParams.from, 'YYYYMMDD').toDate();
+
+      ctr.branches = [];
+
+      ctr.onBranchToggle = function(branch, branches) {
+        ctr.selectedBranches = branches;
+        loadInfo();
+      }
+
+      ctr.getColorByBranch = function(branch) {
+        return S_color.getColorByPos(branch.pos).light;
+      }
+
+      ctr.getSelectPlaceholder = function(key) {
+        if (key !== 'branches') {
+          return (!ctr.selectedParams[key].description) ? 'Выберите параметр' : ctr.selectedParams[key].description;
+        }
+
+
+
+        return (ctr.selectedBranches.length > 0) ? (_.find(ctr.selectedBranches, {
+          id: 0
+        }) && ctr.selectedBranches.length === 1) ? 'Все филиалы' : 'Филиалов | ' + ctr.selectedBranches.length : 'Выберите филиалы';
+      }
+
+
+
+      ctr.selectParam = function(param, key) {
+
+        if (ctr.paramIsActive(param, key)) {
+          if (!key) {
+            if (ctr.selectedParams[+!key].name) {
+              ctr.selectedParams[key] = ctr.selectedParams[+!key];
+              ctr.selectedParams[+!key] = {};
+            } else {
+              ctr.selectedParams[key] = {};
+            }
+          } else {
+            ctr.selectedParams[key] = {};
+          }
+
+        } else {
+          ctr.selectedParams[key] = param;
+        }
+      }
+
+      ctr.paramIsActive = function(param, key) {
+        return ctr.selectedParams[key].name == param.name;
+      }
+
+      ctr.paramAlreadySelected = function(param, key) {
+        return ctr.selectedParams[+!key].name == param.name;
+      }
+      var no = true;
+      ctr.intervalClick = function(event) {
+        no = false;
+        event.stopPropagation();
+        event.preventDefault();
+
+        setTimeout(function() {
+          no = true;
+        }, 100)
+      }
+
+      ctr.openSelectIntervalArea = function() {
+        ctr.selectIntervalArea = true;
+        setTimeout(function() {
+          $('body').on('click', function() {
+            if (no) {
+              $scope.$apply(function() {
+                ctr.closeSelectIntervalArea();
+              })
+              $('body').off('click');
+            }
+          });
+        })
+      }
+
+      ctr.closeSelectIntervalArea = function() {
+        ctr.selectIntervalArea = false;
+        $('body').off('click');
+      }
+
+      ctr.intervalIsActive = function(interval) {
+        return ctr.selectedInterval.id === interval.id;
+      }
+
+      ctr.setInterval = function(interval) {
+
+        ctr.endDate = new Date();
+        switch (interval.id) {
+          case 'week':
+            {
+              ctr.startDate = moment().add(-6, 'days').toDate();
+              break;
+            }
+          case 'month':
+            {
+              ctr.startDate = moment().add(-1, 'month').toDate();
+              break;
+            }
+          case 'year':
+            {
+              ctr.startDate = moment().add(-1, 'year').toDate();
+              break;
+            }
+        }
+        ctr.selectedInterval = interval;
+      }
+
+      ctr.toggleState = function() {
+        ctr.shortState = !ctr.shortState;
+        ctr.stateChangeInProgress = true;
+        $timeout(function() {
+          ctr.stateChangeAfter = true;
+
+
+          $timeout(function() {
+            ctr.stateChangeInProgress = false;
+
+            $timeout(function() {
+              $(window).resize();
+              $timeout(function() {
+                ctr.stateChangeAfter = false;
+              }, 100)
+            }, 100)
+          }, 100)
+        }, 900)
+      }
+
+
+      function loadInfo() {
+
+
+    
+        var start = $filter('date')(ctr.startDate, 'yyyyMMdd', _timezone);
+        var end = $filter('date')(ctr.endDate, 'yyyyMMdd', _timezone);
+
+        var param1 = ctr.selectedParams[0].name;
+        var param2 = ctr.selectedParams[1].name;
+
+        var doubleAxis = (param2);
+
+
+        var metric = param1;
+        if (param2) {
+          metric += ',' + param2;
+        }
+
+        S_selfapi.getVkWallPosts('-33393308').then(function(resp) {
+
+          var series = [];
+          var data = [];
+          _.forEach(resp.data.data,function(post){
+            var param = post[param1];
+            data.push([post.date*1000, param]);
+          });
+
+
+          series.push({
+            name: 'vk',
+            data: data
+          });
+
+          ctr.graph = {
+            series: series
+          }
+
+        });
+      }
+
+      return ctr;
+    }]
+  );

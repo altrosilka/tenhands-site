@@ -8,7 +8,7 @@
   position: relative;
   top: -1px;
   font-size: 13px;
-  font-weight:300;
+  font-weight: 300;
   &.btn-primary {
     background-color: @colorPrimary;
     &:hover {
@@ -19,12 +19,12 @@
     border: none!important;
     outline: none!important;
   }
-  &.btn-trans { 
+  &.btn-trans {
     background-color: transparent;
     height: 31px;
     &:hover {
       background-color: #E6E8EC;
-    } 
+    }
   }
 }
 .form-control {
@@ -47,27 +47,52 @@
 .stdHeader {
   overflow: auto;
   margin-bottom: 30px;
-  padding:0 30px;
+  padding: 0px;
   h1 {
     font-size: 18px;
     margin: 0px 0 0 0px;
     float: left;
   }
 }
-a.link, span.link, div.link{
+a.link, span.link, div.link {
   text-decoration: none;
   border-bottom: 1px solid;
-  color:@linkColor;
+  color: @linkColor;
   transition: 0.3s;
-  &:hover{
+  &:hover {
     border-bottom-color: transparent;
     cursor: pointer;
     text-decoration: none;
   }
-  &.inverse{
+  &.inverse {
     border-bottom-color: transparent;
-    &:hover{
+    &:hover {
       border-bottom-color: @linkColor;
+    }
+  }
+}
+.subOnInput {
+  position: relative;
+  input {
+    display: block;
+    width: 100%;
+    height: 46px;
+    font-size: 16px;
+    padding: 0 20px;
+  }
+  .btn {
+    position: absolute;
+    right: 0;
+    height: 46px;
+    color: #3498DB;
+    padding: 0 20px;
+    font-size: 16px;
+    line-height: 49px;
+    background-color: rgba(202, 233, 255, 0.17);
+    &:hover {
+      background-color: rgba(202, 233, 255, 0.57);
+      color:#444;
+      -webkit-filter: contrast(1);
     }
   }
 }

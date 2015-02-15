@@ -12,6 +12,7 @@ angular.module('Cabinet')
       'sets/detachUserById': 'sets/removeUserFromSet',
       addVkGroup: 'channels/vk',
       addFbGroup: 'channels/fb',
+      addOkGroup: 'channels/ok',
       addIgAccount: 'channels/ig',
       signIn: 'auth/signin',
       signUp: 'auth/signup',  
@@ -30,7 +31,9 @@ angular.module('Cabinet')
       getVkAuthUrl: 'auth/vk/getUrl',
       extension:{
         afterInstall: '/pages/afterInstall.html' 
-      }
+      },
+      getVkWallPosts: 'analytic/getWallPosts'
     } 
   })
   .constant('__extensionId','njbifdlkgjknapheokjpilhjpemjbmnk')
+  .value('_timezone',6)

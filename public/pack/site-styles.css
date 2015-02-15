@@ -246,6 +246,13 @@ h3 {
 .v_index .clientsSection {
   background: #f2f2f2;
 }
+.v_index .clientsSection .logos {
+  padding: 0 0 70px;
+}
+.v_index .clientsSection .logos img {
+  height: 40px;
+  margin: 20px;
+}
 .v_index .triangle.header {
   position: absolute;
   bottom: -3px;

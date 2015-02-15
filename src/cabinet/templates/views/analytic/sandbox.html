@@ -1,0 +1,127 @@
+<div class="wrapper container clearfix v_analytic_sandbox" ng-class="{'fullState':!fC.shortState}">
+  <div class="fake-bg" ng-show="fC.selectIntervalArea"></div>
+  <div class="header">
+
+    <div class="switcher" ng-click="fC.toggleState()" style="display:none;">
+      <i class="fa fa-angle-down"></i>
+    </div>
+
+
+    <div class="pickup_area full" style="display:none;">
+      <div choose-branch branches-array="fC.branches" on-branch-change="fC.onBranchToggle" input-type="'checkbox'"></div>
+      <div class="full-header">
+        <div class="date" date-interval start="fC.startDate" end="fC.endDate" ng-click="fC.openSelectIntervalArea()"></div>
+        <div class="calicon" ng-click="fC.openSelectIntervalArea()"></div>
+        <button class="btn btn-default btn-sm intervalButton" ng-class="{'active':fC.intervalIsActive(interval)}" ng-click="fC.setInterval(interval)" ng-repeat="interval in fC.timeIntervals">{{interval.title}}</button>
+      </div>
+
+      <div class="area clearfix">
+        <div class="clearfix paramsArea col-xs-6 col0">
+          <button class="btn btn-default param" ng-repeat="param in fC.paramsArray" ng-click="fC.selectParam(param, 0)" ng-class="{'disabled':fC.paramAlreadySelected(param, 0), 'active':fC.paramIsActive(param, 0)}">
+            {{param.description}}
+            <div class="bottomLine">
+              <div class="line" ng-repeat="branch in fC.selectedBranches" ng-style="{'width':(100/fC.selectedBranches.length)+'%','background-color':fC.getColorByBranch(branch)}"></div>
+            </div>
+          </button>
+        </div>
+        <div class="plus" ng-class="{'active':fC.selectedParams[0].name}">
+          <div><i class="fa fa-plus"></i>
+          </div>
+        </div>
+        <div class="clearfix paramsArea col-xs-6 col1" ng-class="{'active':fC.selectedParams[0].name}">
+          <button class="btn btn-default param" ng-repeat="param in fC.paramsArray" ng-click="fC.selectParam(param, 1)" ng-class="{'disabled':fC.paramAlreadySelected(param, 1), 'active':fC.paramIsActive(param, 1)}">
+            {{param.description}}
+            <div class="bottomLine">
+              <div class="line" ng-repeat="branch in fC.selectedBranches" ng-style="{'width':(100/fC.selectedBranches.length)+'%','background-color':fC.getColorByBranch(branch)}"></div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pickup_area small">
+      <div class="date" date-interval start="fC.startDate" end="fC.endDate" ng-click="fC.openSelectIntervalArea()"></div>
+      <div class="calicon" ng-click="fC.openSelectIntervalArea()"></div>
+
+      <span class="select">
+        <span class="branchesMenu" custom-select section-format="fC.getSelectPlaceholder('branches')" custom-content="true">
+          <div choose-branch branches-array="fC.branches" on-branch-change="fC.onBranchToggle" input-type="'checkbox'"></div>
+        </span>
+      </span>
+
+      <span class="textLabel">Сравнить</span>
+
+      <span class="select">
+        <span custom-select section-format="fC.getSelectPlaceholder(0)" custom-content="true">
+          <button class="option" ng-repeat="param in fC.paramsArray" ng-click="fC.selectParam(param, 0);$close();" ng-class="{'active':fC.paramIsActive(param, 0)}" ng-disabled="fC.paramAlreadySelected(param, 0)">
+            {{param.description}}
+          </button>
+        </span>
+      <div class="bottomLine" ng-show="fC.selectedParams[0].name">
+        <div class="line" ng-repeat="branch in fC.selectedBranches" ng-style="{'width':(100/fC.selectedBranches.length)+'%','background-color':fC.getColorByBranch(branch)}"></div>
+      </div>
+      </span>
+
+      <span class="textLabel">с</span>
+
+      <span class="select col1">
+        <span custom-select section-format="fC.getSelectPlaceholder(1)" custom-content="true">
+          <button class="option" ng-repeat="param in fC.paramsArray" ng-click="fC.selectParam(param, 1);$close();" ng-class="{'active':fC.paramIsActive(param, 1)}" ng-disabled="fC.paramAlreadySelected(param, 1)">
+            {{param.description}}
+          </button>
+        </span>
+      <div class="bottomLine" ng-show="fC.selectedParams[1].name">
+        <div class="line" ng-repeat="branch in fC.selectedBranches" ng-style="{'width':(100/fC.selectedBranches.length)+'%','background-color':fC.getColorByBranch(branch)}"></div>
+      </div>
+      </span>
+    </div>
+
+
+
+    <div class="intervalArea" ng-class="{'active':fC.selectIntervalArea}" ng-click="fC.intervalClick($event);" ng-mouseleave="fC.closeSelectIntervalArea()">
+      <div class="head">
+        <div class="date" date-interval start="fC.startDate" end="fC.endDate" ng-click="fC.closeSelectIntervalArea()"></div>
+        <div class="calicon" ng-click="fC.closeSelectIntervalArea()"></div>
+      </div>
+
+      <div class="datePickers">
+        <datepicker show-weeks="false" starting-day="1" max-date="fC.endDate" max-mode="day" format-day="d" ng-model="fC.startDate" class="calendar"></datepicker>
+        <datepicker show-weeks="false" starting-day="1" max-date="$root.yesterday" min-date="fC.startDate" max-mode="day" format-day="d" ng-model="fC.endDate" class="calendar"></datepicker>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <div class="chartArea">
+    <div ng-show="fC.stateChangeInProgress" class="loading">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="48" height="48" fill="#009ee0">
+          <path opacity=".25" d="M16 0 A16 16 0 0 0 16 32 A16 16 0 0 0 16 0 M16 4 A12 12 0 0 1 16 28 A12 12 0 0 1 16 4" />
+          <path d="M16 0 A16 16 0 0 1 32 16 L28 16 A12 12 0 0 0 16 4z">
+            <animateTransform attributeName="transform" type="rotate" from="0 16 16" to="360 16 16" dur="0.8s" repeatCount="indefinite" />
+          </path>
+        </svg>
+      </span>
+    </div>
+    <div class="chartField" ng-hide="fC.stateChangeInProgress" ng-class="{'lowOpacity':fC.stateChangeAfter}">
+      <div class="topLegend">
+        <div class="point" ng-repeat="branch in fC.selectedBranches">
+          <div class="line" ng-style="{'background-color':fC.getColorByBranch(branch)}">
+          </div>
+          <span>
+            {{branch.name}}
+          </span>
+        </div>
+      </div>
+
+      <div ng-hide="fC.stateChangeInProgress" sandbox-chart series="fC.graph.series">
+        <div class="chart">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

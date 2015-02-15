@@ -1,56 +1,59 @@
 .v_sets {
-  margin: 0 -30px;
+  padding: 40px 0 100px;
   h2 {
-    margin: 60px 0px 10px 30px;
+    margin: 0px 0px 10px 0px;
     font-size: 20px;
     color: #AAA;
     font-weight: 300;
   }
-
   .createNewSet {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    padding: 20px 0;
+    background: #FDFDFD;
+    z-index: 2;
+    border-top: 1px solid @additionalColor_light3;
     form {
       white-space: nowrap;
-    }
-    input {
-      display: inline-block;
-      width: 250px;
+      width: 500px;
+      margin: auto;
     }
   }
   .section {
-    margin-top: -10px;
-    padding: 0 30px;
-    h2 {
-      font-size: 18px;
-      margin: 0 0 15px;
-      opacity: 0.3;
-      font-weight: 300;
-    }
+    padding: 0 0px;
+
   }
   .set {
     border-bottom: 1px solid @additionalColor_light3;
     border-top: 1px solid @additionalColor_light3;
     margin-bottom: -1px;
     transition: 0.2s;
-    opacity: 0.8;
     >.title {
-      padding: 35px 30px;
+      padding: 35px 0px;
       font-size: 22px;
       .name {} .plural {
         font-size: 14px;
         display: inline-block;
         margin-left: 4px;
+        span{
+          &.active{
+            color:#000;
+            border-bottom: none;
+            cursor: default;
+          }
+        }
       }
     }
-    &:hover {
-      opacity: 1;
-    }
+
     &.active {
       opacity: 1;
       cursor: default!important;
     }
     .addChannelsLine {
       font-size: 14px;
-      margin: 20px 0 35px;
+      margin: 20px 0 75px;
       span.btn {
         font-size: 16px;
         display: inline-block;
@@ -113,12 +116,7 @@
       cursor: pointer;
     }
   }
-  .bar {
-    width: 40%;
-    float: left;
-    margin-right: 10%;
-  }
-  .smTitle {
+  .bar {} .smTitle {
     display: block;
     opacity: 0.5;
     margin-bottom: 10px;
@@ -127,13 +125,8 @@
   .addNewUserForm {
     white-space: nowrap;
     margin-top: 30px;
-    input {
-      width: 250px;
-      display: inline-block;
-    }
   }
   .usersArea {
-    width: 45%;
     margin: 0;
     .user {
       margin-bottom: -1px;
@@ -172,6 +165,6 @@
     }
   }
   .nosets {
-    padding: 0 30px;
+    padding: 0 0px;
   }
 }

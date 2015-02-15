@@ -18,6 +18,7 @@ angular.module('Cabinet').directive('set', [function() {
             ctr.loadSetInfo(ctr.openedSet);
           }
         });
+        ctr.newUserEmail = '';
       }
 
 

@@ -10,6 +10,8 @@ angular.module('Cabinet').controller('CV_public_sets', [
 
     ctr.addNewSet = function(setName) {
       if (!setName || setName === '') return;
+
+      ctr.newSetName = '';
       S_selfapi.addNewSet(setName).then(function(resp) {
         ctr.updateSets(true);
       });

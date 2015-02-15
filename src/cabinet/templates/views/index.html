@@ -1,66 +1,85 @@
 <section class="v_index view">
+
+
   <div class="panelArea clearfix">
 
-    <div class="warning">
-      <strong>Совет</strong>: перед тем, как начать работу, заполните информацию о себе. Это займет всего <strong>пару минут</strong>!
+    <div class="bg-success successEmail" ng-if="ctr.showSuccessEmail">
+      <span class="pull-right ion-close-round" ng-click="ctr.closeSuccessEmail()"></span> E-Mail адрес успешно подтвержден!
     </div>
 
-    <div class="panel" ng-if="ctr.state.reqName">
+    <div class="panel clearfix" ng-if="!ctr.extensionIsInstalled">
+      <div class="icon">
+        <i class="ion-social-chrome"></i>
+      </div>
+      <div class="inner">
+        <h2>Установите расширение для работы</h2>
+        <form>
+          <a href="" target="_blank" class="btn btn-primary">Скачать из Web Store</a>
+        </form>
+        <p class="text">Без расширения работа будет невозможна.
+          <br>Это закон.</p>
+      </div>
+    </div>
+
+    <div class="panel clearfix" ng-if="ctr.state.reqName">
       <div class="icon">
         <i class="ion-mic-a"></i>
       </div>
       <div class="inner">
         <h2>Представьтесь, пожалуйста</h2>
-        <p class="text text-center">Напишите нам как к Вам обращаться.
-          <br>И Вам приятно и нам приятно</p>
         <form class="line" ng-submit="ctr.saveName(ctr.userName)">
           <input type="text" class="form-control name" ng-model="ctr.userName" placeholder="Отто фон Бисмарк?">
           <button class="btn btn-primary">Сохранить</button>
         </form>
+        <p class="text">Напишите нам как к Вам обращаться.
+          <br>И Вам приятно и нам приятно.</p>
       </div>
     </div>
 
-
-
-
-    <div class="panel" ng-if="ctr.state.emailNotVerified">
-      <div class="icon">
-        <i class="ion-ios-email-outline"></i>
-        <i class="ion-ios-checkmark-empty"></i>
-      </div>
-      <div class="inner">
-        <h2>Подтвердите E-Mail</h2>
-        <p class="text text-center">Тогда Вы сможете восстанавливать пароль и работа с системой будет безопаснее</p>
-      </div>
-    </div>
-
-    <div class="panel" ng-if="ctr.state.unknownCompany">
+    <div class="panel clearfix" ng-if="ctr.state.unknownCompany">
       <div class="icon">
         <i class="ion-ios-people"></i>
       </div>
       <div class="inner">
         <h2>Название Вашей компании</h2>
-        <p class="text text-center">Будет здорово, если Вы укажите компанию, в которой Вы работаете. И мы подстроимся под Ваши задачи</p>
         <form class="comp" ng-submit="ctr.saveUserCompany(ctr.userCompany)">
           <input type="text" class="form-control name" ng-model="ctr.userCompany" placeholder="Астронавтикс">
           <button class="btn btn-primary">Сохранить</button>
           <button class="btn btn-default ignore" ng-click="ctr.saveUserCompany('unknown')">Скрыть</button>
         </form>
+        <p class="text">Здорово, если Вы укажите компанию, в которой работаете.
+          <br>Так мы сможем подстроиться под Ваши задачи.</p>
+
       </div>
     </div>
 
-    <div class="panel" ng-if="ctr.state.randomPassword">
+    <div class="panel clearfix" ng-if="ctr.state.randomPassword">
       <div class="icon">
         <i class="ion-more"></i>
       </div>
       <div class="inner">
         <h2>Запоминающийся пароль</h2>
-        <p class="text text-center">Мы сделали Вам случайный пароль и отправили его на почту. Хотя лучше сменить его прямо сейчас</p>
         <form class="line" ng-submit="ctr.changePassword(ctr.userPassword)">
           <input type="text" class="form-control name" ng-model="ctr.userPassword" placeholder="q•ert•as•f">
           <button class="btn btn-primary">Сохранить</button>
         </form>
+        <p class="text">Мы сделали Вам случайный пароль и отправили его на почту.
+          <br>Хотя лучше сменить его прямо сейчас.</p>
+
       </div>
+    </div>
+
+
+
+    <div class="panel clearfix" ng-if="ctr.state.emailNotVerified">
+      <div class="icon">
+        <i class="ion-ios-email-outline"></i>
+      </div>
+      <div class="inner">
+        <h2>Подтвердите E-Mail</h2>
+        <p class="text">Тогда Вы сможете восстанавливать пароль и работа с системой будет безопаснее</p>
+      </div>
+
     </div>
   </div>
 </section>

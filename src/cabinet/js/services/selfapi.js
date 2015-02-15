@@ -23,6 +23,16 @@ angular.module('Cabinet')
         });
       }
 
+      service.getVkWallPosts = function(owner_id) {
+        return $http({
+          url: base + __api.paths.getVkWallPosts,
+          method: 'GET',
+          params: {
+            owner_id: owner_id
+          }
+        });
+      }
+
       service.setUserPassword = function(obj) {
         return $http({
           url: base + __api.paths.setUserPassword,
@@ -205,6 +215,18 @@ angular.module('Cabinet')
           url: base + __api.paths.loadFbAccountGroups,
           method: 'GET',
           params: {
+            account_id: accountId
+          }
+        });
+      }
+
+      service.addOkGroup = function(feed_id, setId, accountId) {
+        return $http({
+          url: base + __api.paths.addOkGroup,
+          method: 'POST',
+          data: {
+            page_id: feed_id,
+            set_id: setId,
             account_id: accountId
           }
         });
