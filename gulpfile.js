@@ -46,17 +46,7 @@ var SRC = {
   site: {
     vendor: {
       js: [
-        './bower_components/jquery/dist/jquery.js',
-        './bower_components/lodash/dist/lodash.js',
-        './bower_components/bootstrap/dist/js/bootstrap.js',
-        './bower_components/angular/angular.js',
-        './bower_components/angular-sanitize/angular-sanitize.js',
-        './bower_components/angular-ui-router/release/angular-ui-router.js',
-        './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-        './bower_components/momentjs/moment.js',
-        './bower_components/momentjs/locale/ru.js',
-        './bower_components/fancybox/source/jquery.fancybox.js',
-        './bower_components/highcharts/highcharts.src.js'
+        './bower_components/angular/angular.js'
       ],
       css: [
         './bower_components/bootstrap/dist/css/bootstrap.min.css',
@@ -173,6 +163,33 @@ gulp.task('pack:templates-site', function() {
 
 
 
+gulp.task('build:scripts-site', function() {
+  gulp.src(SRC.site.js)
+    .pipe(ngAnnotate())
+    .pipe(concat(DEST.site.js))
+    .pipe(uglify())
+    .pipe(gulp.dest(PATH.pack))
+
+  gulp.src(SRC.site.vendor.js)
+    .pipe(concat(DEST.site.vendor.js))
+    .pipe(uglify())
+    .pipe(gulp.dest(PATH.pack))
+});
+
+gulp.task('build:scripts-cabinet', function() {
+  gulp.src(SRC.cabinet.js)
+    .pipe(ngAnnotate())
+    .pipe(concat(DEST.cabinet.js))
+    .pipe(uglify())
+    .pipe(gulp.dest(PATH.pack))
+
+  gulp.src(SRC.cabinet.vendor.js)
+    .pipe(concat(DEST.cabinet.vendor.js))
+    .pipe(uglify())
+    .pipe(gulp.dest(PATH.pack))
+});
+
+
 gulp.task("watch", function() {
   gulp.watch(SRC.site.js, ["pack:scripts-site"]);
   gulp.watch(SRC.site.cssWatch, ["pack:styles-site"]);
@@ -187,11 +204,12 @@ gulp.task("watch", function() {
 
 
 gulp.task('build', [
-    'less',
-    'vendors-styles',
-    'templates',
-    'scripts-deploy',
-    'styles-deploy'
+    'build:scripts-cabinet',
+    'build:scripts-site',
+    "pack:styles-site",
+    "pack:templates-site",
+    "pack:styles-cabinet",
+    "pack:templates-cabinet"
   ],
   function() {
 
