@@ -1,0 +1,11 @@
+<section class="v_history smallWrap">
+
+  <div ng-if="ctr.sets.length > 2">
+    Выбрать набор:
+    <select class="form-control" ng-options="set.name for set in ctr.sets" ng-model="ctr.selectedSet"></select>
+  </div>
+  <div class="history">
+    <div class="item" ng-repeat="item in ctr.history">qwe</div>
+  </div>
+
+</section>

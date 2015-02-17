@@ -32,6 +32,15 @@ angular.module('Cabinet')
           }
         });
       }
+      service.getPostingHistory = function(set_id) {
+        return $http({
+          url: base + __api.paths.getPostingHistory,
+          method: 'GET',
+          params: {
+            set_id: set_id
+          }
+        });
+      }
 
       service.setUserPassword = function(obj) {
         return $http({

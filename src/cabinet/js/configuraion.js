@@ -5,7 +5,7 @@ angular.module('Cabinet')
     baseUrl: 'http://api.smm.dev/', 
     paths: {
       loadVkAccountGroups: 'social/vk/loadAdminGroups',
-      loadFbAccountGroups: 'social/fb/loadAdminGroups',
+      loadFbAccountGroups: 'social/fb/loadAdminGroups', 
       'channels/toggleDisableState':'channels/toggleDisableState',
       'sets/attachUserByEmail': 'sets/attachUserByEmail/',
       'sets/attachUserById': 'sets/attachUserById',
@@ -32,7 +32,8 @@ angular.module('Cabinet')
       extension:{
         afterInstall: '/pages/afterInstall.html' 
       },
-      getVkWallPosts: 'analytic/getWallPosts'
+      getVkWallPosts: 'analytic/getWallPosts',
+      getPostingHistory: 'postingHistory'
     } 
   })
   .constant('__extensionId','njbifdlkgjknapheokjpilhjpemjbmnk')

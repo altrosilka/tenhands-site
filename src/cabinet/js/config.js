@@ -42,6 +42,12 @@ angular.module('Cabinet').config([
         controller: 'CV_public_accounts as ctr',
         templateUrl: "templates/views/public/accounts.html"
       })
+      .state('public.history', {
+        url: "history/?set_id",
+        controller: 'CV_public_history as ctr',
+        templateUrl: "templates/views/public/history.html"
+      })
+
     $stateProvider.state('analytic', {
         url: "/analytic/",
         templateUrl: "templates/views/analytic/index.html"
