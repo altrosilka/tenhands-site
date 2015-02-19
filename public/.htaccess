@@ -1,7 +1,7 @@
 Options +FollowSymLinks
 
 Options -Indexes
-
+AllowOverride all
 RewriteEngine on
 RewriteBase /
 RewriteCond %{HTTP_HOST} ^www.10hands.io$ [NC]
