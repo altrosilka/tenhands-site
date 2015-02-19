@@ -47,6 +47,11 @@ angular.module('Cabinet').config([
         controller: 'CV_public_history as ctr',
         templateUrl: "templates/views/public/history.html"
       })
+      .state('public.team', {
+        url: "team/",
+        controller: 'CV_public_team as ctr',
+        templateUrl: "templates/views/public/team.html"
+      })
 
     $stateProvider.state('analytic', {
         url: "/analytic/",
