@@ -2,7 +2,7 @@ angular.module('Cabinet')
   .constant('__afterLoginUrl', '/cabinet/')
   .constant('__timezone', 6)
   .constant('__api', { 
-    baseUrl: 'http://api.smm.dev/', 
+    baseUrl: 'http://95.85.19.4:9388/', 
     paths: {
       loadVkAccountGroups: 'social/vk/loadAdminGroups',
       loadFbAccountGroups: 'social/fb/loadAdminGroups', 
@@ -11,7 +11,7 @@ angular.module('Cabinet')
       'sets/attachUserById': 'sets/attachUserById',
       'sets/detachUserById': 'sets/removeUserFromSet',
       addVkGroup: 'channels/vk',
-      addFbGroup: 'channels/fb',
+      addFbGroup: 'channels/fb', 
       addOkGroup: 'channels/ok',
       addIgAccount: 'channels/ig',
       signIn: 'auth/signin',

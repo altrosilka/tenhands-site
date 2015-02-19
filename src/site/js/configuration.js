@@ -2,7 +2,7 @@ angular.module('configuraion',[])
   .constant('__afterLoginUrl', '/cabinet/')
   .constant('__timezone', 6)
   .constant('__api', { 
-    baseUrl: 'http://api.smm.dev/', 
+    baseUrl: 'http://95.85.19.4:9388/', 
     paths: {
       loadVkAccountGroups: 'social/vk/loadAdminGroups',
       loadFbAccountGroups: 'social/fb/loadAdminGroups',
