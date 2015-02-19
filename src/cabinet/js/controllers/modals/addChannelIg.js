@@ -22,7 +22,7 @@ angular.module('Cabinet').controller('CCM_addChannelIg', [
         return;
       }
 
-
+ 
       S_selfapi.addIgAccount(ctr.username, ctr.password, setId).then(function(resp) {
         if (resp.data.error) {
           if (resp.data.code === 'enemy') {

@@ -15,6 +15,8 @@ var gulp = require("gulp"),
   ngAnnotate = require('gulp-ng-annotate');
 
 
+var urlConfig = require('./src/config/urls');
+
 var SRC = {
   cabinet: {
     vendor: {
@@ -92,6 +94,12 @@ var DEST = {
 
 gulp.task('pack:scripts-site', function() {
   gulp.src(SRC.site.js)
+    .pipe(replace({
+      patterns: [{
+        match: 'apiServer',
+        replacement: urlConfig.apiServer_dev
+      }]
+    }))
     .pipe(ngAnnotate())
     .pipe(concat(DEST.site.js))
     .pipe(gulp.dest(PATH.pack))
@@ -103,6 +111,12 @@ gulp.task('pack:scripts-site', function() {
 
 gulp.task('pack:scripts-cabinet', function() {
   gulp.src(SRC.cabinet.js)
+    .pipe(replace({
+      patterns: [{
+        match: 'apiServer',
+        replacement: urlConfig.apiServer_dev
+      }]
+    }))
     .pipe(ngAnnotate())
     .pipe(concat(DEST.cabinet.js))
     .pipe(gulp.dest(PATH.pack))
@@ -165,6 +179,12 @@ gulp.task('pack:templates-site', function() {
 
 gulp.task('build:scripts-site', function() {
   gulp.src(SRC.site.js)
+    .pipe(replace({
+      patterns: [{
+        match: 'apiServer',
+        replacement: urlConfig.apiServer_dev
+      }]
+    }))
     .pipe(ngAnnotate())
     .pipe(concat(DEST.site.js))
     .pipe(uglify())
@@ -178,6 +198,12 @@ gulp.task('build:scripts-site', function() {
 
 gulp.task('build:scripts-cabinet', function() {
   gulp.src(SRC.cabinet.js)
+    .pipe(replace({
+      patterns: [{
+        match: 'apiServer',
+        replacement: urlConfig.apiServer_dev
+      }]
+    }))
     .pipe(ngAnnotate())
     .pipe(concat(DEST.cabinet.js))
     .pipe(uglify())
