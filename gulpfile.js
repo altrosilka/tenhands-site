@@ -16,7 +16,7 @@ var gulp = require("gulp"),
 
 
 var urlConfig = require('./src/config/urls');
-var extensionConfig = require('./config/extension');
+var extensionConfig = require('./src/config/extension');
 
 var SRC = {
   cabinet: {

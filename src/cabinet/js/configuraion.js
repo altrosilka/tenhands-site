@@ -36,5 +36,5 @@ angular.module('Cabinet')
       getPostingHistory: 'postingHistory'
     } 
   })
-  .constant('__extensionId','njbifdlkgjknapheokjpilhjpemjbmnk')
+  .constant('__extensionId','@@extensionId')
   .value('_timezone',6)
