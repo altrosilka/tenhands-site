@@ -182,7 +182,7 @@ gulp.task('build:scripts-site', function() {
     .pipe(replace({
       patterns: [{
         match: 'apiServer',
-        replacement: urlConfig.apiServer_dev
+        replacement: urlConfig.apiServer
       }]
     }))
     .pipe(ngAnnotate())
@@ -201,7 +201,7 @@ gulp.task('build:scripts-cabinet', function() {
     .pipe(replace({
       patterns: [{
         match: 'apiServer',
-        replacement: urlConfig.apiServer_dev
+        replacement: urlConfig.apiServer
       }]
     }))
     .pipe(ngAnnotate())
