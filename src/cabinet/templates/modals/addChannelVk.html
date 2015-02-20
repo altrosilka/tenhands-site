@@ -10,7 +10,7 @@
     <select class="form-control" ng-options="group.name for group in ctr.groups" ng-model="ctr.selectedGroup"></select>
   </div>
   <div ng-if="!ctr.accounts.length">
-    Перед тем как добавлять паблики и группы, нужно <a class="link" ng-click="ctr.addAccount();">добавить аккаунт</a>
+    Перед тем как добавлять паблики и группы, нужно <a class="link" ui-sref="public.accounts" ng-click="$close();">добавить аккаунт</a>
   </div>
   <strong class="text-danger" ng-bind="ctr.error"></strong>
 </div>

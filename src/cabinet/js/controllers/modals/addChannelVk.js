@@ -54,23 +54,7 @@ angular.module('Cabinet').controller('CCM_addChannelVk', [
         ctr.groups = resp.data.data.groups;
         ctr.selectedGroup = ctr.groups[0];
       });
-    })
-
-
-    ctr.addAccount = function() {
-      S_enviroment.extensionIsset().then(function(resp) {
-        if (resp) {
-          S_enviroment.callExtensionVkAuth();
-        } else {
-          S_eventer.sendEvent('showAddExtensionLayer');
-        }
-      });
-
-      $(window).on('focus', function() {
-        $(window).off('focus');
-        ctr.refreshAccounts();
-      });
-    }
+    });
 
     ctr.refreshAccounts();
 

@@ -1,5 +1,5 @@
 angular.module('Cabinet').controller('CV_public_accounts',
-  function($scope, $state, $filter, $location, S_vk, S_utils, S_enviroment, S_selfapi, S_eventer) {
+  function($scope, $state, $filter, $location, S_vk, S_utils, S_enviroment, S_selfapi, S_eventer, __api) {
     var ctr = this;
 
 
@@ -24,6 +24,10 @@ angular.module('Cabinet').controller('CV_public_accounts',
       if (exp > 0) {
         return 'доступ до ' + $filter('date')(exp * 1000, 'dd-MM-yyyy');
       }
+    }
+
+    ctr.getAuthUrl = function(social) {
+      return __api.baseUrl + 'accounts/auth/' + social + '/';
     }
 
     return ctr;

@@ -9,7 +9,7 @@ angular.module('Cabinet')
       service.default = {
         version: '5.26',
         language: 'ru'
-      };
+      };  
 
       var _requestStack = [];
 
