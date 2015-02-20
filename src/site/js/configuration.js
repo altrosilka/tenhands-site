@@ -28,4 +28,4 @@ angular.module('configuraion',[])
       }
     } 
   })
-  .constant('__extensionId','njbifdlkgjknapheokjpilhjpemjbmnk')
+  .constant('__extensionId','@extensionId')

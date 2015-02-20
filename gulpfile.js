@@ -16,6 +16,7 @@ var gulp = require("gulp"),
 
 
 var urlConfig = require('./src/config/urls');
+var extensionConfig = require('./config/extension');
 
 var SRC = {
   cabinet: {
@@ -98,6 +99,9 @@ gulp.task('pack:scripts-site', function() {
       patterns: [{
         match: 'apiServer',
         replacement: urlConfig.apiServer_dev
+      },{
+        match: 'extensionId',
+        replacement: extensionConfig.extensionId_dev
       }]
     }))
     .pipe(ngAnnotate())
@@ -115,6 +119,9 @@ gulp.task('pack:scripts-cabinet', function() {
       patterns: [{
         match: 'apiServer',
         replacement: urlConfig.apiServer_dev
+      },{
+        match: 'extensionId',
+        replacement: extensionConfig.extensionId_dev
       }]
     }))
     .pipe(ngAnnotate())
@@ -183,6 +190,9 @@ gulp.task('build:scripts-site', function() {
       patterns: [{
         match: 'apiServer',
         replacement: urlConfig.apiServer
+      },{
+        match: 'extensionId',
+        replacement: extensionConfig.extensionId
       }]
     }))
     .pipe(ngAnnotate())
@@ -202,6 +212,9 @@ gulp.task('build:scripts-cabinet', function() {
       patterns: [{
         match: 'apiServer',
         replacement: urlConfig.apiServer
+      },{
+        match: 'extensionId',
+        replacement: extensionConfig.extensionId
       }]
     }))
     .pipe(ngAnnotate())
