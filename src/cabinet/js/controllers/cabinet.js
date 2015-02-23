@@ -1,14 +1,18 @@
 angular.module('Cabinet').controller('C_cabinet',
 
-  function($scope, $state, $cookies, S_selfapi, S_vk) {
+  function($scope, $state, $timeout, S_selfapi, S_vk) {
     var ctr = this;
 
     $scope.$on('showAddExtensionLayer', function() {
       ctr.showAddExtensionLayer = true;
     });
 
-    $scope.$on('setUserName', function(event, userName) {
+    $scope.$on('setUserName', function(event, userName) { 
       ctr.userName = userName;
+    });
+
+    $scope.$on('state:userRecieved', function(event, userName) { 
+      ctr.disableLoader = true;
     });
 
     ctr.logout = function() {
@@ -16,6 +20,11 @@ angular.module('Cabinet').controller('C_cabinet',
         $state.go('login');
       });
     }
+
+
+    $timeout(function() {
+      ctr.disableLoader = true;
+    }, 2000);
 
     return ctr;
   }

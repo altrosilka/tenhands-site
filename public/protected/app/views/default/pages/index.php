@@ -16,11 +16,14 @@
       <h3 style="display:none;">Публикуй записи парой кликов сразу во все социальные сети, подключай модераторов и анализируй статистику</h3>
     </div>
 
-    <div class="enterForm">
+    <div class="enterForm" ng-class="{'entered': ctr.inprogress}">
       <h3 class="text-center">Получите 14 дней тестового периода прямо сейчас!</h3>
       <form name="signUp" data-ng-submit="signUp.$valid && ctr.signUp(ctr.email, ctr.password)" novalidate="">
         <input ng-model="ctr.email" name="email"  autocomplete="off" type="email" required="" placeholder="Ваш E-Mail">
-        <button><i class="ion-ios-arrow-right"></i></button>
+        <button>
+          <i class="loader ion-load-c fa-spin"></i>
+          <i class="arrow ion-ios-arrow-right"></i>
+        </button>
         <input type="submit" style="position:absolute;left:-9999px;">
       </form>
     </div>
@@ -74,11 +77,14 @@
     </ul>
 
 
-    <div class="enterForm light">
+    <div class="enterForm light" ng-class="{'entered': ctr.inprogress}">
       <h3 class="text-center">Пробуйте бесплатно в течение 14 дней!</h3>
       <form name="signUp" data-ng-submit="signUp.$valid && ctr.signUp(ctr.email, ctr.password)" novalidate="">
         <input ng-model="ctr.email" name="email"  autocomplete="off" type="email" required="" placeholder="Ваш E-Mail">
-        <button><i class="ion-ios-arrow-right"></i></button>
+        <button>
+          <i class="loader ion-load-c fa-spin"></i>
+          <i class="arrow ion-ios-arrow-right"></i>
+        </button>
         <input type="submit" style="position:absolute;left:-9999px;">
       </form>
     </div>
@@ -100,11 +106,14 @@
     </div>
 
 
-    <div class="enterForm light">
+    <div class="enterForm light" ng-class="{'entered': ctr.inprogress}">
       <h3 class="text-center">Присоединяйтесь и Вы и получите 14 дней тестового периода!</h3>
       <form name="signUp" data-ng-submit="signUp.$valid && ctr.signUp(ctr.email, ctr.password)" novalidate="">
         <input ng-model="ctr.email" name="email"  autocomplete="off" type="email" required="" placeholder="Ваш E-Mail">
-        <button><i class="ion-ios-arrow-right"></i></button>
+        <button>
+          <i class="loader ion-load-c fa-spin"></i>
+          <i class="arrow ion-ios-arrow-right"></i>
+        </button>
         <input type="submit" style="position:absolute;left:-9999px;">
       </form>
     </div>

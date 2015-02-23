@@ -13,6 +13,9 @@
 
 <body ng-app="Cabinet" ng-controller="C_cabinet as ctr" class="cabinet">
   <ng-include src="'templates/other/downloadExtension.html'"></ng-include>
+  <div class="preloader" ng-if="!ctr.disableLoader">
+    <i class="ion-load-c fa-spin"></i>
+  </div> 
   <nav class="toppanel">
     <div class="container">
       <menu class="pull-left">

@@ -27,7 +27,6 @@ angular.module('Cabinet')
       setUserPassword: 'users/setUserPassword',
       getVkToken: 'vkToken',
       getTwitterAuthUrl: 'auth/twitter/getUrl',
-      getFacebookAuthUrl: 'auth/facebook/getUrl',
       getVkAuthUrl: 'auth/vk/getUrl',
       extension:{
         afterInstall: '/pages/afterInstall.html' 

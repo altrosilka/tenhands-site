@@ -1,28 +1,29 @@
-<section class="v_login">
-
-  <div class="scaled" ng-class="{'after': ctr.preloading}">
-    <a href="/" class="homelink link">Обратно на сайт</a>
-
-    <div class="blackBlock">
-
-      <form name="ctr.form" ng-submit=" ctr.form.$valid && ctr.signIn()" novalidate>
-
-        <input type="text" require ng-model="ctr.email" ng-minlength="2" ng-maxlength="30" placeholder="Логин" autofocus>
-        <input type="password" require ng-model="ctr.password" ng-maxlength="30" placeholder="Пароль">
-
-
-
-
-        <div class="actions">
-
-          <div class="errorMessage pull-left" ng-class="{'active':ctr.error}">
-            Неверный логин или пароль.
-          </div>
-
-          <button type="submit" class="btn btn-on-blue pull-right">Войти</button>
-        </div>
-      </form>
-
-    </div> 
-  </div>
+<section class="v_login" ng-controller="CV_login as login_ctr">
+  <a href="/" class="homelink link">Обратно на сайт</a>
+  <form class="text-center" ng-class="{'error':login_ctr.error}" ng-submit="login_ctr.auth(login_ctr.email, login_ctr.password)">
+    <div>
+      <div class="wrapInput">
+        <span class="input input--juro" ng-class="{'input--filled': login_ctr.email != ''}">
+      <input class="input__field input__field--juro" type="text" id="input-1" ng-model="login_ctr.email" />
+      <label class="input__label input__label--juro" for="input-1">
+          <span class="input__label-content input__label-content--juro">Адрес электронной почты</span>
+        </label>
+        </span>
+      </div>
+      <div class="wrapInput">
+        <span class="input input--juro" ng-class="{'input--filled': login_ctr.password != ''}">
+      <input class="input__field input__field--juro" type="password" id="input-2" ng-model="login_ctr.password" />
+      <label class="input__label input__label--juro" for="input-2">
+          <span class="input__label-content input__label-content--juro">Пароль</span>
+        </label>
+        </span>
+      </div>
+    </div>
+    <div>
+      <button class="btn btn-primary introButton">
+        <span>Войти</span>
+      </button>
+    </div>
+    <input type="submit" style="left:-9999px;position:absolute">
+  </form>
 </section>

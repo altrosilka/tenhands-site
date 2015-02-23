@@ -27,6 +27,7 @@ var SRC = {
         './bower_components/bootstrap/dist/js/bootstrap.js',
         './bower_components/angular/angular.js',
         './bower_components/angular-sanitize/angular-sanitize.js',
+        './bower_components/angular-animate/angular-animate.js',
         './bower_components/angular-ui-router/release/angular-ui-router.js',
         './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
         './bower_components/momentjs/moment.js',
@@ -49,11 +50,11 @@ var SRC = {
   site: {
     vendor: {
       js: [
+        './bower_components/jquery/dist/jquery.js',
         './bower_components/angular/angular.js'
       ],
       css: [
         './bower_components/bootstrap/dist/css/bootstrap.min.css',
-        './bower_components/font-awesome/css/font-awesome.css',
         './bower_components/ionicons/css/ionicons.css'
       ]
     },
@@ -99,7 +100,7 @@ gulp.task('pack:scripts-site', function() {
       patterns: [{
         match: 'apiServer',
         replacement: urlConfig.apiServer_dev
-      },{
+      }, {
         match: 'extensionId',
         replacement: extensionConfig.extensionId_dev
       }]
@@ -119,7 +120,7 @@ gulp.task('pack:scripts-cabinet', function() {
       patterns: [{
         match: 'apiServer',
         replacement: urlConfig.apiServer_dev
-      },{
+      }, {
         match: 'extensionId',
         replacement: extensionConfig.extensionId_dev
       }]
@@ -190,7 +191,7 @@ gulp.task('build:scripts-site', function() {
       patterns: [{
         match: 'apiServer',
         replacement: urlConfig.apiServer
-      },{
+      }, {
         match: 'extensionId',
         replacement: extensionConfig.extensionId
       }]
@@ -212,7 +213,7 @@ gulp.task('build:scripts-cabinet', function() {
       patterns: [{
         match: 'apiServer',
         replacement: urlConfig.apiServer
-      },{
+      }, {
         match: 'extensionId',
         replacement: extensionConfig.extensionId
       }]

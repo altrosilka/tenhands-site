@@ -1,14 +1,46 @@
-angular.module('Cabinet').config([
-  '$stateProvider',
-  '$urlRouterProvider',
-  '$locationProvider',
-  '$httpProvider',
+angular.module('Cabinet').config(
   function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
     $httpProvider.defaults.withCredentials = true;
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    //$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=utf8';
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=utf8';
+
+    $httpProvider.defaults.transformRequest = [function(data) {
+      var param = function(obj) {
+        var query = '';
+        var name, value, fullSubName, subValue, innerObj, i;
+
+        for (name in obj) {
+          value = obj[name];
+
+          if (value instanceof Array) {
+            for (i = 0; i < value.length; ++i) {
+              subValue = value[i];
+              fullSubName = name + '[' + i + ']';
+              innerObj = {};
+              innerObj[fullSubName] = subValue;
+              query += param(innerObj) + '&';
+            }
+          } else if (value instanceof Object) {
+            for (subName in value) {
+              subValue = value[subName];
+              fullSubName = name + '[' + subName + ']';
+              innerObj = {};
+              innerObj[fullSubName] = subValue;
+              query += param(innerObj) + '&';
+            }
+          } else if (value !== undefined && value !== null) {
+            query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+          }
+        }
+
+        return query.length ? query.substr(0, query.length - 1) : query;
+      };
+
+      return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+    }];
+
 
     $locationProvider.html5Mode(true).hashPrefix('!');
 
@@ -40,7 +72,12 @@ angular.module('Cabinet').config([
       .state('public.accounts', {
         url: "accounts/?error&network&success&account",
         controller: 'CV_public_accounts as ctr',
-        templateUrl: "templates/views/public/accounts.html"
+        templateUrl: "templates/views/public/accounts.html",
+        resolve: {
+          _accounts: function(S_selfapi) {
+            return S_selfapi.getUserAccounts();
+          }
+        }
       })
       .state('public.history', {
         url: "history/?set_id",
@@ -64,4 +101,4 @@ angular.module('Cabinet').config([
         reloadOnSearch: false
       })
   }
-]);
+);

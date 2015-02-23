@@ -164,13 +164,6 @@ angular.module('Cabinet')
         });
       }
 
-      service.getFacebookAuthUrl = function() {
-        return $http({
-          url: base + __api.paths.getFacebookAuthUrl,
-          method: 'GET'
-        });
-      }
-
       service.getVkAuthUrl = function() {
         return $http({
           url: base + __api.paths.getVkAuthUrl,

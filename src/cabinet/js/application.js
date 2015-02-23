@@ -2,7 +2,8 @@ angular.module('Cabinet', [
   'ui.router',
   'ngSanitize',
   'ngCookies',
-  'ui.bootstrap',
+  'ngAnimate',
+  'ui.bootstrap', 
   'templates'
 ]);
  

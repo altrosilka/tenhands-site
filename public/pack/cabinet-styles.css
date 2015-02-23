@@ -4,7 +4,6 @@
 /* цвет основного фона */
 /* цвет основного фона */
 body.cabinet {
-  font-family: Tahoma, Geneva, sans-serif, arial, verdana;
   background-color: #ffffff;
   font-size: 13px;
   color: #222222;
@@ -16,6 +15,35 @@ body.cabinet .view {
   background: #FFF;
   border-radius: 3px;
   padding: 30px;
+}
+.preloader {
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: #F9F9F9;
+}
+.preloader i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 40px;
+  margin: -18px 0 0 -20px;
+}
+.preloader.ng-enter,
+.preloader.ng-leave {
+  -webkit-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+}
+.preloader.ng-enter,
+.preloader.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+.preloader.ng-leave,
+.preloader.ng-enter.ng-enter-active {
+  opacity: 1;
 }
 .smallWrap {
   width: 500px;
@@ -50,13 +78,13 @@ body.cabinet .view {
 }
 .toppanel menu a {
   line-height: 60px;
-  display: block;
+  display: inline-block;
   float: left;
   padding: 0 12px 2px;
   text-decoration: none;
   color: #FFF;
   opacity: 0.6;
-  transition: 0.3s;
+  transition: opacity 0.3s;
   font-size: 13px;
 }
 .toppanel menu a:hover {
@@ -1294,75 +1322,185 @@ body[data-status="loading"] .v_analytics_filials .chartField {
 .calicon:hover {
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
 }
+.v_login {
+  background: #ECF0F1;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 30;
+  /* Juro */
+}
 .v_login a.homelink {
   font-size: 14px;
   position: fixed;
   top: 60px;
   left: 60px;
-  color: #fff;
-}
-.v_login .scaled {
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  background: #2c3e50;
-  z-index: 200;
-}
-.v_login .blackBlock {
-  width: 400px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  padding: 0px;
-  margin: -100px 0 0 -200px;
-  color: #fff;
-}
-.v_login .blackBlock input[type="text"],
-.v_login .blackBlock input[type="password"] {
-  background: #222;
-  border: 1px solid #555;
-  display: block;
-  margin-bottom: 10px;
-  padding: 16px 20px;
-  font-size: 16px;
-  line-height: 16px;
-  width: 100%;
-  color: #fff;
-}
-.v_login .blackBlock input[type="text"]:focus,
-.v_login .blackBlock input[type="password"]:focus {
-  outline: none;
-  border-color: #aaa;
-  z-index: 2;
-  position: relative;
-}
-.v_login .errorMessage {
-  margin-top: 16px;
-  color: #FF6363;
-  display: none;
-}
-.v_login .errorMessage.active {
-  display: inline-block;
-}
-.v_login .actions {
-  margin-top: 12px;
-}
-.v_login .actions .btn {
-  background: #FFF;
-  opacity: 0.7;
   color: #000;
-  width: 200px;
-  font-size: 16px;
-  line-height: 50px;
-  border: 1px solid #222;
 }
-.v_login .actions .btn:focus {
-  border: 1px solid #222!important;
+.v_login form {
+  position: absolute;
+  top: 50%;
+  margin-top: -77px;
+  left: 0;
+  right: 0;
 }
-.v_login .actions .btn:hover {
-  opacity: 1;
+.v_login form.error {
+  -webkit-animation: bounceMargin 0.5s 1;
+}
+.v_login .wrapInput {
+  display: inline-block;
+  margin: 0px 15px 0;
+  width: 350px;
+  font-size: 22px;
+}
+.v_login label {
+  margin: 0;
+}
+.v_login .input {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
+}
+.v_login .input__field {
+  position: relative;
+  display: block;
+  float: right;
+  padding: 0.8em;
+  width: 60%;
+  border: none;
+  border-radius: 0;
+  background: #f0f0f0;
+  color: #aaa;
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-appearance: none;
+  /* for box shadows to show on iOS */
+}
+.v_login .input__field:focus {
+  outline: none;
+}
+.v_login .input__label {
+  display: inline-block;
+  float: right;
+  padding: 0 1em;
+  width: 40%;
+  color: #6a7989;
+  font-weight: bold;
+  font-size: 70.25%;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.v_login .input__label-content {
+  position: relative;
+  display: block;
+  padding: 1.6em 0;
+  width: 100%;
+}
+.v_login .input--juro {
+  overflow: hidden;
+}
+.v_login .input__field--juro {
+  position: absolute;
+  z-index: 100;
+  padding: 2.15em 0.75em 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0);
+  color: #000;
+  font-size: 0.85em;
+}
+.v_login .input__label--juro {
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #FFF;
+  text-align: left;
+}
+.v_login .input__label-content--juro {
+  padding: 2em 1em;
+  -webkit-transform-origin: 0% 50%;
+  transform-origin: 0% 50%;
+  -webkit-transition: -webkit-transform 0.3s, color 0.3s;
+  transition: transform 0.3s, color 0.3s;
+  text-rendering: geometricPrecision;
+  font-weight: 300;
+}
+.v_login .input__label--juro::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0px solid transparent;
+  -webkit-transition: border-width 0.3s, border-color 0.3s;
+  transition: border-width 0.3s, border-color 0.3s;
+}
+.v_login .input__field--juro:focus + .input__label--juro::before,
+.v_login .input--filled .input__label--juro::before {
+  border-width: 8px;
+  border-color: #c3dae4;
+  border-top-width: 2em;
+}
+.v_login .input__field--juro:focus + .input__label--juro .input__label-content--juro,
+.v_login .input--filled .input__label--juro .input__label-content--juro {
+  color: #626262;
+  -webkit-transform: translate3d(0, -1.5em, 0) scale3d(0.75, 0.75, 1);
+  transform: translate3d(0, -1.5em, 0) scale3d(0.75, 0.75, 1) translateZ(1px);
+}
+.v_login .introButton {
+  padding: 15px 77px;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 30px;
+}
+@-webkit-keyframes bounceMargin {
+  0% {
+    transform: translateX(0px);
+  }
+  8% {
+    transform: translateX(-12px);
+  }
+  16% {
+    transform: translateX(0px);
+  }
+  25% {
+    transform: translateX(10px);
+  }
+  32% {
+    transform: translateX(0px);
+  }
+  41% {
+    transform: translateX(-8px);
+  }
+  50% {
+    transform: translateX(0px);
+  }
+  58% {
+    transform: translateX(6px);
+  }
+  67% {
+    transform: translateX(0px);
+  }
+  75% {
+    transform: translateX(-4px);
+  }
+  84% {
+    transform: translateX(0px);
+  }
+  92% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
 }
 .downloadExtension {
   position: fixed;

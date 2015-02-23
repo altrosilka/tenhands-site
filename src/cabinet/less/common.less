@@ -1,5 +1,4 @@
 body.cabinet {
-  font-family: Tahoma, Geneva, sans-serif, arial, verdana;
   background-color: @backgroundBody;
   font-size: 13px;
   color: @textColor;
@@ -8,8 +7,34 @@ body.cabinet {
   line-height: 1.5em;
   .view {
     background: #FFF;
-    border-radius: 3px;
+    border-radius: 3px; 
     padding: 30px;
+  }
+}
+.preloader {
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: #F9F9F9;
+  i {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 40px;
+    margin: -18px 0 0 -20px;
+  }
+  &.ng-enter, &.ng-leave {
+    -webkit-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s;
+    transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s;
+  }
+  &.ng-enter, &.ng-leave.ng-leave-active {
+    opacity: 0;
+  }
+  &.ng-leave, &.ng-enter.ng-enter-active {
+    opacity: 1;
   }
 }
 .smallWrap {
@@ -43,14 +68,14 @@ body.cabinet {
     overflow: auto;
     a {
       line-height: 60px;
-      display: block;
-      float: left;
-      padding: 0 12px 2px;
-      text-decoration: none;
-      color: #FFF;
-      opacity: 0.6;
-      transition: 0.3s;
-      font-size: 13px;
+display: inline-block;
+float: left;
+padding: 0 12px 2px;
+text-decoration: none;
+color: #FFF;
+opacity: 0.6;
+transition: opacity 0.3s;
+font-size: 13px;
       &:hover {
         opacity: 0.85;
       }

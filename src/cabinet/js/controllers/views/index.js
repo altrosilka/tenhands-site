@@ -3,6 +3,8 @@ angular.module('Cabinet')
     function($scope, $stateParams, S_selfapi, S_eventer, S_enviroment, $timeout) {
       var ctr = this;
 
+      ctr.extensionIsInstalled = true;
+
       ctr.saveName = function(name) {
         if (name === '') {
           return
