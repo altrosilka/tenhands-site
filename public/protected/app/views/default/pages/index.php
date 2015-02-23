@@ -1,4 +1,4 @@
-<?php $this->getView('utils/head'); $this->echoMeta(array()); $this->getView('utils/header'); ?>
+<?php $this->getView('utils/head'); /*$this->echoMeta(array());*/ $this->getView('utils/header'); ?>
 
 <section class="v_index" data-ng-controller="C_index as ctr">
 
