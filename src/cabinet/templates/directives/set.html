@@ -1,10 +1,14 @@
-<div class="title"><span class="name" ng-bind="set.name"></span>
+<div class="title">
+
+  <span ng-bind="set.name" ng-if="guestAccess"></span>
+
+  <input class="name" ng-if="!guestAccess" ng-model="set.name" ng-blur="ctr.setNewName(set.name)" ng-keyup="ctr.onNameKeyup(set.name)" ng-class="{'error':ctr.errorInName}">
   <div class="plural">
     <span class="link" ng-pluralize count="ctr.getChannelsCount(set.feed_ids)" when="ctr.channelsPlural" ng-click="ctr.openSet(set,'channels')" ng-class="{'active': ctr.activeMode === 'channels'}"></span>
-    <div class="ib" ng-if="!guestAccess"> / <span class="link" ng-pluralize count="ctr.getUsersCount(set.guest_users_ids)" when="ctr.usersPlural" ng-click="ctr.openSet(set, 'users')" ng-class="{'active': ctr.activeMode === 'users'}"></span>
-    </div>
+  <div class="ib" ng-if="!guestAccess"> / <span class="link" ng-pluralize count="ctr.getUsersCount(set.guest_users_ids)" when="ctr.usersPlural" ng-click="ctr.openSet(set, 'users')" ng-class="{'active': ctr.activeMode === 'users'}"></span>
   </div>
-</div> 
+</div>
+</div>
 
 <section class="section clearfix">
   <div class="channelsarea bar" ng-if="ctr.activeMode === 'channels'">
@@ -30,7 +34,7 @@
         <span class="btn fb socialBg" ng-click="ctr.addChannel('fb', set)"><i class="fa fa-facebook"></i></span>
         <span class="btn tw socialBg" ng-click="ctr.addChannel('tw', set)"><i class="fa fa-twitter"></i></span>
         <span class="btn ig socialBg ng-hide" ng-click="ctr.addChannel('ig', set)"><i class="fa fa-instagram"></i></span>
-        <span class="btn ok socialBg" ng-click="ctr.addChannel('ok', set)"><i class="fa fa-ok"></i></span>
+        <span class="btn ok socialBg" ng-click="ctr.addChannel('ok', set)">ok</span>
         <span class="btn gp socialBg ng-hide"><i class="fa fa-google-plus"></i></span>
       </div>
     </div>

@@ -31,6 +31,7 @@ var SRC = {
         './bower_components/angular-ui-router/release/angular-ui-router.js',
         './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
         './bower_components/momentjs/moment.js',
+        './bower_components/angular-ui-select/dist/select.js',
         './bower_components/momentjs/locale/ru.js',
         './bower_components/fancybox/source/jquery.fancybox.js',
         './bower_components/highcharts/highcharts.src.js',
@@ -39,6 +40,9 @@ var SRC = {
       css: [
         './bower_components/bootstrap/dist/css/bootstrap.min.css',
         './bower_components/font-awesome/css/font-awesome.css',
+        './bower_components/select2/select2.css',
+        './bower_components/select2/select2-bootstrap.css',
+        './bower_components/angular-ui-select/dist/select.css',
         './bower_components/ionicons/css/ionicons.css'
       ]
     },

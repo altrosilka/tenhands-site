@@ -1,5 +1,23 @@
-<section class="v_team smallWrap">
+<section class="v_team">
 
-  
+  <div class="member" member="member" ng-repeat="member in ctr.team" ng-class="{'active':ctr.setIsAvtive(set)}">
+
+  </div>
+
+  <form class="ng-hide addUserForm" ng-submit="ctr.addUserToSets()" ng-if="ctr.sets.length">
+    <input type="text" class="form-control" ng-model="ctr.newUserEmail" placeholder="e-mail">
+
+    <div class="select">
+      <ui-select multiple ng-model="ctr.selectedSets" theme="select2" ng-disabled="disabled" style="width:100%;margin:auto">
+        <ui-select-match placeholder="Выбрать наборы...">{{$item.name}}</ui-select-match>
+        <ui-select-choices repeat="set in ctr.sets | propsFilter: {name: $select.search}">
+          <div ng-bind-html="set.name | highlight: $select.search"></div>
+          </small>
+        </ui-select-choices>
+      </ui-select>
+    </div>
+
+    <button class="btn btn-primary pull-right">добавить</button>
+  </form>
 
 </section>

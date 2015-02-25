@@ -109,6 +109,19 @@ angular.module('Cabinet')
         });
       }
 
+      service.editSetProperty = function(setId, prop, value) {
+        var data = {
+          id: setId
+        };
+        data[prop] = value;
+
+        return $http({
+          url: base + __api.paths.sets,
+          method: 'POST',
+          data: data
+        });
+      }
+
       service.toggleChannel = function(channel_id, set_id, disabled) {
         return $http({
           url: base + __api.paths['channels/toggleDisableState'],
@@ -188,7 +201,7 @@ angular.module('Cabinet')
         });
       }
 
-      service.getUserOwnSets = function() {
+      service.getUserSets = function() {
         return $http({
           url: base + __api.paths.sets,
           method: 'GET'
@@ -267,6 +280,13 @@ angular.module('Cabinet')
             password: password,
             set_id: setId
           }
+        });
+      }
+
+      service.getUserSetsTeam = function() {
+        return $http({
+          url: base + __api.paths.getUserSetsTeam,
+          method: 'GET'
         });
       }
 

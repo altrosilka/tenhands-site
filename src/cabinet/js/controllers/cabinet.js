@@ -21,7 +21,9 @@ angular.module('Cabinet').controller('C_cabinet',
       });
     }
 
-
+    ctr.getMainState = function(){
+      return $state.current.name.split('.')[0];
+    }
 
 
 

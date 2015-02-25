@@ -32,7 +32,8 @@ angular.module('Cabinet')
         afterInstall: '/pages/afterInstall.html' 
       },
       getVkWallPosts: 'analytic/getWallPosts',
-      getPostingHistory: 'postingHistory'
+      getPostingHistory: 'postingHistory',
+      getUserSetsTeam: 'sets/getTeam'
     } 
   })
   .constant('__extensionId','@@extensionId')

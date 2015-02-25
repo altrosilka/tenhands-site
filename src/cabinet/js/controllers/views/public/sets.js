@@ -13,29 +13,21 @@ angular.module('Cabinet').controller('CV_public_sets', [
 
       ctr.newSetName = '';
       S_selfapi.addNewSet(setName).then(function(resp) {
-        ctr.updateSets(true);
+        ctr.updateSets();
       });
     }
 
-    
+
 
     ctr.updateSets = function(onlyOwn) {
-      if (onlyOwn) {
-        S_selfapi.getUserOwnSets().then(function(resp) {
-          ctr.sets = resp.data.data;
-        });
-      } else {
-
-      }
+      S_selfapi.getUserSets().then(function(resp) {
+        ctr.sets = resp.data.data;
+      });
     }
 
 
 
-    ctr.updateSets(true);
-
-    $scope.$on('trigger:updateChannels', function() {
-      ctr.updateSets(true);
-    });
+    ctr.updateSets();
 
     return ctr;
   }

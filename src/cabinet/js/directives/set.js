@@ -8,7 +8,7 @@ angular.module('Cabinet').directive('set', [function() {
     link: function($scope, $element) {
 
     },
-    controller: function(S_selfapi, S_utils) {
+    controller: function($scope, S_selfapi, S_utils) {
       var ctr = this;
 
       ctr.addNewUser = function(email) {
@@ -23,6 +23,7 @@ angular.module('Cabinet').directive('set', [function() {
 
 
       ctr.openSet = function(set, type) {
+
         if (ctr.activeMode === type) {
           return;
         }
@@ -32,12 +33,29 @@ angular.module('Cabinet').directive('set', [function() {
         ctr.loadSetInfo(set);
       }
 
+      ctr.setNewName = function(name) {
+        ctr.errorInName = false;
+        if (name.length < 3) {
+          ctr.errorInName = true;
+          return
+        }
 
+        S_selfapi.editSetProperty($scope.set.id, 'name', name).then(function(){
+
+        });
+      }
+
+      ctr.onNameKeyup = function(name) {
+        ctr.errorInName = false;
+        if (name.length < 3) {
+          ctr.errorInName = true;
+        }
+      }
 
 
       ctr.addChannel = function(type, set) {
         S_utils.openAddChannelDialog(type, set.id).then(function(resp) {
-          ctr.openSet(ctr.openedSet);
+          ctr.loadSetInfo(ctr.openedSet);
         });
       }
 
@@ -66,8 +84,8 @@ angular.module('Cabinet').directive('set', [function() {
 
       ctr.loadSetInfo = function(set) {
         S_selfapi.loadSetFullInfo(set.id).then(function(resp) {
-          ctr.openedSetChannels = resp.data.data.channels;
-          ctr.openedSetUsers = resp.data.data.users;
+          ctr.openedSetChannels = resp.data.data[0].channels;
+          ctr.openedSetUsers = resp.data.data[0].users;
         });
       }
 

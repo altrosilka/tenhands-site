@@ -1,9 +1,10 @@
 angular.module('Cabinet', [
   'ui.router',
-  'ngSanitize',
+  'ui.select',
+  'ngSanitize', 
   'ngCookies',
   'ngAnimate',
   'ui.bootstrap', 
   'templates'
 ]);
- 
+   

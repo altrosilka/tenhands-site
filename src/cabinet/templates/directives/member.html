@@ -1,0 +1,20 @@
+<div class="title clearfix">
+  <span class="name pull-left" ng-bind="ctr.getName()"></span>
+  <div class="plural pull-right">
+    <span class="link" ng-pluralize count="ctr.getSetsCount(member)" when="ctr.setsPlural" ng-click="ctr.open()" ng-class="{'active': ctr.activeMode}"></span>
+  </div>
+</div>
+</div>
+
+<section class="section clearfix">
+
+  <div class="setsArea" ng-if="ctr.activeMode">
+    <div class="set clearfix" ng-class="ctr.getSetClass(set)" ng-repeat="set in ctr.sets">
+      <span class="titleName pull-left" ng-bind="set.name"></span>
+      <div class="link pull-right toggler" ng-click="ctr.toggleUserFromSet(set)">
+        <span class="remove">убрать доступ</span>
+        <span class="add">восстановить</span>
+      </div>
+    </div>
+  </div>
+</section>

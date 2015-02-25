@@ -1,0 +1,73 @@
+.v_team {
+  margin: 0 -30px;
+  margin-top: 1px;
+  .section {
+    padding: 0 0px;
+    width: 500px;
+    margin: auto;
+  }
+  .member {
+    margin-bottom: -1px;
+    transition: 0.2s;
+    &:nth-child(even) { 
+      background: #fbfbfb;
+    }
+    >.title {
+      padding: 17px 0px;
+      height: 52px;
+      font-size: 16px;
+      width: 500px;
+      margin: auto;
+      .plural {
+        font-size: 14px;
+        display: block;
+        margin-top: -1px;
+        span {
+          &.active {
+            color: #000;
+            border-bottom: none;
+            cursor: default;
+          }
+        }
+      }
+    }
+    &.active {
+      opacity: 1;
+      cursor: default!important;
+    }
+    .setsArea {
+      padding: 10px 0 30px;
+    }
+    .set {
+      transition: 0.2s;
+      border-top: 1px solid #F5F5F5;
+      border-bottom: 1px solid #F5F5F5;
+      padding: 5px 0;
+      margin-bottom: -1px;
+      &.disabled {
+        .add {
+          display: block;
+        }
+        .remove {
+          display: none;
+        }
+      }
+    }
+  }
+  .toggler {
+    .add {
+      display: none;
+    }
+    .add, .remove {
+      cursor: pointer;
+    }
+  }
+
+  .addUserForm{
+    width:500px;
+    margin: 30px auto;
+    .select{
+      margin: 10px 0;
+    }
+  }
+}
