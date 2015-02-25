@@ -5,6 +5,14 @@ angular.module('Cabinet')
 
       ctr.extensionIsInstalled = true;
 
+      ctr.onGoingToStore = function() { 
+        $(window).on('focus', function() {
+          checkExtensionIsset();
+      
+          $(window).off('focus');
+        });
+      }
+
       ctr.saveName = function(name) {
         if (name === '') {
           return
@@ -51,14 +59,22 @@ angular.module('Cabinet')
         ctr.state = resp.data.data;
 
 
-        S_enviroment.extensionIsset().then(function(resp) {
-          ctr.extensionIsInstalled = resp;
-        });
+
       });
+
+      function checkExtensionIsset() {
+        S_enviroment.extensionIsset().then(function(resp) {
+  
+            ctr.extensionIsInstalled = resp;
+  
+        });
+      }
 
       if ($stateParams.successEmail) {
         ctr.showSuccessEmail = true;
       }
+
+      checkExtensionIsset();
 
       return ctr;
     });

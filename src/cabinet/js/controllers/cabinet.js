@@ -7,11 +7,11 @@ angular.module('Cabinet').controller('C_cabinet',
       ctr.showAddExtensionLayer = true;
     });
 
-    $scope.$on('setUserName', function(event, userName) { 
+    $scope.$on('setUserName', function(event, userName) {
       ctr.userName = userName;
     });
 
-    $scope.$on('state:userRecieved', function(event, userName) { 
+    $scope.$on('state:userRecieved', function(event, userName) {
       ctr.disableLoader = true;
     });
 
@@ -20,6 +20,9 @@ angular.module('Cabinet').controller('C_cabinet',
         $state.go('login');
       });
     }
+
+
+
 
 
     $timeout(function() {

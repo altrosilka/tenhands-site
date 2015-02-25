@@ -37,6 +37,17 @@ angular.module('App')
         });
       }
 
+      service.verifyEmailByCode = function(code){
+        return $http({
+          withCredentials: true,
+          url: base + __api.paths.verifyEmailByCode,
+          method: 'POST',
+          data: {
+            code: code
+          }
+        });
+      }
+
       return service;
     }
   ]);

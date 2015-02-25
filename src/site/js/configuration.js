@@ -25,7 +25,8 @@ angular.module('configuraion',[])
       getVkAuthUrl: 'auth/facebook/getUrl',
       extension:{
         afterInstall: '/pages/afterInstall.html' 
-      }
+      },
+      verifyEmailByCode: 'users/verifyEmail'
     } 
   })
   .constant('__extensionId','@extensionId')
