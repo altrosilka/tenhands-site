@@ -91,8 +91,48 @@ a.link, span.link, div.link {
     background-color: rgba(202, 233, 255, 0.17);
     &:hover {
       background-color: rgba(202, 233, 255, 0.57);
-      color:#444;
+      color: #444;
       -webkit-filter: contrast(1);
     }
+  }
+}
+.notifyPanel {
+  padding-right: 40px;
+  position: relative;
+  display: none;
+  line-height: 1.5em;
+  .closer {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    margin-top: -10px;
+    font-size: 16px;
+    opacity: 0.3;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    transition: 0.2s;
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+  &.inView {
+    background-color: #B0E4FF;
+    margin: -50px -30px 0;
+    padding: 30px 40px 30px 30px;
+    font-size: 15px;
+  }
+  &.inViewMenu {
+    background-color: #B0E4FF;
+    margin: -50px 0px 30px;
+    padding: 30px 40px 30px 30px;
+    font-size: 15px;
+  }
+}
+.widthPanel {
+  margin: auto;
+  &.std {
+    width: 800px;
   }
 }

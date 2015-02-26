@@ -3,16 +3,17 @@ angular.module('Cabinet')
     function($scope, S_vk, S_utils, S_selfapi) {
       var ctr = this;
 
-      ctr.selectedSets = []
-
-      S_selfapi.getUserSetsTeam().then(function(resp) {
-        ctr.team = resp.data.data;
-      });
+      ctr.selectedSets = [];
 
       S_selfapi.getUserSets().then(function(resp) {
         ctr.sets = resp.data.data.own;
       });
 
+      ctr.refreshTeam = function() {
+        S_selfapi.getUserSetsTeam().then(function(resp) {
+          ctr.team = resp.data.data;
+        });
+      }
 
       ctr.addUserToSets = function() {
         if (!ctr.selectedSets.length || !ctr.newUserEmail) {
@@ -22,8 +23,19 @@ angular.module('Cabinet')
         var setsIds = _.map(ctr.selectedSets, function(q) {
           return q.id;
         }).join(',');
-        console.log(setsIds);
+
+        S_selfapi.attachUserToSetByEmail(setsIds, ctr.newUserEmail).then(function(resp) {
+          if (resp.data.success) {
+            ctr.selectedSets = [];
+            ctr.newUserEmail = '';
+            ctr.refreshTeam();
+          }
+
+        });
+
       }
+
+      ctr.refreshTeam();
 
       return ctr;
     });

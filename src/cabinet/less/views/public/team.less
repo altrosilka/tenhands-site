@@ -1,15 +1,17 @@
 .v_team {
   margin: 0 -30px;
-  margin-top: 1px;
   .section {
     padding: 0 0px;
     width: 500px;
     margin: auto;
   }
+  .members {
+    margin-top: 1px;
+  }
   .member {
     margin-bottom: -1px;
     transition: 0.2s;
-    &:nth-child(even) { 
+    &:nth-child(even) {
       background: #fbfbfb;
     }
     >.title {
@@ -62,12 +64,82 @@
       cursor: pointer;
     }
   }
-
-  .addUserForm{
-    width:500px;
+  .addUserForm {
+    width: 500px;
     margin: 30px auto;
-    .select{
+    .select {
       margin: 10px 0;
+      width: 100%;
+      display: block;
+      font-weight: 300;
+    }
+  }
+  .select2-container-multi {
+    .select2-choices {
+      box-shadow: none;
+      background-image: none;
+      border: 1px solid #EEE;
+      color: #222;
+      line-height: 34px;
+      min-height: 0px;
+      .select2-search-field {
+        padding: 0px 15px;
+        input {
+          padding: 0;
+          margin: 0;
+          line-height: 34px;
+          display: inline-block;
+        }
+      }
+      .select2-search-choice {
+        background: #F9F9F9;
+        border-radius: 1px;
+        border: 1px solid #DDD;
+        padding: 7px 24px 7px 10px;
+      }
+      .select2-search-choice-close {
+        background: none!important;
+        font-size: 12px!important;
+        left: auto;
+        color: #000;
+        opacity: 0.2;
+        top: 7px;
+        right: 4px;
+        transition: 0.2s;
+        outline: none!important;
+        &:before {
+          content: "\f129";
+          display: inline-block;
+          font-family: Ionicons;
+          speak: none;
+          font-style: normal;
+          font-weight: 400;
+          font-variant: normal;
+          text-transform: none;
+          text-rendering: auto;
+          line-height: 1;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+    .select2-drop {
+      &.select2-drop-active {
+        border-top: 1px solid #5897FB;
+        margin-top: -1px;
+        box-shadow: none;
+        border-radius: 0px;
+      }
+    }
+    .select2-results {
+      padding: 0;
+      margin: 0;
+      .select2-result-label {
+        padding: 6px 10px 7px;
+      }
     }
   }
 }

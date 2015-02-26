@@ -35,7 +35,8 @@ var SRC = {
         './bower_components/momentjs/locale/ru.js',
         './bower_components/fancybox/source/jquery.fancybox.js',
         './bower_components/highcharts/highcharts.src.js',
-        './bower_components/angular-cookies/angular-cookies.js'
+        './bower_components/angular-cookies/angular-cookies.js',
+        './bower_components/angular-local-storage/dist/angular-local-storage.js'
       ],
       css: [
         './bower_components/bootstrap/dist/css/bootstrap.min.css',

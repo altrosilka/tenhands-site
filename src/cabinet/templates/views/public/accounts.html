@@ -1,29 +1,38 @@
-<section class="v_accounts smallWrap">
-  <header class="stdHeader">
+<section class="v_accounts ">
 
-    <a class="btn socialBg vk" ng-href="{{ctr.getAuthUrl('vk')}}"><span>Добавить ВК</span></a>
-    <a class="btn socialBg fb" ng-href="{{ctr.getAuthUrl('fb')}}"><span>Добавить Facebook</span></a>
-    <a class="btn socialBg ok" ng-href="{{ctr.getAuthUrl('ok')}}"><span>Добавить OK</span></a>
 
-  </header>
-  
+  <div class="notifyPanel inViewMenu text-center" notify-panel="c:public:accounts:greet">
+    Перед добавлением каналов нужно добавить аккаунты социальных сетей
+  </div>
 
-  <div class="setsarea">
-    <div class="setslist" ng-show="ctr.accounts.length">
-      <div class="account socialBg" data-network="{{account.network}}" ng-repeat="account in ctr.accounts" ng-click="ctr.openSet(account)">
-        <div class="title">
-          <span ng-bind="account.screen_name"></span>
+  <div class="smallWrap">
 
-          <div class="pull-right">
+    <header class="stdHeader">
 
-            <span class="ib" ng-bind="ctr.getExpiresString(account.expires_in)">
+      <a class="btn socialBg vk" ng-href="{{ctr.getAuthUrl('vk')}}"><span>Добавить ВК</span></a>
+      <a class="btn socialBg fb" ng-href="{{ctr.getAuthUrl('fb')}}"><span>Добавить Facebook</span></a>
+      <a class="btn socialBg ok" ng-href="{{ctr.getAuthUrl('ok')}}"><span>Добавить OK</span></a>
+
+    </header>
+
+
+    <div class="setsarea">
+      <div class="setslist" ng-show="ctr.accounts.length">
+        <div class="account socialBg" data-network="{{account.network}}" ng-repeat="account in ctr.accounts" ng-click="ctr.openSet(account)">
+          <div class="title">
+            <span ng-bind="account.screen_name"></span>
+
+            <div class="pull-right">
+
+              <span class="ib" ng-bind="ctr.getExpiresString(account.expires_in)">
             </span>
-            <span class="ng-hide link" ng-click="ctr.offAccount(account)">открепить</span>
-          </div>
+              <span class="ng-hide link" ng-click="ctr.offAccount(account)">открепить</span>
+            </div>
 
+          </div>
         </div>
       </div>
+      <div class="noResults" ng-hide="ctr.accounts.length">Пока еще нет ни одного аккаунта</div>
     </div>
-    <div class="noResults" ng-hide="ctr.accounts.length">Пока еще нет ни одного аккаунта</div>
   </div>
 </section>

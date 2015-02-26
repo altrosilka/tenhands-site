@@ -1,10 +1,10 @@
 angular.module('Cabinet', [
   'ui.router',
   'ui.select',
-  'ngSanitize', 
+  'ngSanitize',
   'ngCookies',
   'ngAnimate',
-  'ui.bootstrap', 
-  'templates'
+  'ui.bootstrap',
+  'templates',
+  'LocalStorageModule'
 ]);
-   

@@ -241,7 +241,6 @@ b,
   top: -1px;
   bottom: -1px;
   z-index: 2;
-  transition: 0.3s;
 }
 .viewNavigation a:hover {
   color: #666;
@@ -392,6 +391,46 @@ div.link.inverse:hover {
   background-color: rgba(202, 233, 255, 0.57);
   color: #444;
   -webkit-filter: contrast(1);
+}
+.notifyPanel {
+  padding-right: 40px;
+  position: relative;
+  display: none;
+  line-height: 1.5em;
+}
+.notifyPanel .closer {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  margin-top: -10px;
+  font-size: 16px;
+  opacity: 0.3;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  transition: 0.2s;
+}
+.notifyPanel .closer:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+.notifyPanel.inView {
+  background-color: #B0E4FF;
+  margin: -50px -30px 0;
+  padding: 30px 40px 30px 30px;
+  font-size: 15px;
+}
+.notifyPanel.inViewMenu {
+  background-color: #B0E4FF;
+  margin: -50px 0px 30px;
+  padding: 30px 40px 30px 30px;
+  font-size: 15px;
+}
+.widthPanel {
+  margin: auto;
+}
+.widthPanel.std {
+  width: 800px;
 }
 .date-selector {
   width: 100%;
@@ -949,18 +988,17 @@ div.link.inverse:hover {
 .v_sets .nosets {
   padding: 0 0px;
 }
+.v_accounts {
+  margin: 0 -30px;
+}
 .v_accounts .btn {
   color: #fff;
 }
 .v_accounts .stdHeader {
   padding: 40px 0px 5px;
 }
-.v_accounts .stdHeader .btn {
-  color: #fff!important;
-}
-.v_accounts .stdHeader .btn i {
-  display: inline-block;
-  margin-right: 8px;
+.v_accounts .stdHeader .btn span {
+  color: #fff;
 }
 .v_accounts .account {
   padding: 0px 30px;
@@ -969,12 +1007,14 @@ div.link.inverse:hover {
 }
 .v_team {
   margin: 0 -30px;
-  margin-top: 1px;
 }
 .v_team .section {
   padding: 0 0px;
   width: 500px;
   margin: auto;
+}
+.v_team .members {
+  margin-top: 1px;
 }
 .v_team .member {
   margin-bottom: -1px;
@@ -1033,6 +1073,73 @@ div.link.inverse:hover {
 }
 .v_team .addUserForm .select {
   margin: 10px 0;
+  width: 100%;
+  display: block;
+  font-weight: 300;
+}
+.v_team .select2-container-multi .select2-choices {
+  box-shadow: none;
+  background-image: none;
+  border: 1px solid #EEE;
+  color: #222;
+  line-height: 34px;
+  min-height: 0px;
+}
+.v_team .select2-container-multi .select2-choices .select2-search-field {
+  padding: 0px 15px;
+}
+.v_team .select2-container-multi .select2-choices .select2-search-field input {
+  padding: 0;
+  margin: 0;
+  line-height: 34px;
+  display: inline-block;
+}
+.v_team .select2-container-multi .select2-choices .select2-search-choice {
+  background: #F9F9F9;
+  border-radius: 1px;
+  border: 1px solid #DDD;
+  padding: 7px 24px 7px 10px;
+}
+.v_team .select2-container-multi .select2-choices .select2-search-choice-close {
+  background: none!important;
+  font-size: 12px!important;
+  left: auto;
+  color: #000;
+  opacity: 0.2;
+  top: 7px;
+  right: 4px;
+  transition: 0.2s;
+  outline: none!important;
+}
+.v_team .select2-container-multi .select2-choices .select2-search-choice-close:before {
+  content: "\f129";
+  display: inline-block;
+  font-family: Ionicons;
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  text-rendering: auto;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.v_team .select2-container-multi .select2-choices .select2-search-choice-close:hover {
+  opacity: 1;
+}
+.v_team .select2-container-multi .select2-drop.select2-drop-active {
+  border-top: 1px solid #5897FB;
+  margin-top: -1px;
+  box-shadow: none;
+  border-radius: 0px;
+}
+.v_team .select2-container-multi .select2-results {
+  padding: 0;
+  margin: 0;
+}
+.v_team .select2-container-multi .select2-results .select2-result-label {
+  padding: 6px 10px 7px;
 }
 .v_analytic_sandbox {
   min-height: 790px;

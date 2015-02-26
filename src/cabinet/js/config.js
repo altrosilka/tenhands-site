@@ -11,7 +11,7 @@ angular.module('Cabinet').config(
         var query = '';
         var name, value, fullSubName, subValue, innerObj, i;
 
-        for (name in obj) {
+        for (name in obj) { 
           value = obj[name];
 
           if (value instanceof Array) {
@@ -53,7 +53,7 @@ angular.module('Cabinet').config(
       controller: 'CV_login as ctr',
       templateUrl: "templates/views/login.html"
     })
-
+ 
     $stateProvider.state('index', {
       url: "/?successEmail&successRestore",
       controller: 'CV_index as ctr',
