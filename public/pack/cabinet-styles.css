@@ -208,7 +208,7 @@ b,
   font-weight: 500;
 }
 .viewNavigation {
-  border-right: 1px solid #F1F1FF;
+  border-right: 1px solid #E5E5E5;
   padding: 0;
   position: fixed;
   background: #fcfcfc;
@@ -788,7 +788,7 @@ div.link.inverse:hover {
   transition: 0.2s;
 }
 .v_sets .set:nth-child(even) {
-  background: #fbfbfb;
+  background: #F6FBFF;
 }
 .v_sets .set > .title {
   padding: 35px 0px;
@@ -1488,6 +1488,7 @@ body[data-status="loading"] .v_analytics_filials .chartField {
   margin-top: -77px;
   left: 0;
   right: 0;
+  transition: 0.4s;
 }
 .v_login form.error {
   -webkit-animation: bounceMargin 0.5s 1;
@@ -1644,6 +1645,60 @@ body[data-status="loading"] .v_analytics_filials .chartField {
   100% {
     transform: translateX(0px);
   }
+}
+.v_login .forgotPassword {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin-top: 120px;
+}
+.v_login .forgotPassword .area {
+  transform: translateY(0px);
+  transition: 0.4s;
+}
+.v_login .forgotPassword form {
+  top: 0px;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+.v_login.restoreMode form {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-200px);
+}
+.v_login.restoreMode .forgotPassword .area {
+  transform: translateY(-220px);
+}
+.v_login.restoreMode .forgotPassword form {
+  transform: translate(0px);
+  opacity: 1;
+  visibility: visible;
+}
+.v_login .bb {
+  transition: 0.4s;
+}
+.v_login .last {
+  transition: 0.3s linear 0.2s;
+  opacity: 0;
+  visibility: hidden;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin-top: -200px;
+  font-size: 16px;
+  line-height: 400px;
+  position: absolute;
+  text-align: center;
+}
+.v_login.successRestore .bb {
+  opacity: 0;
+  visibility: hidden;
+}
+.v_login.successRestore .last {
+  opacity: 1;
+  visibility: visible;
 }
 .downloadExtension {
   position: fixed;

@@ -3,8 +3,9 @@
 
   <div class="panelArea clearfix">
 
-    <div class="bg-success successEmail" ng-if="ctr.showSuccessEmail">
-      <span class="pull-right ion-close-round" ng-click="ctr.closeSuccessEmail()"></span> E-Mail адрес успешно подтвержден!
+    <div class="bg-success successEmail" ng-if="ctr.showNotify">
+      <span class="pull-right ion-close-round" ng-click="ctr.closeNotify()"></span>
+      <span ng-bind="ctr.notifyText"></span>
     </div>
 
     <div class="panel clearfix" ng-if="!ctr.extensionIsInstalled">

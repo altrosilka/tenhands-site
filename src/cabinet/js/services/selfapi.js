@@ -282,6 +282,16 @@ angular.module('Cabinet')
           }
         });
       }
+      
+      service.restorePassword = function(email) {
+        return $http({
+          url: base + __api.paths.restorePassword,
+          method: 'POST',
+          data: {
+            email: email
+          }
+        });
+      }
 
       service.getUserSetsTeam = function() {
         return $http({

@@ -1,12 +1,12 @@
-angular.module('configuraion',[])
+angular.module('configuraion', [])
   .constant('__afterLoginUrl', '/cabinet/')
   .constant('__timezone', 6)
-  .constant('__api', { 
-    baseUrl: '@@apiServer', 
+  .constant('__api', {
+    baseUrl: '@@apiServer',
     paths: {
       loadVkAccountGroups: 'social/vk/loadAdminGroups',
       loadFbAccountGroups: 'social/fb/loadAdminGroups',
-      'channels/toggleDisableState':'channels/toggleDisableState',
+      'channels/toggleDisableState': 'channels/toggleDisableState',
       'sets/attachUserByEmail': 'sets/attachUserByEmail/',
       'sets/attachUserById': 'sets/attachUserById',
       'sets/detachUserById': 'sets/removeUserFromSet',
@@ -14,7 +14,7 @@ angular.module('configuraion',[])
       addFbGroup: 'channels/fb',
       addIgAccount: 'channels/ig',
       signIn: 'auth/signin',
-      signUp: 'auth/signup', 
+      signUp: 'auth/signup',
       accounts: 'accounts',
       sets: 'sets',
       channels: 'channels',
@@ -23,10 +23,11 @@ angular.module('configuraion',[])
       getTwitterAuthUrl: 'auth/twitter/getUrl',
       getFacebookAuthUrl: 'auth/facebook/getUrl',
       getVkAuthUrl: 'auth/facebook/getUrl',
-      extension:{
-        afterInstall: '/pages/afterInstall.html' 
+      extension: {
+        afterInstall: '/pages/afterInstall.html'
       },
-      verifyEmailByCode: 'users/verifyEmail'
-    } 
+      verifyEmailByCode: 'users/verifyEmail',
+      restorePassword: 'auth/restorePassword'
+    }
   })
-  .constant('__extensionId','@extensionId')
+  .constant('__extensionId', '@extensionId')

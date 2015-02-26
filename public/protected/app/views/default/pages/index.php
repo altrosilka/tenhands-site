@@ -1,17 +1,13 @@
 <?php $this->getView('utils/head'); /*$this->echoMeta(array());*/ $this->getView('utils/header'); ?>
 
 <section class="v_index" data-ng-controller="C_index as ctr">
-
   <header animated-header>
-
-
-
     <div class="image"></div>
     <div class="inner">
       <div class="pull-right">
       <a class="link cabinet" href="/cabinet/">Войти в личный кабинет</a>
       </div>
-      <h1 class="main-title">Десять рук</h1>
+      <h1 class="main-title">Десять Рук</h1>
       <h2>Управляйте социальными сетями<br>быстро и эффективно</h2>
       <h3 style="display:none;">Публикуй записи парой кликов сразу во все социальные сети, подключай модераторов и анализируй статистику</h3>
     </div>

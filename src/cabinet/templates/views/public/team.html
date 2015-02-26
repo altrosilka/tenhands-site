@@ -4,6 +4,10 @@
 
   </div>
 
+  <div class="noResults text-center" ng-show="!ctr.team.length">
+  	Вы не поделились ни одним набором
+  </div>
+
   <form class="ng-hide addUserForm" ng-submit="ctr.addUserToSets()" ng-if="ctr.sets.length">
     <input type="text" class="form-control" ng-model="ctr.newUserEmail" placeholder="e-mail">
 

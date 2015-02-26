@@ -1,29 +1,61 @@
-<section class="v_login" ng-controller="CV_login as login_ctr">
+<section class="v_login" ng-controller="CV_login as login_ctr" ng-class="{'restoreMode':login_ctr.restoreMode, 'successRestore':login_ctr.successRestore}">
   <a href="/" class="homelink link">Обратно на сайт</a>
-  <form class="text-center" ng-class="{'error':login_ctr.error}" ng-submit="login_ctr.auth(login_ctr.email, login_ctr.password)">
-    <div>
-      <div class="wrapInput">
-        <span class="input input--juro" ng-class="{'input--filled': login_ctr.email != ''}">
+  <div class="bb">
+    <form class="text-center" ng-class="{'error':login_ctr.error}" ng-submit="login_ctr.auth(login_ctr.email, login_ctr.password)">
+      <div>
+        <div class="wrapInput">
+          <span class="input input--juro" ng-class="{'input--filled': login_ctr.email != ''}">
       <input class="input__field input__field--juro" type="text" id="input-1" ng-model="login_ctr.email" />
       <label class="input__label input__label--juro" for="input-1">
           <span class="input__label-content input__label-content--juro">Адрес электронной почты</span>
-        </label>
-        </span>
-      </div>
-      <div class="wrapInput">
-        <span class="input input--juro" ng-class="{'input--filled': login_ctr.password != ''}">
+          </label>
+          </span>
+        </div>
+        <div class="wrapInput">
+          <span class="input input--juro" ng-class="{'input--filled': login_ctr.password != ''}">
       <input class="input__field input__field--juro" type="password" id="input-2" ng-model="login_ctr.password" />
       <label class="input__label input__label--juro" for="input-2">
           <span class="input__label-content input__label-content--juro">Пароль</span>
-        </label>
+          </label>
+          </span>
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-primary introButton">
+          <span>Войти</span>
+        </button>
+      </div>
+      <input type="submit" style="left:-9999px;position:absolute">
+    </form>
+    <div class="forgotPassword">
+      <div class="text-center"><span class="link" ng-click="login_ctr.toggleRestorePassword()">
+      <span ng-if="!login_ctr.restoreMode">Забыли пароль?</span>
+        <span ng-if="login_ctr.restoreMode">Вспомнили?</span>
         </span>
       </div>
+      <div class="area">
+        <form class="text-center" ng-class="{'error':login_ctr.error}" ng-submit="login_ctr.restore(login_ctr.email)">
+          <div>
+            <div class="wrapInput">
+              <span class="input input--juro" ng-class="{'input--filled': login_ctr.email != ''}">
+            <input class="input__field input__field--juro" type="text" id="input-1" ng-model="login_ctr.email" />
+          <label class="input__label input__label--juro" for="input-1">
+          <span class="input__label-content input__label-content--juro">Адрес электронной почты</span>
+              </label>
+              </span>
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-primary introButton">
+              <span>Восстановить доступ</span>
+            </button>
+          </div>
+          <input type="submit" style="left:-9999px;position:absolute">
+        </form>
+      </div>
     </div>
-    <div>
-      <button class="btn btn-primary introButton">
-        <span>Войти</span>
-      </button>
-    </div>
-    <input type="submit" style="left:-9999px;position:absolute">
-  </form>
+  </div>
+  <div class="last">
+    Проверяйте почту <strong ng-bind="login_ctr.email"></strong>, мы выслали Вам все необходимые инструкции.
+  </div>
 </section>

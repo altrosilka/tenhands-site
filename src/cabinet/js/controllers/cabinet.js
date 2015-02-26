@@ -10,11 +10,11 @@ angular.module('Cabinet').controller('C_cabinet',
     $scope.$on('setUserName', function(event, userName) {
       ctr.userName = userName;
     });
-
+  
     $scope.$on('state:userRecieved', function(event, userName) {
       ctr.disableLoader = true;
     });
-
+ 
     ctr.logout = function() {
       S_selfapi.signOut().then(function() {
         $state.go('login');

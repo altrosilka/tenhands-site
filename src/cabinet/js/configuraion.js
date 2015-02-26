@@ -33,7 +33,8 @@ angular.module('Cabinet')
       },
       getVkWallPosts: 'analytic/getWallPosts',
       getPostingHistory: 'postingHistory',
-      getUserSetsTeam: 'sets/getTeam'
+      getUserSetsTeam: 'sets/getTeam',
+      restorePassword: 'auth/restorePassword'
     } 
   })
   .constant('__extensionId','@@extensionId')

@@ -5,10 +5,10 @@ angular.module('Cabinet')
 
       ctr.extensionIsInstalled = true;
 
-      ctr.onGoingToStore = function() { 
+      ctr.onGoingToStore = function() {
         $(window).on('focus', function() {
           checkExtensionIsset();
-      
+
           $(window).off('focus');
         });
       }
@@ -51,27 +51,27 @@ angular.module('Cabinet')
         });
       }
 
-      ctr.closeSuccessEmail = function() {
-        ctr.showSuccessEmail = false;
+      ctr.closeNotify = function() {
+        ctr.showNotify = false;
       }
 
       S_selfapi.getUserState().then(function(resp) {
         ctr.state = resp.data.data;
-
-
-
       });
 
       function checkExtensionIsset() {
         S_enviroment.extensionIsset().then(function(resp) {
-  
-            ctr.extensionIsInstalled = resp;
-  
+          ctr.extensionIsInstalled = resp;
         });
       }
 
       if ($stateParams.successEmail) {
-        ctr.showSuccessEmail = true;
+        ctr.showNotify = true;
+        ctr.notifyText = "E-Mail адрес успешно подтвержден!";
+      }
+      if ($stateParams.successRestore) {
+        ctr.showNotify = true;
+        ctr.notifyText = "Ваш пароль сброшен";
       }
 
       checkExtensionIsset();

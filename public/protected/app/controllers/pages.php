@@ -28,6 +28,11 @@ Class pages extends LM_Controller{
 			$this->getView('pages/verifyEmail');
 		}
 
+		if ($name === 'restorePassword'){
+			$meta['title'] = 'Десять Рук - восстановление пароля';
+			$this->getView('pages/restorePassword');
+		}
+
 		
 	}
 }

@@ -1,12 +1,12 @@
 @secondaryLight: #C3DAE4;
 .v_login {
   background: #ECF0F1;
-position: fixed;
-left: 0;
-right: 0;
-top: 0;
-bottom: 0;
-z-index: 30;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 30;
   a.homelink {
     font-size: 14px;
     position: fixed;
@@ -20,6 +20,7 @@ z-index: 30;
     margin-top: -77px;
     left: 0;
     right: 0;
+    transition: 0.4s;
     &.error {
       -webkit-animation: bounceMargin 0.5s 1;
     }
@@ -175,6 +176,66 @@ z-index: 30;
     }
     100% {
       transform: translateX(0px);
+    }
+  }
+  .forgotPassword {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    margin-top: 120px;
+    .area {
+      transform: translateY(0px);
+      transition: 0.4s;
+    }
+    form {
+      top: 0px;
+      margin: 0;
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+  &.restoreMode {
+    form {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-200px);
+    }
+    .forgotPassword {
+      .area {
+        transform: translateY(-220px);
+      }
+      form {
+        transform: translate(0px);
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+  .bb {
+    transition: 0.4s;
+  }
+  .last {
+    transition: 0.3s linear 0.2s;
+    opacity: 0;
+    visibility: hidden;
+    left: 0;
+    right: 0;
+    top: 50%;
+    margin-top: -200px;
+    font-size: 16px;
+    line-height: 400px;
+    position: absolute;
+    text-align: center;
+  }
+  &.successRestore {
+    .bb {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .last {
+      opacity: 1;
+      visibility: visible;
     }
   }
 }

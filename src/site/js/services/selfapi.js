@@ -48,6 +48,17 @@ angular.module('App')
         });
       }
 
+      service.restorePasswordByCode = function(code){
+        return $http({
+          withCredentials: true,
+          url: base + __api.paths.restorePassword,
+          method: 'POST',
+          data: {
+            code: code
+          }
+        });
+      }
+
       return service;
     }
   ]);
