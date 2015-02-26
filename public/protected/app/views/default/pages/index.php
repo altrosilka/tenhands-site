@@ -3,7 +3,7 @@
 <section class="v_index" data-ng-controller="C_index as ctr">
   <header animated-header>
     <div class="image"></div>
-    <div class="inner">
+    <div class="inner"> 
       <div class="pull-right">
       <a class="link cabinet" href="/cabinet/">Войти в личный кабинет</a>
       </div>

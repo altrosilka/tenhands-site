@@ -805,7 +805,7 @@ div.link.inverse:hover {
   border: none;
   outline: none;
   min-width: 0px;
-  width: auto;
+  width: 100%;
   display: inline-block;
 }
 .v_sets .set > .title .name:hover {
@@ -824,7 +824,7 @@ div.link.inverse:hover {
 .v_sets .set > .title .plural {
   font-size: 14px;
   display: block;
-  margin-top: 4px;
+  margin-top: 7px;
 }
 .v_sets .set > .title .plural span.active {
   color: #000;

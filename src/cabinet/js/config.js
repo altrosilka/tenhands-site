@@ -55,7 +55,7 @@ angular.module('Cabinet').config(
     })
 
     $stateProvider.state('index', {
-      url: "/?successEmail",
+      url: "/?successEmail&successRestore",
       controller: 'CV_index as ctr',
       templateUrl: "templates/views/index.html"
     })

@@ -69,6 +69,7 @@ angular.module('Cabinet')
         ctr.showNotify = true;
         ctr.notifyText = "E-Mail адрес успешно подтвержден!";
       }
+      
       if ($stateParams.successRestore) {
         ctr.showNotify = true;
         ctr.notifyText = "Ваш пароль сброшен";
