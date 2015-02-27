@@ -1,5 +1,5 @@
 angular.module('Cabinet')
-  .controller('CV_public_team',
+  .controller('CV_public_table',
     function($scope, S_vk, S_utils, S_selfapi) {
       var ctr = this;
 
@@ -24,14 +24,6 @@ angular.module('Cabinet')
           return q.id;
         }).join(',');
 
-        S_selfapi.attachUserToSetByEmail(setsIds, ctr.newUserEmail).then(function(resp) {
-          if (resp.data.success) {
-            ctr.selectedSets = [];
-            ctr.newUserEmail = '';
-            ctr.refreshTeam();
-          }
-
-        });
 
       }
 

@@ -59,7 +59,7 @@ angular.module('Cabinet').config(
       controller: 'CV_index as ctr',
       templateUrl: "templates/views/index.html"
     })
-    $stateProvider.state('public', {
+    $stateProvider.state('public', { 
         url: "/public/",
         abstract: false,
         templateUrl: "templates/views/public/index.html"
@@ -88,6 +88,11 @@ angular.module('Cabinet').config(
         url: "team/",
         controller: 'CV_public_team as ctr',
         templateUrl: "templates/views/public/team.html"
+      })
+      .state('public.table', {
+        url: "table/",
+        controller: 'CV_public_team as ctr',
+        templateUrl: "templates/views/public/table.html"
       })
 
     $stateProvider.state('analytic', {

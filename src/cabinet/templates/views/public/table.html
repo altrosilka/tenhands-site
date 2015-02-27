@@ -1,0 +1,24 @@
+<section class="v_table">
+
+  <div class="notifyPanel inViewMenu text-center" notify-panel="c:public:team:greet">
+    В разделе <strong>Расписание</strong> отображены все запланированные записи из наборов
+  </div> 
+ 
+
+  <form class="addUserForm" ng-submit="ctr.addUserToSets()" ng-if="ctr.sets.length">
+    <input type="text" class="form-control" ng-model="ctr.newUserEmail" placeholder="Добавить пользователя по E-mail">
+
+    <label class="select">
+      <ui-select multiple ng-model="ctr.selectedSets" theme="select2" ng-disabled="disabled" style="width:100%;margin:auto">
+        <ui-select-match placeholder="в наборы...">{{$item.name}}</ui-select-match>
+        <ui-select-choices repeat="set in ctr.sets | propsFilter: {name: $select.search}">
+          <div ng-bind-html="set.name | highlight: $select.search"></div>
+          </small>
+        </ui-select-choices>
+      </ui-select>
+    </label>
+
+    <button class="btn btn-primary pull-right">добавить</button>
+  </form>
+
+</section>
