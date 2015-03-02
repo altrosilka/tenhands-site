@@ -21,7 +21,7 @@ angular.module('Cabinet')
 
       ctr.open = function() {
   
-        ctr.opened = !ctr.opened;
+        ctr.opened = !ctr.opened; 
 
         if (ctr.opened) {
           $timeout(function() {

@@ -16,7 +16,7 @@ angular.module('Cabinet').controller('CCM_addChannelFb', [
 
       
       ctr.error = '';
-
+ 
       if (!ctr.selectedPage.id || !ctr.selectedAccount.id) {
         ctr.error = 'выбери аккаунт и группы';
         return;

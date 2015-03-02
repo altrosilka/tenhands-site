@@ -32,3 +32,4 @@ SetOutputFilter DEFLATE
   SetEnvIfNoCase Request_URI \.(?:avi|mov|mp4)$ no-gzip dont-vary
   SetEnvIfNoCase Request_URI \.mp3$ no-gzip dont-vary
  </IfModule>
+
