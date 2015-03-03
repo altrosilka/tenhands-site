@@ -11,7 +11,7 @@ angular.module('Cabinet').config(
         var query = '';
         var name, value, fullSubName, subValue, innerObj, i;
 
-        for (name in obj) { 
+        for (name in obj) {
           value = obj[name];
 
           if (value instanceof Array) {
@@ -40,30 +40,28 @@ angular.module('Cabinet').config(
 
       return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
     }];
-
+ 
 
     $locationProvider.html5Mode(true).hashPrefix('!');
 
     $urlRouterProvider.otherwise("/login");
 
-    $stateProvider
-
-      .state('login', {
+    $stateProvider.state('login', {
       url: "/login",
       controller: 'CV_login as ctr',
       templateUrl: "templates/views/login.html"
     })
- 
+
     $stateProvider.state('index', {
       url: "/?successEmail&successRestore",
-      controller: 'CV_index as ctr',
+      controller: 'CV_index as ctr', 
       templateUrl: "templates/views/index.html"
-    })
+    })  
     $stateProvider.state('public', { 
         url: "/public/",
         abstract: false,
         templateUrl: "templates/views/public/index.html"
-      })
+      }) 
       .state('public.sets', {
         url: "sets/",
         controller: 'CV_public_sets as ctr',
@@ -91,7 +89,7 @@ angular.module('Cabinet').config(
       })
       .state('public.table', {
         url: "table/",
-        controller: 'CV_public_team as ctr',
+        controller: 'CV_public_table as ctr',
         templateUrl: "templates/views/public/table.html"
       })
 

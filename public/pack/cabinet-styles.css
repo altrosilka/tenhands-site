@@ -1141,6 +1141,51 @@ div.link.inverse:hover {
 .v_team .select2-container-multi .select2-results .select2-result-label {
   padding: 6px 10px 7px;
 }
+.v_table .fc-button {
+  transition: 0.2s;
+  position: relative;
+  top: -1px;
+  font-weight: 300;
+  font-size: 13px;
+  background: #FFF;
+  border-radius: 0px;
+  padding: 0px 15px;
+  color: #FFF;
+  line-height: 34px;
+  box-shadow: none;
+  text-shadow: none;
+  outline: none;
+  height: auto;
+  border: 1px solid #5A87B3;
+}
+.v_table .fc-button::-webkit-input-placeholder {
+  color: #aaa;
+}
+.v_table .fc-button:focus {
+  border-color: #3498db;
+  box-shadow: none;
+}
+.v_table .fc-button.fc-state-default {
+  background-color: #3498db;
+}
+.v_table .fc-button.fc-state-default:hover {
+  -webkit-filter: contrast(1.5);
+}
+.v_table .fc-button:focus,
+.v_table .fc-button:active {
+  border: 1px solid #5A87B3;
+  outline: none!important;
+}
+.v_table .fc-button.btn-trans {
+  background-color: transparent;
+  height: 31px;
+}
+.v_table .fc-button.btn-trans:hover {
+  background-color: #E6E8EC;
+}
+.v_table .fc-unthemed .fc-today {
+  background-color: #D8EDFF;
+}
 .v_analytic_sandbox {
   min-height: 790px;
 }

@@ -5,6 +5,7 @@ angular.module('Cabinet', [
   'ngCookies',
   'ngAnimate',
   'ui.bootstrap',
+  'ui.calendar',
   'templates',
   'LocalStorageModule'
 ]);

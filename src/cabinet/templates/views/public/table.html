@@ -2,10 +2,10 @@
 
   <div class="notifyPanel inViewMenu text-center" notify-panel="c:public:team:greet">
     В разделе <strong>Расписание</strong> отображены все запланированные записи из наборов
-  </div> 
- 
+  </div>
 
-  <form class="addUserForm" ng-submit="ctr.addUserToSets()" ng-if="ctr.sets.length">
+
+  <form class="addUserForm ng-hide" ng-submit="ctr.addUserToSets()" ng-if="ctr.sets.length">
     <input type="text" class="form-control" ng-model="ctr.newUserEmail" placeholder="Добавить пользователя по E-mail">
 
     <label class="select">
@@ -20,5 +20,8 @@
 
     <button class="btn btn-primary pull-right">добавить</button>
   </form>
+
+
+  <div ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="calendar"></div>
 
 </section>

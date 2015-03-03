@@ -25,12 +25,6 @@ angular.module('Cabinet').controller('C_cabinet',
       return $state.current.name.split('.')[0];
     }
 
-
-
-    $timeout(function() {
-      ctr.disableLoader = true;
-    }, 2000);
-
     return ctr;
   }
 );

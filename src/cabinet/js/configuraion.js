@@ -34,7 +34,8 @@ angular.module('Cabinet')
       getVkWallPosts: 'analytic/getWallPosts',
       getPostingHistory: 'postingHistory',
       getUserSetsTeam: 'sets/getTeam',
-      restorePassword: 'auth/restorePassword'
+      restorePassword: 'auth/restorePassword',
+      getTable: 'table'
     } 
   })
   .constant('__extensionId','@@extensionId')

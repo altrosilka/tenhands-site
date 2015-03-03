@@ -2,7 +2,7 @@ var gulp = require("gulp"),
   http = require("http"),
   concat = require('gulp-concat'),
   minifyCSS = require("gulp-minify-css"),
-  fs = require('fs'),
+  fs = require('fs'), 
   semver = require('semver'),
   uglify = require('gulp-uglify'),
   replace = require('gulp-replace-task'),
@@ -36,7 +36,9 @@ var SRC = {
         './bower_components/fancybox/source/jquery.fancybox.js',
         './bower_components/highcharts/highcharts.src.js',
         './bower_components/angular-cookies/angular-cookies.js',
-        './bower_components/angular-local-storage/dist/angular-local-storage.js'
+        './bower_components/angular-local-storage/dist/angular-local-storage.js',
+        './bower_components/fullcalendar/dist/fullcalendar.js',
+        './bower_components/fullcalendar/dist/lang/ru.js'
       ],
       css: [
         './bower_components/bootstrap/dist/css/bootstrap.min.css',
@@ -44,7 +46,8 @@ var SRC = {
         './bower_components/select2/select2.css',
         './bower_components/select2/select2-bootstrap.css',
         './bower_components/angular-ui-select/dist/select.css',
-        './bower_components/ionicons/css/ionicons.css'
+        './bower_components/ionicons/css/ionicons.css',
+        './bower_components/fullcalendar/dist/fullcalendar.css'
       ]
     },
     js: ['./src/cabinet/js/**/*.js'],

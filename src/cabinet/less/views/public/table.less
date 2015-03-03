@@ -1,0 +1,47 @@
+.v_table {
+  .fc-button {
+    transition: 0.2s;
+    position: relative;
+    top: -1px;
+    font-weight: 300;
+    font-size: 13px;
+    background: #FFF;
+    border-radius: 0px;
+    padding: 0px 15px;
+    color: #FFF;
+    line-height: 34px;
+    box-shadow: none;
+    text-shadow: none;
+    outline: none;
+    height: auto;
+    border: 1px solid #5A87B3;
+    &::-webkit-input-placeholder {
+      color: #aaa;
+    }
+    &:focus {
+      border-color: @colorPrimary;
+      box-shadow: none;
+    }
+    &.fc-state-default {
+      background-color: @colorPrimary;
+      &:hover {
+        -webkit-filter: contrast(1.5);
+      }
+    }
+    &:focus, &:active {
+    border: 1px solid #5A87B3;
+      outline: none!important;
+    }
+    &.btn-trans {
+      background-color: transparent;
+      height: 31px;
+      &:hover {
+        background-color: #E6E8EC;
+      }
+    }
+  }
+
+  .fc-unthemed .fc-today{
+  	background-color: #D8EDFF;
+  }
+}

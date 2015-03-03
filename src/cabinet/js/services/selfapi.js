@@ -23,6 +23,19 @@ angular.module('Cabinet')
         });
       }
 
+      service.getTable = function(from, to) {
+        return $http({
+          url: base + __api.paths.getTable,
+          method: 'GET',
+          withCredentials: true,
+          params: {
+            from: from,
+            to: to
+          }
+        });
+      }
+
+
       service.getVkWallPosts = function(owner_id) {
         return $http({
           url: base + __api.paths.getVkWallPosts,
@@ -282,7 +295,7 @@ angular.module('Cabinet')
           }
         });
       }
-      
+
       service.restorePassword = function(email) {
         return $http({
           url: base + __api.paths.restorePassword,

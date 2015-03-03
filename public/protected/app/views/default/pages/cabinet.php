@@ -23,7 +23,7 @@
       <menu class="pull-left">
         <a ui-sref="index" ng-class="{'active':ctr.getMainState() === 'index'}">Главная</a>
         <a ui-sref="public.sets" ng-class="{'active':ctr.getMainState() === 'public'}">Публикация</a>
-        <a class="ng-hide" ng-class="{'active':ctr.getMainState() === 'analytic'}" ui-sref="analytic">Аналитика</a>
+        <a ui-sref="analytic" ng-class="{'active':ctr.getMainState() === 'analytic'}">Аналитика</a>
       </menu>
 
       <div class="pull-right userInfo">
