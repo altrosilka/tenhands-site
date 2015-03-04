@@ -205,7 +205,7 @@
   </section>
 
 
-  <section class="section clientsSection">
+  <section class="section clientsSection" style="display:none;">
     <h2>У кого десять рук?</h2>
     <div class="text-center logos">
       <img src="/images/logos/sports.png" alt="Sports.ru">
