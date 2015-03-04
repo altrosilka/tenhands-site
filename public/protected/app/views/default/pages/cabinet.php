@@ -6,7 +6,7 @@
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
   <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
-
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,500&subset=latin,cyrillic" rel="stylesheet" type="text/css">
   <link rel="stylesheet" type="text/css" href="/pack/cabinet-vendor.css" />
   <link rel="stylesheet" type="text/css" href="/pack/cabinet-styles.css" />
   <title>Личный кабинет</title>
