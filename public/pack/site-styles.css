@@ -103,6 +103,11 @@ h3 {
 .v_index header .inner a.cabinet {
   margin-top: 39px;
 }
+.v_index header .triangle path {
+  fill: #fff;
+  stroke: #fff;
+  stroke-width: 1;
+}
 .v_index .section {
   position: relative;
   padding: 40px 0 180px;
@@ -112,6 +117,13 @@ h3 {
   text-align: center;
   margin: 0 0 50px;
   font-size: 38px;
+}
+.v_index .advanSection {
+  background: #fff;
+}
+.v_index .advanSection .triangle path {
+  fill: #f9f9f9;
+  stroke: #f9f9f9;
 }
 .v_index .advanSection .advan {
   width: 960px;
@@ -274,6 +286,99 @@ h3 {
   opacity: 1;
   visibility: visible;
 }
+.v_index .priceSection {
+  background: #f9f9f9;
+}
+.v_index .priceSection .wr {
+  width: 900px;
+  margin: auto;
+  background: #fff;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+  background-color: #E7F9FF;
+  margin-bottom: 40px;
+}
+.v_index .priceSection table {
+  margin: 0;
+  border: none;
+}
+.v_index .priceSection table tbody tr:last-child td {
+  padding-bottom: 30px;
+}
+.v_index .priceSection table td,
+.v_index .priceSection table th {
+  text-align: center;
+  border-color: #ccc;
+  border-bottom-width: 1px;
+  vertical-align: middle;
+  border: none;
+  padding: 16px 3px;
+}
+.v_index .priceSection table td.text-left,
+.v_index .priceSection table th.text-left {
+  text-align: right;
+  padding-right: 20px;
+}
+.v_index .priceSection table th {
+  border-bottom: 1px solid #fff;
+  vertical-align: top;
+  padding-top: 30px;
+}
+.v_index .priceSection table tr {
+  background: transparent;
+}
+.v_index .priceSection table tr .standart,
+.v_index .priceSection table tr .demo,
+.v_index .priceSection table tr .pro {
+  background-color: #DAF3FC;
+}
+.v_index .priceSection table tr .demo {
+  border-right: 1px solid #fff;
+}
+.v_index .priceSection table tr .optimal {
+  background-color: #fff;
+}
+.v_index .priceSection table tr .tool {
+  color: #777;
+  display: inline-block;
+  margin-left: 4px;
+}
+.v_index .priceSection table h3 {
+  font-weight: normal;
+  font-size: 17px;
+  margin: 5px 0px;
+  color: #777;
+}
+.v_index .priceSection table .desc {
+  font-weight: normal;
+  font-size: 10px;
+  color: #999;
+  display: none;
+}
+.v_index .priceSection table .bigg {
+  font-size: 20px;
+}
+.v_index .priceSection table .price {
+  margin-top: 15px;
+}
+.v_index .priceSection table .price h4 {
+  font-weight: normal;
+  font-size: 30px;
+  margin: 0 0 2px;
+}
+.v_index .priceSection table .price div {
+  color: #999;
+  font-weight: normal;
+  font-size: 10px;
+}
+.v_index .priceSection .noborder {
+  border: none;
+}
+.v_index .priceSection .triangle path {
+  fill: #f2f2f2;
+  stroke: #f2f2f2;
+}
 .v_index .clientsSection {
   background: #f2f2f2;
 }
@@ -284,7 +389,12 @@ h3 {
   height: 40px;
   margin: 20px;
 }
-.v_index .triangle.header {
+.v_index .clientsSection .triangle path {
+  fill: #222;
+  stroke: #222;
+  stroke-width: 1;
+}
+.v_index .triangle {
   position: absolute;
   bottom: -3px;
   left: 0;
@@ -293,28 +403,6 @@ h3 {
 .v_index .triangle.header path {
   fill: #f9f9f9;
   stroke: #f9f9f9;
-  stroke-width: 1;
-}
-.v_index .triangle.next1 {
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  right: 0;
-}
-.v_index .triangle.next1 path {
-  fill: #f2f2f2;
-  stroke: #f2f2f2;
-  stroke-width: 1;
-}
-.v_index .triangle.next2 {
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  right: 0;
-}
-.v_index .triangle.next2 path {
-  fill: #222;
-  stroke: #222;
   stroke-width: 1;
 }
 .v_index .fa-spin {

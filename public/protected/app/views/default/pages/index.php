@@ -13,7 +13,7 @@
     </div>
 
     <div class="enterForm" ng-class="{'entered': ctr.inprogress}">
-      <h3 class="text-center">Получите 14 дней тестового периода прямо сейчас!</h3>
+      <h3 class="text-center">Начни бесплатно публиковать в свою группу или аккаунт прямо сейчас!</h3>
       <form name="signUp" data-ng-submit="signUp.$valid && ctr.signUp(ctr.email, ctr.password)" novalidate="">
         <input ng-model="ctr.email" name="email"  autocomplete="off" type="email" required="" placeholder="Ваш E-Mail">
         <button>
@@ -24,7 +24,7 @@
       </form>
     </div>
  
-    <svg class="triangle header" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="140" viewBox="0 0 100 102" preserveAspectRatio="none">
+    <svg class="triangle" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="140" viewBox="0 0 100 102" preserveAspectRatio="none">
         <path d="M50 60 L0 10 L0 100 L50 100 M50 100 L100 100 L100 10 L50 60 Z"></path>
       </svg>
   </header>
@@ -74,7 +74,111 @@
 
 
     <div class="enterForm light" ng-class="{'entered': ctr.inprogress}">
-      <h3 class="text-center">Пробуйте бесплатно в течение 14 дней!</h3>
+      <h3 class="text-center">Пробуйте абсолютно бесплатно!</h3>
+      <form name="signUp" data-ng-submit="signUp.$valid && ctr.signUp(ctr.email, ctr.password)" novalidate="">
+        <input ng-model="ctr.email" name="email"  autocomplete="off" type="email" required="" placeholder="Ваш E-Mail">
+        <button>
+          <i class="loader ion-load-c fa-spin"></i>
+          <i class="arrow ion-ios-arrow-right"></i>
+        </button>
+        <input type="submit" style="position:absolute;left:-9999px;">
+      </form>
+    </div>
+    <svg class="triangle" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="140" viewBox="0 0 100 102" preserveAspectRatio="none">
+      <path d="M50 60 L0 10 L0 100 L50 100 M50 100 L100 100 L100 10 L50 60 Z"></path>
+    </svg>
+  </section>
+
+
+  <section class="section priceSection">
+    <h2>Тарифные планы</h2>
+    <div class="plans">
+      <div class="wr">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="noborder"></th>
+              <th class="demo" width="170">
+                <h3>Демо</h3>
+                <div class="desc">
+                попробовать сервис
+                </div>
+                <div class="price">
+                <h4>0₽</h4>
+                <div>рублей/месяц</div>
+                </div>
+              </th>
+              <th class="standart" width="170">
+                <h3>Личный</h3>
+                <div class="desc">
+                для самостоятельной публикации
+                </div>
+                <div class="price">
+                <h4>599₽</h4>
+                <div>рублей/месяц</div>
+                </div>
+              </th>
+              <th class="optimal" width="170">
+                <h3>Компания</h3>
+                <div class="desc">
+                для команды
+                </div>
+                <div class="price">
+                <h4>899₽</h4>
+                <div>рублей/месяц</div>
+                </div>
+              </th>
+              <th class="pro" width="170">
+                <h3>Медиа</h3>
+                <div class="desc">
+                для медиа-агентств
+                </div>
+                <div class="price">
+                <h4>1499₽</h4>
+                <div>рублей/месяц</div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left">человек в команде<i class="help tool ion-help-circled" data-toggle="tooltip" data-placement="right" title="Количество Ваших редакторов и аналитиков, которым можно дать доступ к просмотру и публикации"></i></td>
+              <td class="demo">0</td>
+              <td class="standart">0</td>
+              <td class="optimal">3</td>
+              <td class="pro">10</td>
+            </tr>
+             <tr>
+              <td class="text-left">количество наборов<i class="help tool ion-help-circled" data-toggle="tooltip" data-placement="right" title="Набор - совокупность каналов в соцсетях. Например, набор Природа, в котором будет несколько пабликов в ВК и ФБ"></i></td>
+              <td class="demo">1</td>
+              <td class="standart">2</td>
+              <td class="optimal">3</td>
+              <td class="pro">10</td>
+            </tr>
+            <tr>
+              <td class="text-left">каналов в одном наборе<i class="help tool ion-help-circled" data-toggle="tooltip" data-placement="right" title="Канал - паблик, группа или аккаунт (для Твиттера) в социальной сети"></i></td>
+              <td class="demo">2</td>
+              <td class="standart">5</td>
+              <td class="optimal">5</td>
+              <td class="pro">10</td>
+            </tr>
+            <tr>
+              <td class="text-left">планирование<i class="help tool ion-help-circled" data-toggle="tooltip" data-placement="right" title="На сколько дней вперед можно планировать пабликацию записей"></i></td>
+              <td class="demo">нет</td>
+              <td class="standart">на 14 дней</td>
+              <td class="optimal">на 30 дней</td>
+              <td class="pro">на 45 дней</td>
+            </tr>
+            
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+
+    <div class="enterForm light" ng-class="{'entered': ctr.inprogress}">
+      <h3 class="text-center">Зарегистрируйтесь, оплатите подписку и начните пользоваться</h3>
       <form name="signUp" data-ng-submit="signUp.$valid && ctr.signUp(ctr.email, ctr.password)" novalidate="">
         <input ng-model="ctr.email" name="email"  autocomplete="off" type="email" required="" placeholder="Ваш E-Mail">
         <button>
@@ -85,25 +189,21 @@
       </form>
     </div>
 
-
-        <svg class="triangle next1" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="140" viewBox="0 0 100 102" preserveAspectRatio="none">
+     <svg class="triangle" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="140" viewBox="0 0 100 102" preserveAspectRatio="none">
         <path d="M50 60 L0 10 L0 100 L50 100 M50 100 L100 100 L100 10 L50 60 Z"></path>
       </svg>
-
   </section>
-
 
 
   <section class="section clientsSection">
     <h2>У кого десять рук?</h2>
     <div class="text-center logos">
       <img src="/images/logos/sports.png" alt="Sports.ru">
-      <img src="/images/logos/2gis.png" alt="2GIS">
     </div>
 
 
     <div class="enterForm light" ng-class="{'entered': ctr.inprogress}">
-      <h3 class="text-center">Присоединяйтесь и Вы и получите 14 дней тестового периода!</h3>
+      <h3 class="text-center">Присоединяйтесь и Вы!</h3>
       <form name="signUp" data-ng-submit="signUp.$valid && ctr.signUp(ctr.email, ctr.password)" novalidate="">
         <input ng-model="ctr.email" name="email"  autocomplete="off" type="email" required="" placeholder="Ваш E-Mail">
         <button>
@@ -117,15 +217,13 @@
      <svg class="triangle next2" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="140" viewBox="0 0 100 102" preserveAspectRatio="none">
         <path d="M50 60 L0 10 L0 100 L50 100 M50 100 L100 100 L100 10 L50 60 Z"></path>
       </svg>
-
   </section>
 
   <footer>
     
     <menu>
-      <a href="#/about/" class="link">О сервисе</a>
+
       <a href="#/contacts/" class="link">Контакты</a>
-      <a href="#/price/" class="link">Цены</a>
       <a href="#/rules/" class="link">Пользовательское соглашение</a>
     </menu>
   </footer>

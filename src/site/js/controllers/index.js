@@ -23,6 +23,7 @@ angular.module('App')
         }
       }
 
+      $('.tool').tooltip({})
 
       return ctr;
     }
