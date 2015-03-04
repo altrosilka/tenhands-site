@@ -103,6 +103,9 @@ h3 {
 .v_index header .inner a.cabinet {
   margin-top: 39px;
 }
+.v_index header .inner a:focus {
+  text-decoration: none;
+}
 .v_index header .triangle path {
   fill: #fff;
   stroke: #fff;
@@ -202,6 +205,9 @@ h3 {
   display: inline-block;
   margin: 0 5px;
 }
+.v_index footer menu a:focus {
+  text-decoration: none;
+}
 .v_index .enterForm {
   z-index: 4;
   text-align: center;
@@ -226,7 +232,7 @@ h3 {
 }
 .v_index .enterForm input:focus {
   outline: none;
-  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.9);
+  box-shadow: 0px 0px 2px #000000;
 }
 .v_index .enterForm input[type="password"] {
   visibility: hidden;
@@ -296,8 +302,6 @@ h3 {
   border-radius: 2px;
   overflow: hidden;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
-  background-color: #E7F9FF;
-  margin-bottom: 40px;
 }
 .v_index .priceSection table {
   margin: 0;
@@ -321,23 +325,24 @@ h3 {
   padding-right: 20px;
 }
 .v_index .priceSection table th {
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #DAEAFF;
   vertical-align: top;
   padding-top: 30px;
 }
 .v_index .priceSection table tr {
   background: transparent;
 }
-.v_index .priceSection table tr .standart,
-.v_index .priceSection table tr .demo,
-.v_index .priceSection table tr .pro {
-  background-color: #DAF3FC;
-}
 .v_index .priceSection table tr .demo {
-  border-right: 1px solid #fff;
+  background-color: #FAFDFF;
+}
+.v_index .priceSection table tr .standart {
+  background-color: #EFF9FF;
 }
 .v_index .priceSection table tr .optimal {
-  background-color: #fff;
+  background-color: #E4F4FD;
+}
+.v_index .priceSection table tr .pro {
+  background-color: #DCF0FC;
 }
 .v_index .priceSection table tr .tool {
   color: #777;
@@ -374,6 +379,9 @@ h3 {
 }
 .v_index .priceSection .noborder {
   border: none;
+}
+.v_index .priceSection .promoinfo {
+  margin: 15px 0 60px;
 }
 .v_index .priceSection .triangle path {
   fill: #f2f2f2;
@@ -428,4 +436,8 @@ h3 {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
+}
+.v_rules {
+  margin: 50px auto;
+  width: 960px;
 }

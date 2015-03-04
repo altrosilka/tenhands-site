@@ -36,8 +36,8 @@
 
        <li>
         <div class="icon"><span class="ion-compose"></span></div>
-        <h3>5 записей за 10 секунд</h3>
-        <div class="text">Публикуйте материалы в <strong style="color:#43668A">ВКонтакте</strong>, <strong style="color:#1DACED">Твиттер</strong>, <strong style="color:#3B5998">Фейсбук</strong>, <strong style="color:#F2952A">Одноклассники</strong> и <strong style="color:#8B5C34">Инстаграм</strong> одновременно</div>
+        <h3>4 записи за 10 секунд</h3>
+        <div class="text">Публикуйте материалы в <strong style="color:#43668A">ВКонтакте</strong>, <strong style="color:#1DACED">Твиттер</strong>, <strong style="color:#3B5998">Фейсбук</strong>, <strong style="color:#F2952A">Одноклассники</strong> одновременно</div>
       </li>
 
        <li>
@@ -47,11 +47,6 @@
       </li>
 
 
-      <li>
-        <div class="icon"><span class="ion-social-chrome"></span></div>
-        <h3>Расширение для Chrome</h3>
-        <div class="text">Два клика на любом сайте и запись с текстом и изображением появится в социальных сетях</div>
-      </li>  
 
       <li>
         <div class="icon"><span class="ion-person-add"></span></div>
@@ -60,10 +55,23 @@
       </li>
      
       <li>
+        <div class="icon"><span class="ion-android-time"></span></div>
+        <h3>Планирование</h3>
+        <div class="text">Планируйте свои записи на 45 дней вперед, отдыхайте на выходных и в отпуске</div>
+      </li>  
+      <!--
+      <li>
         <div class="icon"><span class="ion-clipboard"></span></div>
         <h3>Статистика и отчеты</h3>
         <div class="text">Получайте свежую статистику по сообществам в соцсетях через веб-интерфейс или на электронную почту</div>
       </li>
+      -->
+
+      <li>
+        <div class="icon"><span class="ion-social-chrome"></span></div>
+        <h3>Расширение для Chrome</h3>
+        <div class="text">Два клика на любом сайте и запись с текстом и изображением появится в социальных сетях</div>
+      </li>  
 
       <li>
         <div class="icon"><span class="ion-android-lock"></span></div>
@@ -97,7 +105,7 @@
         <table class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th class="noborder"></th>
+              <th></th>
               <th class="demo" width="170">
                 <h3>Демо</h3>
                 <div class="desc">
@@ -175,7 +183,9 @@
 
       </div>
     </div>
-
+    <div class="promoinfo text-center">
+    Кстати, в нашей <a href="https://vk.com/10hands" target="_blank">группе в ВК</a> мы частенько дарим промокоды и активно общаемся с клиентами
+    </div>
 
     <div class="enterForm light" ng-class="{'entered': ctr.inprogress}">
       <h3 class="text-center">Зарегистрируйтесь, оплатите подписку и начните пользоваться</h3>
@@ -187,7 +197,7 @@
         </button>
         <input type="submit" style="position:absolute;left:-9999px;">
       </form>
-    </div>
+    </div> 
 
      <svg class="triangle" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="140" viewBox="0 0 100 102" preserveAspectRatio="none">
         <path d="M50 60 L0 10 L0 100 L50 100 M50 100 L100 100 L100 10 L50 60 Z"></path>
@@ -224,7 +234,7 @@
     <menu>
 
       <a href="#/contacts/" class="link">Контакты</a>
-      <a href="#/rules/" class="link">Пользовательское соглашение</a>
+      <a href="/rules/" class="link">Пользовательское соглашение</a>
     </menu>
   </footer>
 </section>
