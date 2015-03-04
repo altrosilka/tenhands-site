@@ -157,7 +157,7 @@
               <td class="pro">10</td>
             </tr>
              <tr>
-              <td class="text-left">количество наборов<i class="help tool ion-help-circled" data-toggle="tooltip" data-placement="right" title="Набор - совокупность каналов в соцсетях. Например, набор Природа, в котором будет несколько пабликов в ВК и ФБ"></i></td>
+              <td class="text-left">количество наборов<i class="help tool ion-help-circled" data-toggle="tooltip" data-placement="right" title="Набор - совокупность каналов в соцсетях. Например, набор Природа, в котором будет несколько пабликов из ВК и ФБ"></i></td>
               <td class="demo">1</td>
               <td class="standart">2</td>
               <td class="optimal">3</td>
@@ -171,7 +171,7 @@
               <td class="pro">10</td>
             </tr>
             <tr>
-              <td class="text-left">планирование<i class="help tool ion-help-circled" data-toggle="tooltip" data-placement="right" title="На сколько дней вперед можно планировать пабликацию записей"></i></td>
+              <td class="text-left">планирование<i class="help tool ion-help-circled" data-toggle="tooltip" data-placement="right" title="На сколько дней вперед можно планировать публикацию записей"></i></td>
               <td class="demo">нет</td>
               <td class="standart">на 14 дней</td>
               <td class="optimal">на 30 дней</td>
