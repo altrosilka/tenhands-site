@@ -8,7 +8,7 @@ angular.module('Cabinet')
           var from = start.utc().format('X');
           var to = end.utc().format('X');
           S_selfapi.getTable(from, to).then(function(resp) {
-            callback(resp.data.data.table);
+            callback(resp.data.table);
           });
         }
       ];
@@ -20,7 +20,7 @@ angular.module('Cabinet')
           header: {
             left: 'today prev,next',
             center: 'title',
-            right: 'month,agendaWeek,agendaDay'
+            right: 'month,agenda10Days,agendaWeek,agenda3Days'
           },
           dayNames: ['Воскресение', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
           dayNamesShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
@@ -37,6 +37,7 @@ angular.module('Cabinet')
 
 
           },
+          slotEventOverlap: false,
           timeFormat: 'h:mm',
           columnFormat: {
             day: 'dddd',
@@ -48,9 +49,25 @@ angular.module('Cabinet')
           timeFormat: 'H(:mm)',
           defaultTimedEventDuration: '00:30:00',
           eventLimit: true, // for all non-agenda views
+          scrollTime: '09:00:00',
           views: {
             agenda: {
-              eventLimit: 3 // adjust to 6 only for agendaWeek/agendaDay
+              eventLimit: 3
+            },
+            agenda10Days: {
+              type: 'agenda',
+              duration: {
+                days: 10
+              },
+              buttonText: '10 дней',
+              eventLimit: 2
+            },
+            agenda3Days: {
+              type: 'agenda',
+              duration: {
+                days: 3
+              },
+              buttonText: '3 дня'
             }
           }
         }
@@ -86,12 +103,12 @@ angular.module('Cabinet')
       ctr.selectedSets = [];
 
       S_selfapi.getUserSets().then(function(resp) {
-        ctr.sets = resp.data.data.own;
+        ctr.sets = resp.data.own;
       });
 
       ctr.refreshTeam = function() {
         S_selfapi.getUserSetsTeam().then(function(resp) {
-          ctr.team = resp.data.data;
+          ctr.team = resp.data;
         });
       }
 

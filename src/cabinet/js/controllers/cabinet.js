@@ -14,6 +14,10 @@ angular.module('Cabinet').controller('C_cabinet',
     $scope.$on('state:userRecieved', function(event, userName) {
       ctr.disableLoader = true;
     });
+
+    $scope.$on('disableLoader', function(event, userName) {
+      ctr.disableLoader = true;
+    });
  
     ctr.logout = function() {
       S_selfapi.signOut().then(function() {

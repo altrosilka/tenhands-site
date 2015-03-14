@@ -4,17 +4,15 @@ angular.module('App')
 
       var ctr = this;
       var code = getParameterByName('code');
-      if (!code) { 
+      if (!code) {
         ctr.error = true;
       } else {
-        S_selfapi.restorePasswordByCode(code).then(function(resp){
-          if (resp.data.error){
-            ctr.error = true;
-          } else {
-            location.href = resp.data.data.url; 
-          }
+        S_selfapi.restorePasswordByCode(code).then(function(resp) {
+          location.href = resp.data.url;
+        }, function() {
+          ctr.error = true;
         });
-      } 
+      }
 
       function getParameterByName(name) {
         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

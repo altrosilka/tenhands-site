@@ -41,13 +41,7 @@ angular.module('Cabinet')
         S_selfapi.setUserPassword({
           password: password
         }).then(function(resp) {
-          if (resp.data.success) {
-            ctr.state.randomPassword = false;
-          }
-
-          if (resp.data.error) {
-
-          }
+          ctr.state.randomPassword = false;
         });
       }
 
@@ -56,7 +50,7 @@ angular.module('Cabinet')
       }
 
       S_selfapi.getUserState().then(function(resp) {
-        ctr.state = resp.data.data;
+        ctr.state = resp.data;
       });
 
       function checkExtensionIsset() {
@@ -69,7 +63,7 @@ angular.module('Cabinet')
         ctr.showNotify = true;
         ctr.notifyText = "E-Mail адрес успешно подтвержден!";
       }
-      
+
       if ($stateParams.successRestore) {
         ctr.showNotify = true;
         ctr.notifyText = "Ваш пароль сброшен";

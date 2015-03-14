@@ -14,29 +14,24 @@ angular.module('Cabinet').controller('CCM_addChannelFb', [
     ctr.selectedAccount = {};
     ctr.resolveAndAdd = function() {
 
-      
+
       ctr.error = '';
- 
+
       if (!ctr.selectedPage.id || !ctr.selectedAccount.id) {
         ctr.error = 'выбери аккаунт и группы';
         return;
       }
 
       S_selfapi.addFbGroup(ctr.selectedPage.id, setId, ctr.selectedAccount.id).then(function(resp) {
-        if (resp.data.error) {
-          ctr.error = resp.data.text;
-          return;
-        }
-
-        if (resp.data.success) {
-          $modalInstance.close(true);
-        }
+        $modalInstance.close(true);
+      }, function(resp) {
+        ctr.error = resp.data.text;
       });
     }
 
     ctr.refreshAccounts = function() {
       S_selfapi.getUserAccounts().then(function(resp) {
-        ctr.accounts = _.filter(resp.data.data, function(account) {
+        ctr.accounts = _.filter(resp.data, function(account) {
           return account.network === 'fb';
         });
 
@@ -47,16 +42,16 @@ angular.module('Cabinet').controller('CCM_addChannelFb', [
     }
 
 
-    $scope.$watch(function(){
+    $scope.$watch(function() {
       return ctr.selectedAccount.id;
-    }, function(id){
+    }, function(id) {
       if (!id) return;
-      S_selfapi.loadFbAccountGroups(id).then(function(resp){
-        ctr.pages = resp.data.data.pages;
+      S_selfapi.loadFbAccountGroups(id).then(function(resp) {
+        ctr.pages = resp.data.pages;
         ctr.selectedPage = ctr.pages[0];
       });
     })
-    
+
     ctr.refreshAccounts();
 
     return ctr;

@@ -1,0 +1,68 @@
+<div class="v_account_plan">
+
+
+
+  <section class="section priceSection">
+    <div class="clearfix">
+      <h1 class="currentPlanName">Текущий тарифный план: <span ng-bind="ctr.getCurrentPlanName()"></span></h1>
+      <h2>Доступные тарифные планы</h2>
+    </div>
+    <div class="plans">
+      <div class="wr">
+
+        <div class="divTable clearfix" data-width="{{ctr.plans.length}}">
+          <div class="col big">
+            <div class="row">
+              человек в команде<i class="help tool ion-help-circled" data-toggle="tooltip" data-placement="right" title="Количество Ваших редакторов и аналитиков, которым можно дать доступ к просмотру и публикации"></i>
+            </div>
+
+            <div class="row">
+              количество наборов<i class="help tool ion-help-circled" data-toggle="tooltip" data-placement="right" title="Набор - совокупность каналов в соцсетях. Например, набор Природа, в котором будет несколько пабликов из ВК и ФБ"></i>
+            </div>
+
+            <div class="row">
+              каналов в одном наборе <i class="help tool ion-help-circled" data-toggle="tooltip" data-placement="right" title="Канал - паблик, группа или аккаунт (для Твиттера) в социальной сети"></i>
+            </div>
+
+            <div class="row">
+              планирование<i class="help tool ion-help-circled" data-toggle="tooltip" data-placement="right" title="На сколько дней вперед можно планировать публикацию записей"></i>
+            </div>
+          </div>
+          <div class="col" ng-repeat="plan in ctr.plans" ng-class="{current: ctr.thisIsCurrentPlan(plan), 'special': plan.special}">
+            <header>
+              <h3 ng-bind="plan.name"></h3>
+              <div class="price">
+                <h4><span ng-bind="plan.price"></span>₽</h4>
+                <div>рублей/месяц</div>
+              </div>
+            </header>
+            <div class="row">
+              <span ng-bind="plan.team_size"></span>
+            </div>
+            <div class="row">
+              <span ng-bind="plan.max_sets_count"></span>
+            </div>
+            <div class="row">
+              <span ng-bind="plan.max_channels_in_set"></span>
+            </div>
+            <div class="row">
+              <span ng-bind="plan['planning:str']"></span>
+            </div>
+            <div class="row">
+              <button  ng-if="!ctr.thisIsCurrentPlan(plan)" class="btn btn-primary" ng-click="ctr.selectPlan(plan)">Купить сейчас</button>
+              <span class="currentText" ng-if="ctr.thisIsCurrentPlan(plan)">текущий план</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="promoinfo text-center">
+      Кстати, в нашей <a href="https://vk.com/10hands" target="_blank">группе в ВК</a> мы частенько дарим промокоды и активно общаемся с клиентами
+    </div>
+
+
+  </section>
+
+
+</div>

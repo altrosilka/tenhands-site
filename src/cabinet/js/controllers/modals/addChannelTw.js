@@ -11,7 +11,7 @@ angular.module('Cabinet').controller('CCM_addChannelTw', [
    
 
     S_selfapi.getTwitterAuthUrl(setId).then(function(resp){
-      ctr.authUrl = resp.data.data.url;
+      ctr.authUrl = resp.data.url;
     });
 
     ctr.onAuthStart = function(){

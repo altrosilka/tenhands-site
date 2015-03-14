@@ -40,7 +40,7 @@ angular.module('Cabinet').config(
 
       return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
     }];
- 
+
 
     $locationProvider.html5Mode(true).hashPrefix('!');
 
@@ -54,14 +54,14 @@ angular.module('Cabinet').config(
 
     $stateProvider.state('index', {
       url: "/?successEmail&successRestore",
-      controller: 'CV_index as ctr', 
+      controller: 'CV_index as ctr',
       templateUrl: "templates/views/index.html"
-    })  
-    $stateProvider.state('public', { 
+    })
+    $stateProvider.state('public', {
         url: "/public/",
         abstract: false,
         templateUrl: "templates/views/public/index.html"
-      }) 
+      })
       .state('public.sets', {
         url: "sets/",
         controller: 'CV_public_sets as ctr',
@@ -99,8 +99,19 @@ angular.module('Cabinet').config(
       })
       .state('analytic.sandbox', {
         url: "sandbox/?branch&branches&from&to&param&param2",
-        controller: 'CV_analytic_sandbox as fC',
+        controller: 'CV_analytic_sandbox as ctr',
         templateUrl: "templates/views/analytic/sandbox.html",
+        reloadOnSearch: false
+      })
+
+    $stateProvider.state('account', {
+      url: "/account/",
+      templateUrl: "templates/views/account/index.html"
+    })
+      .state('account.plan', {
+        url: "plan/",
+        controller: 'CV_account_plan as ctr',
+        templateUrl: "templates/views/account/plan.html",
         reloadOnSearch: false
       })
   }

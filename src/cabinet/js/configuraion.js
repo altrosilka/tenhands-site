@@ -35,7 +35,8 @@ angular.module('Cabinet')
       getPostingHistory: 'postingHistory',
       getUserSetsTeam: 'sets/getTeam',
       restorePassword: 'auth/restorePassword',
-      getTable: 'table'
+      getTable: 'table',
+      getPricingPlans: 'payments/getPlans'
     } 
   })
   .constant('__extensionId','@@extensionId')

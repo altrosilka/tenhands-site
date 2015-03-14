@@ -7,7 +7,7 @@ angular.module('Cabinet').controller('CV_public_accounts',
 
     ctr.refreshAccounts = function() {
       S_selfapi.getUserAccounts().then(function(resp) {
-        ctr.accounts = resp.data.data;
+        ctr.accounts = resp.data;
       });
     }
 

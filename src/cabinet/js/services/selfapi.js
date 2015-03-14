@@ -1,124 +1,101 @@
 angular.module('Cabinet')
-  .service('S_selfapi', [
-    '$http',
-    '__api',
-    function($http, __api) {
+  .service('S_selfapi',
+    function($http, $q, $state, S_eventer, __api) {
       var service = {};
       var base = __api.baseUrl;
 
-      service.getUserState = function() {
-        return $http({
-          url: base + __api.paths.getUserState,
-          method: 'GET'
+      function call(type, url, params, data) {
+        var defer = $q.defer();
+
+        $http({
+          url: base + url,
+          method: type,
+          withCredentials: true,
+          data: data,
+          params: params
+        }).then(function(resp) {
+          defer.resolve(resp);
+        }).catch(function(resp) {
+          if (resp.status === 401 && $state.current.name !== 'login') {
+            $state.go('login');
+            S_eventer.sendEvent('disableLoader');
+            return;
+          }
+
+          defer.reject(resp);
         });
+
+        return defer.promise;
+      }
+
+      function POST(url, params) {
+        return call('post', url, undefined, params);
+      }
+
+      function GET(url, params) {
+        return call('get', url, params);
+      }
+
+      service.getUserState = function() {
+        return GET(__api.paths.getUserState)
       }
 
       service.setUserName = function(name) {
-        return $http({
-          url: base + __api.paths.setUserName,
-          method: 'POST',
-          data: {
-            name: name
-          }
+        return POST(__api.paths.setUserName, {
+          name: name
         });
       }
 
       service.getTable = function(from, to) {
-        return $http({
-          url: base + __api.paths.getTable,
-          method: 'GET',
-          withCredentials: true,
-          params: {
-            from: from,
-            to: to
-          }
+        return GET(__api.paths.getTable, {
+          from: from,
+          to: to
         });
       }
 
 
-      service.getVkWallPosts = function(owner_id) {
-        return $http({
-          url: base + __api.paths.getVkWallPosts,
-          method: 'GET',
-          params: {
-            owner_id: owner_id
-          }
-        });
-      }
       service.getPostingHistory = function(set_id) {
-        return $http({
-          url: base + __api.paths.getPostingHistory,
-          method: 'GET',
-          params: {
-            set_id: set_id
-          }
+        return GET(__api.paths.getPostingHistory, {
+          set_id: set_id
         });
       }
 
       service.setUserPassword = function(obj) {
-        return $http({
-          url: base + __api.paths.setUserPassword,
-          method: 'POST',
-          data: obj
-        });
+        return POST(__api.paths.setUserPassword, obj);
       }
 
       service.setUserCompanyName = function(company) {
-        return $http({
-          url: base + __api.paths.setUserCompanyName,
-          method: 'POST',
-          data: {
-            company: company
-          }
+        return POST(__api.paths.setUserCompanyName, {
+          company: company
         });
       }
 
       service.getUserInfo = function() {
-        return $http({
-          url: base + __api.paths.getUserInfo,
-          method: 'GET'
-        });
+        return GET(__api.paths.getUserInfo);
       }
 
       service.signOut = function() {
-        return $http({
-          url: base + __api.paths.signOut,
-          method: 'GET'
-        });
+        return GET(__api.paths.signOut);
       }
 
       service.signIn = function(email, password) {
-        return $http({
-          withCredentials: true,
-          url: base + __api.paths.signIn,
-          method: 'POST',
-          data: {
-            email: email,
-            password: password
-          }
+        return POST(__api.paths.signIn, {
+          email: email,
+          password: password
         });
       }
 
       service.signUp = function(email, password, name) {
-        return $http({
-          withCredentials: true,
-          url: base + __api.paths.signUp,
-          method: 'POST',
-          data: {
-            email: email,
-            password: password,
-            name: name
-          }
+        return POST(__api.paths.signUp, {
+          email: email,
+          password: password,
+          name: name
         });
       }
 
       service.addNewSet = function(setName) {
-        return $http({
-          url: base + __api.paths.sets,
-          method: 'POST',
-          data: {
-            name: setName
-          }
+        return POST(__api.paths.sets, {
+          name: setName
         });
       }
 
@@ -127,194 +104,114 @@ angular.module('Cabinet')
           id: setId
         };
         data[prop] = value;
-
-        return $http({
-          url: base + __api.paths.sets,
-          method: 'POST',
-          data: data
-        });
+        return POST(__api.paths.sets, data);
       }
 
       service.toggleChannel = function(channel_id, set_id, disabled) {
-        return $http({
-          url: base + __api.paths['channels/toggleDisableState'],
-          method: 'GET',
-          params: {
-            set_id: set_id,
-            id: channel_id,
-            disabled: disabled
-          }
+        return GET(__api.paths['channels/toggleDisableState'], {
+          set_id: set_id,
+          id: channel_id,
+          disabled: disabled
         });
       }
 
       service.attachUserToSetByEmail = function(set_id, email) {
-        return $http({
-          url: base + __api.paths['sets/attachUserByEmail'],
-          method: 'GET',
-          params: {
-            id: set_id,
-            email: email
-          }
-        });
+        return GET(__api.paths['sets/attachUserByEmail'], {
+          id: set_id,
+          email: email
+        })
       }
 
       service.attachUserToSet = function(user_id, set_id) {
-        return $http({
-          url: base + __api.paths['sets/attachUserById'],
-          method: 'GET',
-          params: {
-            id: set_id,
-            user_id: user_id
-          }
+        return GET(__api.paths['sets/attachUserById'], {
+          id: set_id,
+          user_id: user_id
         });
       }
       service.detachUserFromSet = function(user_id, set_id) {
-        return $http({
-          url: base + __api.paths['sets/detachUserById'],
-          method: 'GET',
-          params: {
-            id: set_id,
-            user_id: user_id
-          }
+        return GET(__api.paths['sets/detachUserById'], {
+          id: set_id,
+          user_id: user_id
         });
       }
-
 
       service.getTwitterAuthUrl = function(setId) {
-        return $http({
-          url: base + __api.paths.getTwitterAuthUrl,
-          method: 'GET',
-          params: {
-            set_id: setId
-          }
+        return GET(__api.paths.getTwitterAuthUrl, {
+          set_id: setId
         });
       }
 
       service.getVkAuthUrl = function() {
-        return $http({
-          url: base + __api.paths.getVkAuthUrl,
-          method: 'GET'
-        });
-      }
-
-      service.getVkAuthUrl = function() {
-        return $http({
-          url: base + __api.paths.getVkAuthUrl,
-          method: 'GET'
-        });
+        return GET(__api.paths.getVkAuthUrl);
       }
 
       service.loadSetFullInfo = function(setId) {
-        return $http({
-          url: base + __api.paths.sets,
-          method: 'GET',
-          params: {
-            id: setId
-          }
+
+        return GET(__api.paths.sets, {
+          id: setId
         });
       }
 
       service.getUserSets = function() {
-        return $http({
-          url: base + __api.paths.sets,
-          method: 'GET'
-        });
+        return GET(__api.paths.sets);
       }
 
       service.getUserAccounts = function() {
-        return $http({
-          url: base + __api.paths.accounts,
-          method: 'GET'
-        });
+        return GET(__api.paths.accounts);
       }
 
       service.loadVkAccountGroups = function(accountId) {
-        return $http({
-          url: base + __api.paths.loadVkAccountGroups,
-          method: 'GET',
-          params: {
-            account_id: accountId
-          }
+        return GET(__api.paths.loadVkAccountGroups, {
+          account_id: accountId
         });
       }
 
       service.loadFbAccountGroups = function(accountId) {
-        return $http({
-          url: base + __api.paths.loadFbAccountGroups,
-          method: 'GET',
-          params: {
-            account_id: accountId
-          }
+        return GET(__api.paths.loadFbAccountGroups, {
+          account_id: accountId
         });
       }
 
       service.addOkGroup = function(feed_id, setId, accountId) {
-        return $http({
-          url: base + __api.paths.addOkGroup,
-          method: 'POST',
-          data: {
-            page_id: feed_id,
-            set_id: setId,
-            account_id: accountId
-          }
+        return POST(__api.paths.addOkGroup, {
+          page_id: feed_id,
+          set_id: setId,
+          account_id: accountId
         });
       }
 
       service.addVkGroup = function(feed_id, setId, accountId) {
-        return $http({
-          url: base + __api.paths.addVkGroup,
-          method: 'POST',
-          data: {
-            feed_id: feed_id,
-            set_id: setId,
-            account_id: accountId
-          }
+        return POST(__api.paths.addVkGroup, {
+          feed_id: feed_id,
+          set_id: setId,
+          account_id: accountId
         });
       }
 
       service.addFbGroup = function(page_id, setId, accountId) {
-        return $http({
-          url: base + __api.paths.addFbGroup,
-          method: 'POST',
-          data: {
-            page_id: page_id,
-            set_id: setId,
-            account_id: accountId
-          }
-        });
-      }
-
-      service.addIgAccount = function(username, password, setId) {
-        return $http({
-          url: base + __api.paths.addIgAccount,
-          method: 'POST',
-          data: {
-            username: username,
-            password: password,
-            set_id: setId
-          }
+        return POST(__api.paths.addFbGroup, {
+          page_id: page_id,
+          set_id: setId,
+          account_id: accountId
         });
       }
 
       service.restorePassword = function(email) {
-        return $http({
-          url: base + __api.paths.restorePassword,
-          method: 'POST',
-          data: {
-            email: email
-          }
+        return POST(__api.paths.restorePassword, {
+          email: email
         });
       }
 
       service.getUserSetsTeam = function() {
-        return $http({
-          url: base + __api.paths.getUserSetsTeam,
-          method: 'GET'
-        });
+        return GET(__api.paths.getUserSetsTeam);
       }
 
+
+      service.getPricingPlans = function() {
+        return GET(__api.paths.getPricingPlans);
+      }
 
 
       return service;
     }
-  ]);
+  );

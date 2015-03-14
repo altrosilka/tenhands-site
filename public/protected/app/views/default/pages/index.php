@@ -172,10 +172,17 @@
             </tr>
             <tr>
               <td class="text-left">планирование<i class="help tool ion-help-circled" data-toggle="tooltip" data-placement="right" title="На сколько дней вперед можно планировать публикацию записей"></i></td>
-              <td class="demo">нет</td>
+              <td class="demo">-</td>
               <td class="standart">на 14 дней</td>
               <td class="optimal">на 30 дней</td>
               <td class="pro">на 45 дней</td>
+            </tr>
+            <tr>
+              <td class="text-left">фоторедактор<i class="help tool ion-help-circled" data-toggle="tooltip" data-placement="right" title="Функционал, позволяющий редактировать фото и размещать на них надписи"></i></td>
+              <td class="demo">-</td>
+              <td class="standart">да</td>
+              <td class="optimal">да</td>
+              <td class="pro">да</td>
             </tr>
             
           </tbody>

@@ -227,7 +227,7 @@ angular.module('Cabinet')
 
           var series = [];
           var data = [];
-          _.forEach(resp.data.data,function(post){
+          _.forEach(resp.data,function(post){
             var param = post[param1];
             data.push([post.date*1000, param]);
           });

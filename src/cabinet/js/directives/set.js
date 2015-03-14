@@ -14,9 +14,7 @@ angular.module('Cabinet').directive('set', [function() {
       ctr.addNewUser = function(email) {
         if (!email || email === '') return;
         S_selfapi.attachUserToSetByEmail(ctr.openedSet.id, email).then(function(resp) {
-          if (resp.data.success) {
-            ctr.loadSetInfo(ctr.openedSet);
-          }
+          ctr.loadSetInfo(ctr.openedSet);
         });
         ctr.newUserEmail = '';
       }
@@ -40,7 +38,7 @@ angular.module('Cabinet').directive('set', [function() {
           return
         }
 
-        S_selfapi.editSetProperty($scope.set.id, 'name', name).then(function(){
+        S_selfapi.editSetProperty($scope.set.id, 'name', name).then(function() {
 
         });
       }
@@ -84,13 +82,10 @@ angular.module('Cabinet').directive('set', [function() {
 
       ctr.loadSetInfo = function(set) {
         S_selfapi.loadSetFullInfo(set.id).then(function(resp) {
-          ctr.openedSetChannels = resp.data.data[0].channels;
-          ctr.openedSetUsers = resp.data.data[0].users;
+          ctr.openedSetChannels = resp.data[0].channels;
+          ctr.openedSetUsers = resp.data[0].users;
         });
       }
-
-
-
 
 
       ctr.channelsPlural = {

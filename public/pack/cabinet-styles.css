@@ -1616,6 +1616,123 @@ body[data-status="loading"] .v_analytics_filials .chartField {
 .calicon:hover {
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
 }
+.v_account_plan {
+  width: 900px;
+  margin: auto;
+}
+.v_account_plan h2 {
+  margin: 0 0 20px;
+  font-size: 22px;
+  float: left;
+  font-weight: 200;
+}
+.v_account_plan .currentPlanName {
+  font-size: 14px;
+  float: right;
+  margin: 7px 0 0;
+  font-weight: 200;
+  color: #777;
+}
+.v_account_plan .currentPlanName span {
+  font-weight: 200;
+  font-size: 17px;
+  display: inline-block;
+  margin-left: 5px;
+  color: #000;
+}
+.v_account_plan .wr {
+  width: 900px;
+  margin: auto;
+  background: #FFF;
+  border: 1px solid #CEE6F7;
+}
+.v_account_plan .divTable[data-width="5"] .col {
+  width: 136px;
+}
+.v_account_plan .divTable header {
+  border-bottom: 1px solid #DAEAFF;
+  padding: 20px 0;
+  text-align: center;
+  height: 135px;
+  font-width: 200;
+}
+.v_account_plan .divTable header h3 {
+  font-weight: 200;
+  font-size: 17px;
+  margin: 5px 0px;
+  color: #777;
+}
+.v_account_plan .divTable header .bigg {
+  font-size: 20px;
+}
+.v_account_plan .divTable header .price {
+  margin-top: 15px;
+  font-width: 600;
+}
+.v_account_plan .divTable header .price h4 {
+  font-weight: 200;
+  font-size: 30px;
+  margin: 0 0 2px;
+}
+.v_account_plan .divTable header .price div {
+  color: #999;
+  font-weight: 200;
+  font-size: 10px;
+}
+.v_account_plan .divTable .tool {
+  color: #777;
+  display: inline-block;
+  margin-left: 4px;
+}
+.v_account_plan .divTable .row {
+  height: 50px;
+  line-height: 50px;
+  margin: 0;
+  text-align: center;
+}
+.v_account_plan .divTable .col {
+  width: 170px;
+  float: left;
+  position: relative;
+}
+.v_account_plan .divTable .col.special {
+  background-color: #FFF4DB;
+}
+.v_account_plan .divTable .col.special:before {
+  content: 'специальный тариф';
+  position: absolute;
+  top: 3px;
+  font-size: 10px;
+  color: #D08E00;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+.v_account_plan .divTable .col.special header {
+  border-bottom: 1px solid #ffe5a1;
+}
+.v_account_plan .divTable .col.current {
+  background-color: #E4F4FD!important;
+}
+.v_account_plan .divTable .col.big {
+  width: 218px;
+  margin-top: 134px;
+  border-top: 1px solid #DAEAFF;
+}
+.v_account_plan .divTable .col.big .row {
+  text-align: right;
+  padding-right: 10px;
+}
+.v_account_plan .currentText {
+  color: #A6ABD8;
+  font-size: 10px;
+}
+.v_account_plan .noborder {
+  border: none;
+}
+.v_account_plan .promoinfo {
+  margin: 25px 0 60px;
+}
 .v_login {
   background: #ECF0F1;
   position: fixed;

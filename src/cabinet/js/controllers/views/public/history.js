@@ -10,7 +10,7 @@ angular.module('Cabinet')
         ctr.sets = [{
           id: 0,
           name: 'Все наборы'
-        }].concat(resp.data.data.own);
+        }].concat(resp.data.own);
         ctr.selectedSet = ctr.sets[0]; 
         
         ctr.loadStat();
@@ -19,7 +19,7 @@ angular.module('Cabinet')
 
       ctr.loadStat = function() {
         S_selfapi.getPostingHistory(ctr.selectedSet.id).then(function(resp) {
-          ctr.history = resp.data.data.history;
+          ctr.history = resp.data.history;
         });
       }
 

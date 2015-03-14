@@ -13,14 +13,11 @@ angular.module('Cabinet')
         ctr.error = false;
         S_selfapi.signIn(email, password).then(function(resp) {
           ctr.authInProgress = false;
-          if (resp.data.success) {
-            $state.go('index');
-            S_eventer.sendEvent('setUserName', resp.data.data.name);
-          }
-
-          if (resp.data.error) {
-            ctr.error = true;
-          }
+          $state.go('index');
+          S_eventer.sendEvent('setUserName', resp.data.name);
+        }, function() {
+          ctr.authInProgress = false;
+          ctr.error = true;
         });
       }
 
@@ -38,17 +35,12 @@ angular.module('Cabinet')
 
         S_selfapi.restorePassword(email).then(function(resp) {
           ctr.authInProgress = false;
-          console.log(resp.data);
-          if (resp.data.success) {
-            ctr.successRestore = true;
-          }
-
-          if (resp.data.error) {
-            ctr.error = true;
-          }
+          ctr.successRestore = true;
+        }, function() {
+          ctr.authInProgress = false;
+          ctr.error = true;
         });
       }
 
       return ctr;
-    }
-  );
+    });

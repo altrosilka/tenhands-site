@@ -45,7 +45,7 @@ angular.module('Cabinet').directive('member', [function() {
 
 
         S_selfapi.loadSetFullInfo($scope.member.sets_ids.join(',')).then(function(resp) {
-          ctr.sets = resp.data.data;
+          ctr.sets = resp.data;
         });
       }
 

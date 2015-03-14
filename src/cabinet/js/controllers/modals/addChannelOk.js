@@ -12,7 +12,7 @@ angular.module('Cabinet').controller('CCM_addChannelOk', [
     ctr.selectedAccount = {};
     ctr.refreshAccounts = function() {
       S_selfapi.getUserAccounts().then(function(resp) {
-        ctr.accounts = _.filter(resp.data.data, function(account) {
+        ctr.accounts = _.filter(resp.data, function(account) {
           return account.network === 'ok';
         });
 
@@ -24,13 +24,12 @@ angular.module('Cabinet').controller('CCM_addChannelOk', [
 
     ctr.resolveAndAdd = function() {
       ctr.error = '';
+
       S_selfapi.addOkGroup(ctr.gid, setId, ctr.selectedAccount.id).then(function(resp) {
-        if (resp.data.success) {
-          $modalInstance.close();
-          S_eventer.sendEvent('trigger:updateChannels');
-        } else {
-          ctr.error = resp.data.text;
-        }
+        $modalInstance.close(true);
+        S_eventer.sendEvent('trigger:updateChannels');
+      }, function(resp) {
+        ctr.error = resp.data.text;
       });
       /*
       

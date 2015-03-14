@@ -22,22 +22,17 @@ angular.module('Cabinet').controller('CCM_addChannelIg', [
         return;
       }
 
- 
+
       S_selfapi.addIgAccount(ctr.username, ctr.password, setId).then(function(resp) {
-        if (resp.data.error) {
-          if (resp.data.code === 'enemy') {
-            ctr.error = 'звезды сказали, что ты не являешься создателем этой группы';
-          }
-          if (resp.data.code === 'already') {
-            ctr.error = 'группа уже добавлена';
-          }
-
-          return;
+        $modalInstance.close(true);
+      }, function(resp) {
+        if (resp.data.code === 'enemy') {
+          ctr.error = 'звезды сказали, что ты не являешься создателем этой группы';
+        }
+        if (resp.data.code === 'already') {
+          ctr.error = 'группа уже добавлена';
         }
 
-        if (resp.data.success) {
-          $modalInstance.close(true);
-        }
       });
 
     }

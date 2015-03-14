@@ -21,7 +21,7 @@ angular.module('Cabinet').controller('CV_public_sets', [
 
     ctr.updateSets = function(onlyOwn) {
       S_selfapi.getUserSets().then(function(resp) {
-        ctr.sets = resp.data.data;
+        ctr.sets = resp.data;
       });
     }
 
