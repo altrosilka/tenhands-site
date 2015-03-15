@@ -5,9 +5,9 @@
   <input class="name" ng-if="!guestAccess" ng-model="set.name" ng-blur="ctr.setNewName(set.name)" ng-keyup="ctr.onNameKeyup(set.name)" ng-class="{'error':ctr.errorInName}">
   <div class="plural">
     <span class="link" ng-pluralize count="ctr.getChannelsCount(set.feed_ids)" when="ctr.channelsPlural" ng-click="ctr.openSet(set,'channels')" ng-class="{'active': ctr.activeMode === 'channels'}"></span>
-  <div class="ib" ng-if="!guestAccess"> / <span class="link" ng-pluralize count="ctr.getUsersCount(set.guest_users_ids)" when="ctr.usersPlural" ng-click="ctr.openSet(set, 'users')" ng-class="{'active': ctr.activeMode === 'users'}"></span>
+    <div class="ib" ng-if="!guestAccess"> / <span class="link" ng-pluralize count="ctr.getUsersCount(set.guest_users_ids)" when="ctr.usersPlural" ng-click="ctr.openSet(set, 'users')" ng-class="{'active': ctr.activeMode === 'users'}"></span>
+    </div>
   </div>
-</div>
 </div>
 
 <section class="section clearfix">
@@ -25,18 +25,24 @@
       </div>
       <div class="noResults" ng-show="!ctr.openedSetChannels.length">Нет ни одного канала</div>
     </div>
-
-    <div class="addChannelsLine" ng-if="!guestAccess">
-      <div class="smTitle" ng-if="ctr.openedSetChannels.length">Добавить еще один канал</div>
-      <div class="smTitle" ng-if="!ctr.openedSetChannels.length">Добавь канал в этот набор</div>
-      <div>
-        <span class="btn vk socialBg" ng-click="ctr.addChannel('vk', set)"><i class="fa fa-vk"></i></span>
-        <span class="btn fb socialBg" ng-click="ctr.addChannel('fb', set)"><i class="fa fa-facebook"></i></span>
-        <span class="btn tw socialBg" ng-click="ctr.addChannel('tw', set)"><i class="fa fa-twitter"></i></span>
-        <span class="btn ig socialBg ng-hide" ng-click="ctr.addChannel('ig', set)"><i class="fa fa-instagram"></i></span>
-        <span class="btn ok socialBg" ng-click="ctr.addChannel('ok', set)">ok</span>
-        <span class="btn gp socialBg ng-hide"><i class="fa fa-google-plus"></i></span>
+    <div ng-if="ctr.channelsLoaded">
+      <div class="addChannelsLine" ng-if="!guestAccess && !ctr.showPaymentRequest()">
+        <div class="smTitle" ng-if="ctr.openedSetChannels.length">Добавить еще один канал</div>
+        <div class="smTitle" ng-if="!ctr.openedSetChannels.length">Добавь канал в этот набор</div>
+        <div>
+          <span class="btn vk socialBg" ng-click="ctr.addChannel('vk', set)"><i class="fa fa-vk"></i></span>
+          <span class="btn fb socialBg" ng-click="ctr.addChannel('fb', set)"><i class="fa fa-facebook"></i></span>
+          <span class="btn tw socialBg" ng-click="ctr.addChannel('tw', set)"><i class="fa fa-twitter"></i></span>
+          <span class="btn ig socialBg ng-hide" ng-click="ctr.addChannel('ig', set)"><i class="fa fa-instagram"></i></span>
+          <span class="btn ok socialBg" ng-click="ctr.addChannel('ok', set)">ok</span>
+          <span class="btn gp socialBg ng-hide"><i class="fa fa-google-plus"></i></span>
+        </div>
       </div>
+    </div>
+
+    <div class="addChannelsLine" ng-if="!guestAccess && ctr.showPaymentRequest()">
+      <p>Добавить ещё один канал в этот набор на тарифе <strong ng-bind="ctr.pricingPlanName"></strong> невозможно. <a class="btn btn-primary" style="margin-top:20px;" ui-sref="account.plan">Улучшить тариф</a>
+      </p>
     </div>
   </div>
 

@@ -14,6 +14,10 @@ angular.module('Cabinet').controller('CV_public_sets', [
       ctr.newSetName = '';
       S_selfapi.addNewSet(setName).then(function(resp) {
         ctr.updateSets();
+      }, function(resp) {
+        if (resp.status === 402) {
+          S_utils.showPaymentRequestModal();
+        }
       });
     }
 

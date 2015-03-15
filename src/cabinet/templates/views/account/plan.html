@@ -3,8 +3,28 @@
 
 
   <section class="section priceSection">
-    <div class="clearfix">
-      <h1 class="currentPlanName">Текущий тарифный план: <span ng-bind="ctr.getCurrentPlanName()"></span></h1>
+    <div class="clearfix"> 
+
+      <div class="bg-danger topnanana" ng-show="ctr.paidUntilStr_past">Публикация заблокирована. Для дальнейшей работы необходимо продлить подиску</div>
+
+      <div class="bg-warning topnanana" ng-show="ctr.paidUntilStr_now">Необходимо продлить тарифный план <strong>прямо сейчас</strong>, иначе Вы потеряете возможность публиковать материалы</div>
+
+      <section class="currentPlanName">
+        Текущий тарифный план:
+        <span class="name" ng-bind="ctr.getCurrentPlanName()"></span>
+
+        <div class="ib" ng-show="ctr.paidUntilStr">
+          <div class="ib bg-danger" ng-show="ctr.paidUntilStr_past">
+            подписка истекла <span ng-bind="ctr.paidUntilStr"></span>
+          </div>
+
+          <div class="ib bg-warning" ng-show="ctr.paidUntilStr_now || ctr.paidUntilStr_future">
+            подписка истечет <span ng-bind="ctr.paidUntilStr"></span>
+          </div>
+        </div>
+      </section>
+
+
       <h2>Доступные тарифные планы</h2>
     </div>
     <div class="plans">
@@ -49,8 +69,9 @@
               <span ng-bind="plan['planning:str']"></span>
             </div>
             <div class="row">
-              <button  ng-if="!ctr.thisIsCurrentPlan(plan)" class="btn btn-primary" ng-click="ctr.selectPlan(plan)">Купить сейчас</button>
-              <span class="currentText" ng-if="ctr.thisIsCurrentPlan(plan)">текущий план</span>
+              <button ng-if="!ctr.thisIsCurrentPlan(plan)" class="btn btn-primary" ng-click="ctr.selectPlan(plan)">Перейти сейчас</button>
+              <button ng-if="ctr.thisIsCurrentPlan(plan) && plan.id !== 0" class="btn btn-success" ng-click="ctr.selectPlan(plan)">Продлить</button>
+              <span class="currentText" ng-if="ctr.thisIsCurrentPlan(plan) && plan.id === 0">текущий план</span>
             </div>
           </div>
         </div>

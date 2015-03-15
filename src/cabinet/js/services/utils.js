@@ -2,6 +2,17 @@ angular.module('Cabinet')
   .service('S_utils', ['$modal', function($modal) {
     var service = {};
 
+
+    service.showPaymentRequestModal = function() {
+      return $modal.open({
+        templateUrl: 'templates/modals/paymentRequest.html',
+        controller: 'CM_paymentRequest as ctr',
+        size: 'sm',
+        resolve: { 
+        }
+      }).result;
+    }
+
     service.openAddChannelDialog = function(type, setId) {
       switch (type) {
         case 'vk':
@@ -13,7 +24,7 @@ angular.module('Cabinet')
               resolve: {
                 setId: function() {
                   return setId;
-                } 
+                }
               }
             }).result;
           }

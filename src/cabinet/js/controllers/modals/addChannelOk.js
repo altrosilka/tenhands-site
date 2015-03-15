@@ -1,12 +1,5 @@
-angular.module('Cabinet').controller('CCM_addChannelOk', [
-  '$scope',
-  '$modalInstance',
-  'S_vk',
-  'S_selfapi',
-  'S_enviroment',
-  'S_eventer',
-  'setId',
-  function($scope, $modalInstance, S_vk, S_selfapi, S_enviroment, S_eventer, setId) {
+angular.module('Cabinet').controller('CCM_addChannelOk', 
+  function($scope, $modalInstance, S_vk, S_selfapi, S_enviroment, S_eventer, S_utils, setId) {
     var ctr = this;
 
     ctr.selectedAccount = {};
@@ -27,8 +20,11 @@ angular.module('Cabinet').controller('CCM_addChannelOk', [
 
       S_selfapi.addOkGroup(ctr.gid, setId, ctr.selectedAccount.id).then(function(resp) {
         $modalInstance.close(true);
-        S_eventer.sendEvent('trigger:updateChannels');
       }, function(resp) {
+
+        if (resp.status === 402) {
+          S_utils.showPaymentRequestModal();
+        }
         ctr.error = resp.data.text;
       });
       /*
@@ -43,4 +39,4 @@ angular.module('Cabinet').controller('CCM_addChannelOk', [
 
     return ctr;
   }
-]);
+);

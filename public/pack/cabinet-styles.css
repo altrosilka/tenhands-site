@@ -1620,6 +1620,12 @@ body[data-status="loading"] .v_analytics_filials .chartField {
   width: 900px;
   margin: auto;
 }
+.v_account_plan .topnanana {
+  margin: 0 0 20px;
+  padding: 10px;
+  font-size: 15px;
+  text-align: center;
+}
 .v_account_plan h2 {
   margin: 0 0 20px;
   font-size: 22px;
@@ -1633,7 +1639,7 @@ body[data-status="loading"] .v_analytics_filials .chartField {
   font-weight: 200;
   color: #777;
 }
-.v_account_plan .currentPlanName span {
+.v_account_plan .currentPlanName .name {
   font-weight: 200;
   font-size: 17px;
   display: inline-block;

@@ -28,6 +28,10 @@ angular.module('Cabinet')
           ctr.selectedSets = [];
           ctr.newUserEmail = '';
           ctr.refreshTeam();
+        }, function(resp){
+          if (resp.status === 402){
+            S_utils.showPaymentRequestModal();
+          }
         });
       }
 

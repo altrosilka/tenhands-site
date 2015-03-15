@@ -8,8 +8,10 @@ angular.module('Cabinet').directive('set', [function() {
     link: function($scope, $element) {
 
     },
-    controller: function($scope, S_selfapi, S_utils) {
+    controller: function($scope, S_selfapi, S_utils, S_user) {
       var ctr = this;
+
+      ctr.openedSetChannels = [];
 
       ctr.addNewUser = function(email) {
         if (!email || email === '') return;
@@ -26,7 +28,7 @@ angular.module('Cabinet').directive('set', [function() {
           return;
         }
         ctr.activeMode = type;
-        delete ctr.openedSetChannels;
+        ctr.openedSetChannels = [];
         ctr.openedSet = set;
         ctr.loadSetInfo(set);
       }
@@ -60,7 +62,7 @@ angular.module('Cabinet').directive('set', [function() {
       ctr.toggleChannel = function(channel) {
         channel.disabled = !channel.disabled;
         S_selfapi.toggleChannel(channel.id, ctr.openedSet.id, channel.disabled).then(function(resp) {
-          console.log(resp.data);
+
         });
       }
 
@@ -69,7 +71,7 @@ angular.module('Cabinet').directive('set', [function() {
 
         if (user.disabled) {
           S_selfapi.detachUserFromSet(user.id, ctr.openedSet.id).then(function(resp) {
-            console.log(resp.data);
+
           });
         } else {
           S_selfapi.attachUserToSet(user.id, ctr.openedSet.id).then(function(resp) {
@@ -78,15 +80,26 @@ angular.module('Cabinet').directive('set', [function() {
         }
       }
 
-
+      $scope.$on('trigger:updateChannels', function() {
+        ctr.loadSetInfo(ctr.openedSet);
+      })
 
       ctr.loadSetInfo = function(set) {
         S_selfapi.loadSetFullInfo(set.id).then(function(resp) {
           ctr.openedSetChannels = resp.data[0].channels;
           ctr.openedSetUsers = resp.data[0].users;
+
+          ctr.channelsLoaded = true;
         });
       }
 
+      ctr.pricingPlanName = S_user.get().pricing_plan.name;
+
+      ctr.showPaymentRequest = function() {
+        if (ctr.openedSetChannels.length) {
+          return (S_user.get().pricing_plan.max_channels_in_set <= ctr.openedSetChannels.length);
+        }
+      }
 
       ctr.channelsPlural = {
         0: 'нет каналов',

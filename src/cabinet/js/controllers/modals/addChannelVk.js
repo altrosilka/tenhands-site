@@ -1,14 +1,5 @@
-angular.module('Cabinet').controller('CCM_addChannelVk', [
-  '$scope',
-  '$state',
-  '$location',
-  '$modalInstance',
-  'S_vk',
-  'S_selfapi',
-  'S_enviroment',
-  'S_eventer',
-  'setId',
-  function($scope, $state, $location, $modalInstance, S_vk, S_selfapi, S_enviroment, S_eventer, setId) {
+angular.module('Cabinet').controller('CCM_addChannelVk',
+  function($scope, $state, $location, $modalInstance, S_vk, S_selfapi, S_enviroment, S_eventer, S_utils, setId) {
     var ctr = this;
     ctr.url = '';
     ctr.selectedAccount = {};
@@ -25,6 +16,10 @@ angular.module('Cabinet').controller('CCM_addChannelVk', [
       S_selfapi.addVkGroup(ctr.selectedGroup.id, setId, ctr.selectedAccount.id).then(function(resp) {
         $modalInstance.close(true);
       }, function() {
+
+        if (resp.status === 402) {
+          S_utils.showPaymentRequestModal();
+        }
         ctr.error = resp.data.text;
       });
     }
@@ -55,4 +50,4 @@ angular.module('Cabinet').controller('CCM_addChannelVk', [
 
     return ctr;
   }
-]);
+);

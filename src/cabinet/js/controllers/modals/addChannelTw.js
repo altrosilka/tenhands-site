@@ -1,11 +1,4 @@
-angular.module('Cabinet').controller('CCM_addChannelTw', [
-  '$scope',
-  '$modalInstance',
-  'S_vk',
-  'S_selfapi',
-  'S_enviroment',
-  'S_eventer',
-  'setId',
+angular.module('Cabinet').controller('CCM_addChannelTw', 
   function($scope, $modalInstance, S_vk, S_selfapi, S_enviroment, S_eventer, setId) {
     var ctr = this;
    
@@ -24,4 +17,4 @@ angular.module('Cabinet').controller('CCM_addChannelTw', [
 
     return ctr;
   }
-]);
+);
