@@ -13,7 +13,7 @@
     </div>
 
     <div class="enterForm" ng-class="{'entered': ctr.inprogress}">
-      <h3 class="text-center">Начни бесплатно публиковать в свою группу или аккаунт прямо сейчас!</h3>
+      <h3 class="text-center">Начните бесплатно публиковать в свою группу или аккаунт прямо сейчас!</h3>
       <form name="signUp" data-ng-submit="signUp.$valid && ctr.signUp(ctr.email, ctr.password)" novalidate="">
         <input ng-model="ctr.email" name="email"  autocomplete="off" type="email" required="" placeholder="Ваш E-Mail">
         <button>
@@ -31,7 +31,8 @@
 
 
   <section class="section screensSection">
-    <h2>Делитесь новостью со своего сайта за минуту</h2>
+    <h2>Делитесь новостью со своего сайта за 30 секунд</h2>
+    <div class="desc">Десять Рук - это расширение для <strong>Google Chrome</strong>, которое  позволяет в один клик собрать информацию с любой страницы, <strong>отредактировать изображение</strong> и отправить в виде публикаций в <strong>ВК</strong>, <strong>Одноклассники</strong>, <strong>Facebook</strong> и <strong>Twitter</strong></div>
     <div class="images">
       <img class="im im1" src="/images/screens/1.jpg">
       <img class="im im2" src="/images/screens/2.jpg">
