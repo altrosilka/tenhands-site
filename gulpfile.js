@@ -2,7 +2,7 @@ var gulp = require("gulp"),
   http = require("http"),
   concat = require('gulp-concat'),
   minifyCSS = require("gulp-minify-css"),
-  fs = require('fs'), 
+  fs = require('fs'),
   semver = require('semver'),
   uglify = require('gulp-uglify'),
   replace = require('gulp-replace-task'),
@@ -71,6 +71,39 @@ var SRC = {
     css: ['./src/site/less/main.less'],
     cssWatch: ['./src/site/less/**/*.less'],
     templates: ['./src/site/templates/**/*.html']
+  },
+  admin: {
+    vendor: {
+      js: [
+        './bower_components/jquery/dist/jquery.js',
+        './bower_components/lodash/dist/lodash.js',
+        './bower_components/bootstrap/dist/js/bootstrap.js',
+        './bower_components/angular/angular.js',
+        './bower_components/angular-sanitize/angular-sanitize.js',
+        './bower_components/angular-animate/angular-animate.js',
+        './bower_components/angular-ui-router/release/angular-ui-router.js',
+        './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+        './bower_components/momentjs/moment.js',
+        './bower_components/angular-ui-select/dist/select.js',
+        './bower_components/momentjs/locale/ru.js',
+        './bower_components/fancybox/source/jquery.fancybox.js',
+        './bower_components/highcharts/highcharts.src.js',
+        './bower_components/angular-cookies/angular-cookies.js',
+        './bower_components/angular-local-storage/dist/angular-local-storage.js'
+      ],
+      css: [
+        './bower_components/bootstrap/dist/css/bootstrap.min.css',
+        './bower_components/font-awesome/css/font-awesome.css',
+        './bower_components/select2/select2.css',
+        './bower_components/select2/select2-bootstrap.css',
+        './bower_components/angular-ui-select/dist/select.css',
+        './bower_components/ionicons/css/ionicons.css'
+      ]
+    },
+    js: ['./src/admin/js/**/*.js'],
+    css: ['./src/admin/less/main.less'],
+    cssWatch: ['./src/admin/less/**/*.less'],
+    templates: ['./src/admin/templates/**/*.html']
   }
 };
 
@@ -99,6 +132,15 @@ var DEST = {
     js: 'site-scripts.js',
     css: 'site-styles.css',
     templates: 'site-templates.js'
+  },
+  admin: {
+    vendor: {
+      js: 'admin-vendor.js',
+      css: 'admin-vendor.css'
+    },
+    js: 'admin-scripts.js',
+    css: 'admin-styles.css',
+    templates: 'admin-templates.js'
   }
 }
 
@@ -143,6 +185,28 @@ gulp.task('pack:scripts-cabinet', function() {
     .pipe(gulp.dest(PATH.pack))
 });
 
+
+gulp.task('pack:scripts-admin', function() {
+  gulp.src(SRC.admin.js)
+    .pipe(replace({
+      patterns: [{
+        match: 'apiServer',
+        replacement: urlConfig.apiServer_dev
+      }, {
+        match: 'extensionId',
+        replacement: extensionConfig.extensionId_dev
+      }]
+    }))
+    .pipe(ngAnnotate())
+    .pipe(concat(DEST.admin.js))
+    .pipe(gulp.dest(PATH.pack))
+
+  gulp.src(SRC.admin.vendor.js)
+    .pipe(concat(DEST.admin.vendor.js))
+    .pipe(gulp.dest(PATH.pack))
+});
+
+
 gulp.task('pack:styles-cabinet', function() {
   gulp.src(SRC.cabinet.vendor.css)
     .pipe(minifyCSS({
@@ -171,6 +235,20 @@ gulp.task('pack:styles-site', function() {
     .pipe(gulp.dest(PATH.pack));
 });
 
+gulp.task('pack:styles-admin', function() {
+  gulp.src(SRC.admin.vendor.css)
+    .pipe(minifyCSS({
+      keepBreaks: false
+    }))
+    .pipe(concat(DEST.admin.vendor.css))
+    .pipe(gulp.dest(PATH.pack))
+
+  gulp.src(SRC.admin.css)
+    .pipe(less())
+    .pipe(rename(DEST.admin.css))
+    .pipe(gulp.dest(PATH.pack));
+});
+
 gulp.task('pack:templates-cabinet', function() {
   gulp.src(SRC.cabinet.templates)
     .pipe(templateCache(DEST.cabinet.templates, {
@@ -185,6 +263,16 @@ gulp.task('pack:templates-cabinet', function() {
 gulp.task('pack:templates-site', function() {
   gulp.src(SRC.site.templates)
     .pipe(templateCache(DEST.site.templates, {
+      standalone: true,
+      root: './templates/',
+      module: 'templates'
+    }))
+    .pipe(gulp.dest(PATH.pack));
+});
+
+gulp.task('pack:templates-admin', function() {
+  gulp.src(SRC.admin.templates)
+    .pipe(templateCache(DEST.admin.templates, {
       standalone: true,
       root: './templates/',
       module: 'templates'
@@ -238,6 +326,28 @@ gulp.task('build:scripts-cabinet', function() {
     .pipe(gulp.dest(PATH.pack))
 });
 
+gulp.task('build:scripts-admin', function() {
+  gulp.src(SRC.admin.js)
+    .pipe(replace({
+      patterns: [{
+        match: 'apiServer',
+        replacement: urlConfig.apiServer
+      }, {
+        match: 'extensionId',
+        replacement: extensionConfig.extensionId
+      }]
+    }))
+    .pipe(ngAnnotate())
+    .pipe(concat(DEST.admin.js))
+    .pipe(uglify())
+    .pipe(gulp.dest(PATH.pack))
+
+  gulp.src(SRC.admin.vendor.js)
+    .pipe(concat(DEST.admin.vendor.js))
+    .pipe(uglify())
+    .pipe(gulp.dest(PATH.pack))
+});
+
 
 gulp.task("watch", function() {
   gulp.watch(SRC.site.js, ["pack:scripts-site"]);
@@ -247,6 +357,10 @@ gulp.task("watch", function() {
   gulp.watch(SRC.cabinet.js, ["pack:scripts-cabinet"]);
   gulp.watch(SRC.cabinet.cssWatch, ["pack:styles-cabinet"]);
   gulp.watch(SRC.cabinet.templates, ["pack:templates-cabinet"]);
+
+  gulp.watch(SRC.admin.js, ["pack:scripts-admin"]);
+  gulp.watch(SRC.admin.cssWatch, ["pack:styles-admin"]);
+  gulp.watch(SRC.admin.templates, ["pack:templates-admin"]);
 });
 
 
@@ -254,11 +368,14 @@ gulp.task("watch", function() {
 
 gulp.task('build', [
     'build:scripts-cabinet',
+    'build:scripts-admin',
     'build:scripts-site',
     "pack:styles-site",
     "pack:templates-site",
     "pack:styles-cabinet",
-    "pack:templates-cabinet"
+    "pack:styles-admin",
+    "pack:templates-cabinet",
+    "pack:templates-admin"
   ],
   function() {
 

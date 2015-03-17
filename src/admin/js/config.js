@@ -1,4 +1,4 @@
-angular.module('Cabinet').config(
+angular.module('App').config(
   function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
     $httpProvider.defaults.withCredentials = true;
@@ -11,8 +11,8 @@ angular.module('Cabinet').config(
         var query = '';
         var name, value, fullSubName, subValue, innerObj, i;
 
-        for (name in obj) {
-          value = obj[name];
+        for (name in obj) { 
+          value = obj[name]; 
 
           if (value instanceof Array) {
             for (i = 0; i < value.length; ++i) {
@@ -46,18 +46,20 @@ angular.module('Cabinet').config(
 
     $urlRouterProvider.otherwise("/login");
 
-    $stateProvider.state('login', {
+    $stateProvider
+
+      .state('login', {
       url: "/login",
       controller: 'CV_login as ctr',
       templateUrl: "templates/views/login.html"
     })
-
+ 
     $stateProvider.state('index', {
       url: "/?successEmail&successRestore",
       controller: 'CV_index as ctr',
       templateUrl: "templates/views/index.html"
     })
-    $stateProvider.state('public', {
+    $stateProvider.state('public', { 
         url: "/public/",
         abstract: false,
         templateUrl: "templates/views/public/index.html"
@@ -65,12 +67,7 @@ angular.module('Cabinet').config(
       .state('public.sets', {
         url: "sets/",
         controller: 'CV_public_sets as ctr',
-        templateUrl: "templates/views/public/sets.html",
-        resolve: {
-          resp: function(S_selfapi){
-            return S_selfapi.getUserSets();
-          }
-        }
+        templateUrl: "templates/views/public/sets.html"
       })
       .state('public.accounts', {
         url: "accounts/?error&network&success&account",
@@ -90,16 +87,11 @@ angular.module('Cabinet').config(
       .state('public.team', {
         url: "team/",
         controller: 'CV_public_team as ctr',
-        templateUrl: "templates/views/public/team.html",
-        resolve: {
-          resp: function(S_selfapi){
-            return S_selfapi.getUserSetsTeam();
-          }
-        }
+        templateUrl: "templates/views/public/team.html"
       })
       .state('public.table', {
         url: "table/",
-        controller: 'CV_public_table as ctr',
+        controller: 'CV_public_team as ctr',
         templateUrl: "templates/views/public/table.html"
       })
 
@@ -109,24 +101,9 @@ angular.module('Cabinet').config(
       })
       .state('analytic.sandbox', {
         url: "sandbox/?branch&branches&from&to&param&param2",
-        controller: 'CV_analytic_sandbox as ctr',
+        controller: 'CV_analytic_sandbox as fC',
         templateUrl: "templates/views/analytic/sandbox.html",
         reloadOnSearch: false
-      })
-
-    $stateProvider.state('account', {
-      url: "/account/",
-      templateUrl: "templates/views/account/index.html"
-    })
-      .state('account.plan', {
-        url: "plan/",
-        controller: 'CV_account_plan as ctr',
-        templateUrl: "templates/views/account/plan.html",
-        resolve: {
-          resp: function(S_selfapi){
-            return  S_selfapi.getPricingPlans();
-          }
-        }
       })
   }
 );

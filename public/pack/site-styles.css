@@ -55,7 +55,7 @@ h3 {
   background: #000;
   overflow: hidden;
   position: relative;
-  height: 750px;
+  height: 600px;
 }
 .v_index header .image {
   opacity: 0.5;
@@ -66,7 +66,7 @@ h3 {
   position: absolute;
 }
 .v_index header .enterForm {
-  margin-top: 127px;
+  margin-top: 59px;
 }
 .v_index header .inner {
   width: 960px;
@@ -121,14 +121,35 @@ h3 {
   margin: 0 0 50px;
   font-size: 38px;
 }
-.v_index .advanSection {
+.v_index .screensSection {
   background: #fff;
 }
-.v_index .advanSection .triangle path {
-  fill: #f9f9f9;
-  stroke: #f9f9f9;
+.v_index .screensSection .images {
+  width: 1004px;
+  margin: 80px auto 40px;
 }
-.v_index .advanSection .advan {
+.v_index .screensSection .im {
+  width: 370px;
+  margin: -19px;
+  box-shadow: 0px 0px 0px 1px #dddddd, 1px 18px 11px -15px #dddddd;
+}
+.v_index .screensSection .im.im2 {
+  position: relative;
+  top: 30px;
+}
+.v_index .screensSection .triangle path {
+  fill: #fafafa;
+  stroke: #fafafa;
+  stroke-width: 1;
+}
+.advanSection {
+  background: #fafafa;
+}
+.advanSection .triangle path {
+  fill: #f3f3f3;
+  stroke: #f3f3f3;
+}
+.advanSection .advan {
   width: 960px;
   padding: 0;
   margin: auto;
@@ -136,7 +157,7 @@ h3 {
   text-align: center;
   margin-bottom: 30px;
 }
-.v_index .advanSection .advan li {
+.advanSection .advan li {
   width: 320px;
   height: 180px;
   float: left;
@@ -145,81 +166,81 @@ h3 {
   margin-bottom: 50px;
   display: block;
 }
-.v_index .advanSection .advan li .icon {
+.advanSection .advan li .icon {
   font-size: 45px;
   text-align: center;
   color: #467896;
   height: 50px;
   line-height: 60px;
 }
-.v_index .advanSection .advan li h3 {
+.advanSection .advan li h3 {
   font-weight: 300;
   font-size: 23px;
   margin: 20px 0;
   color: #444;
 }
-.v_index .advanSection .advan li .text {
+.advanSection .advan li .text {
   font-size: 14px;
   color: #444;
 }
-.v_index .advanSection .more {
+.advanSection .more {
   text-align: center;
   margin: 30px 0 0;
 }
-.v_index .advanSection .more a {
+.advanSection .more a {
   color: #000;
   font-size: 16px;
   display: inline-block;
   margin-top: 9px;
 }
-.v_index .advanSection .more a.cabinet {
+.advanSection .more a.cabinet {
   margin-top: 39px;
 }
-.v_index .advanSection .bigTriangleColor2 {
+.advanSection .bigTriangleColor2 {
   position: absolute;
   bottom: -3px;
   left: 0;
   right: 0;
 }
-.v_index .advanSection .bigTriangleColor2 path {
+.advanSection .bigTriangleColor2 path {
   fill: #222;
   stroke: #222;
   stroke-width: 1;
 }
-.v_index footer {
+footer {
   background: #222;
   height: 68px;
   margin: auto;
   position: relative;
 }
-.v_index footer menu {
+footer menu {
   position: absolute;
   left: 0px;
   right: 0px;
   text-align: center;
   bottom: 30px;
 }
-.v_index footer menu a {
+footer menu a {
   color: #fff;
   font-size: 14px;
   display: inline-block;
   margin: 0 5px;
 }
-.v_index footer menu a:focus {
+footer menu a:focus {
   text-decoration: none;
 }
-.v_index .enterForm {
+.enterForm {
   z-index: 4;
   text-align: center;
   position: relative;
   transition: 0.3s;
 }
-.v_index .enterForm h3 {
+.enterForm h3 {
   color: #fff;
   font-weight: 300;
   margin: 0 0 25px;
 }
-.v_index .enterForm input {
+.enterForm input {
   border: none;
   color: #000;
   background: #fff;
@@ -230,15 +251,15 @@ h3 {
   transition: 0.2s;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
 }
-.v_index .enterForm input:focus {
+.enterForm input:focus {
   outline: none;
   box-shadow: 0px 0px 2px #000000;
 }
-.v_index .enterForm input[type="password"] {
+.enterForm input[type="password"] {
   visibility: hidden;
   display: none;
 }
-.v_index .enterForm button {
+.enterForm button {
   position: absolute;
   background: rgba(0, 0, 0, 0);
   color: #000;
@@ -252,167 +273,173 @@ h3 {
   opacity: 0.3;
   transition: 0.3s;
 }
-.v_index .enterForm button:hover {
+.enterForm button:hover {
   opacity: 1;
 }
-.v_index .enterForm form {
+.enterForm form {
   position: relative;
   width: 390px;
   margin: auto;
 }
-.v_index .enterForm.light h3 {
+.enterForm.light h3 {
   color: #000;
 }
-.v_index .enterForm .loader {
+.enterForm .loader {
   opacity: 0;
   visibility: hidden;
 }
-.v_index .enterForm .arrow {
+.enterForm .arrow {
   opacity: 1;
   visibility: visible;
 }
-.v_index .enterForm .loader,
-.v_index .enterForm .arrow {
+.enterForm .loader,
+.enterForm .arrow {
   transition: 0.3s;
   display: inline-block;
 }
-.v_index .enterForm.entered button {
+.enterForm.entered button {
   -webkit-transform: translateX(20px);
   opacity: 1;
 }
-.v_index .enterForm.entered input {
+.enterForm.entered input {
   background-color: #ccc;
   color: #555;
 }
-.v_index .enterForm.entered .arrow {
+.enterForm.entered .arrow {
   opacity: 0;
   visibility: hidden;
 }
-.v_index .enterForm.entered .loader {
+.enterForm.entered .loader {
   opacity: 1;
   visibility: visible;
 }
-.v_index .priceSection {
-  background: #f9f9f9;
+.priceSection {
+  background: #f3f3f3;
 }
-.v_index .priceSection .wr {
+.priceSection .nana {
+  margin: 0 0 30px;
+  padding: 10px;
+  font-size: 15px;
+  text-align: center;
+}
+.priceSection .wr {
   width: 900px;
   margin: auto;
   background: #FFF;
   border: 1px solid #CEE6F7;
   overflow: hidden;
-  box-shadow: 0px 0px 0px 10px #F2F2F2;
+  box-shadow: 0px 0px 0px 10px #EEE;
 }
-.v_index .priceSection table {
+.priceSection table {
   margin: 0;
   border: none;
 }
-.v_index .priceSection table tbody tr:last-child td {
+.priceSection table tbody tr:last-child td {
   padding-bottom: 30px;
 }
-.v_index .priceSection table td,
-.v_index .priceSection table th {
+.priceSection table td,
+.priceSection table th {
   text-align: center;
   border-color: #ccc;
   border-bottom-width: 1px;
   vertical-align: middle;
-  border: none;
-  padding: 16px 3px;
+  border: none!important;
+  padding: 16px 3px!important;
 }
-.v_index .priceSection table td.text-left,
-.v_index .priceSection table th.text-left {
+.priceSection table td.text-left,
+.priceSection table th.text-left {
   text-align: right;
   padding-right: 20px;
 }
-.v_index .priceSection table th {
+.priceSection table th {
   vertical-align: top;
   padding-top: 30px;
 }
-.v_index .priceSection table tr {
+.priceSection table tr {
   background: transparent;
 }
-.v_index .priceSection table tr .demo {
+.priceSection table tr .demo {
   background-color: #FAFDFF;
 }
-.v_index .priceSection table tr .standart {
+.priceSection table tr .standart {
   background-color: #EFF9FF;
 }
-.v_index .priceSection table tr .optimal {
+.priceSection table tr .optimal {
   background-color: #E4F4FD;
 }
-.v_index .priceSection table tr .pro {
+.priceSection table tr .pro {
   background-color: #DCF0FC;
 }
-.v_index .priceSection table tr .tool {
+.priceSection table tr .tool {
   color: #777;
   display: inline-block;
   margin-left: 4px;
 }
-.v_index .priceSection table h3 {
+.priceSection table h3 {
   font-weight: normal;
   font-size: 17px;
   margin: 5px 0px;
   color: #777;
 }
-.v_index .priceSection table .desc {
+.priceSection table .desc {
   font-weight: normal;
   font-size: 10px;
   color: #999;
   display: none;
 }
-.v_index .priceSection table .bigg {
+.priceSection table .bigg {
   font-size: 20px;
 }
-.v_index .priceSection table .price {
+.priceSection table .price {
   margin-top: 15px;
 }
-.v_index .priceSection table .price h4 {
+.priceSection table .price h4 {
   font-weight: normal;
   font-size: 30px;
   margin: 0 0 2px;
 }
-.v_index .priceSection table .price div {
+.priceSection table .price div {
   color: #999;
   font-weight: normal;
   font-size: 10px;
 }
-.v_index .priceSection .noborder {
+.priceSection .noborder {
   border: none;
 }
-.v_index .priceSection .promoinfo {
+.priceSection .promoinfo {
   margin: 25px 0 60px;
 }
-.v_index .priceSection .triangle path {
+.priceSection .triangle path {
   fill: #222;
   stroke: #222;
 }
-.v_index .clientsSection {
+.clientsSection {
   background: #f2f2f2;
 }
-.v_index .clientsSection .logos {
+.clientsSection .logos {
   padding: 0 0 70px;
 }
-.v_index .clientsSection .logos img {
+.clientsSection .logos img {
   height: 40px;
   margin: 20px;
 }
-.v_index .clientsSection .triangle path {
+.clientsSection .triangle path {
   fill: #222;
   stroke: #222;
   stroke-width: 1;
 }
-.v_index .triangle {
+.triangle {
   position: absolute;
   bottom: -3px;
   left: 0;
   right: 0;
 }
-.v_index .triangle.header path {
+.triangle.header path {
   fill: #f9f9f9;
   stroke: #f9f9f9;
   stroke-width: 1;
 }
-.v_index .fa-spin {
+.fa-spin {
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }

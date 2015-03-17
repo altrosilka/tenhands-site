@@ -1,0 +1,138 @@
+.btn {
+  transition: 0.2s;
+  padding: 0px 15px;
+  border-radius: 0px;
+  border: none;
+  outline: none;
+  line-height: 34px;
+  position: relative;
+  top: -1px;
+  font-size: 13px;
+  font-weight: 300;
+  &.btn-primary {
+    background-color: @colorPrimary;
+    &:hover {
+      -webkit-filter: contrast(1.5);
+    }
+  }
+  &:focus, &:active {
+    border: none!important;
+    outline: none!important;
+  }
+  &.btn-trans {
+    background-color: transparent;
+    height: 31px;
+    &:hover {
+      background-color: #E6E8EC;
+    }
+  }
+}
+.form-control {
+  font-size: 13px;
+  background: #fff;
+  border: 1px solid @additionalColor_light;
+  border-radius: 0px;
+  padding: 0px 15px;
+  color: @additionalColor_dark;
+  line-height: 34px;
+  box-shadow: none;
+  &::-webkit-input-placeholder {
+    color: #aaa;
+  }
+  &:focus {
+    border-color: @colorPrimary;
+    box-shadow: none;
+  }
+}
+.stdHeader {
+  overflow: auto;
+  margin-bottom: 30px;
+  padding: 0px;
+  h1 {
+    font-size: 18px;
+    margin: 0px 0 0 0px;
+    float: left;
+  }
+}
+a.link, span.link, div.link {
+  text-decoration: none;
+  border-bottom: 1px solid;
+  color: @linkColor;
+  transition: 0.3s;
+  &:hover {
+    border-bottom-color: transparent;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  &.inverse {
+    border-bottom-color: transparent;
+    &:hover {
+      border-bottom-color: @linkColor;
+    }
+  }
+}
+.subOnInput {
+  position: relative;
+  input {
+    display: block;
+    width: 100%;
+    height: 46px;
+    font-size: 16px;
+    padding: 0 20px;
+  }
+  .btn {
+    position: absolute;
+    right: 0;
+    height: 46px;
+    color: #3498DB;
+    padding: 0 20px;
+    font-size: 16px;
+    line-height: 49px;
+    background-color: rgba(202, 233, 255, 0.17);
+    &:hover {
+      background-color: rgba(202, 233, 255, 0.57);
+      color: #444;
+      -webkit-filter: contrast(1);
+    }
+  }
+}
+.notifyPanel {
+  padding-right: 40px;
+  position: relative;
+  display: none;
+  line-height: 1.5em;
+  .closer {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    margin-top: -10px;
+    font-size: 16px;
+    opacity: 0.3;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    transition: 0.2s;
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+  &.inView {
+    background-color: #B0E4FF;
+    margin: -50px -30px 0;
+    padding: 30px 40px 30px 30px;
+    font-size: 15px;
+  }
+  &.inViewMenu {
+    background-color: #B0E4FF;
+    margin: -50px 0px 30px;
+    padding: 30px 40px 30px 30px;
+    font-size: 15px;
+  }
+}
+.widthPanel {
+  margin: auto;
+  &.std {
+    width: 800px;
+  }
+}

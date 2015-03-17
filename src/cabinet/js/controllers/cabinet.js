@@ -10,7 +10,7 @@ angular.module('Cabinet').controller('C_cabinet',
     $scope.$on('setUserName', function(event, userName) {
       ctr.userName = userName;
     });
-  
+
     $scope.$on('state:userRecieved', function(event, userName) {
       ctr.disableLoader = true;
     });
@@ -18,16 +18,27 @@ angular.module('Cabinet').controller('C_cabinet',
     $scope.$on('disableLoader', function(event, userName) {
       ctr.disableLoader = true;
     });
- 
+
     ctr.logout = function() {
       S_selfapi.signOut().then(function() {
         $state.go('login');
       });
     }
 
-    ctr.getMainState = function(){
+    ctr.getMainState = function() {
       return $state.current.name.split('.')[0];
     }
+
+
+
+
+    $scope.$on('$stateChangeStart', function() {
+      ctr.showPromiseLoader = true;
+    });
+
+    $scope.$on('$stateChangeSuccess', function() {
+      ctr.showPromiseLoader = false;
+    });
 
     return ctr;
   }

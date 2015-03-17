@@ -28,6 +28,10 @@
         <a href="https://chrome.google.com/webstore/detail/%D0%B4%D0%B5%D1%81%D1%8F%D1%82%D1%8C-%D1%80%D1%83%D0%BA/oejjcepegjobphogjdihoahgoekjimkl" target="_blank">Расширение</a>
       </menu>
 
+      <div class="loader" ng-if="ctr.showPromiseLoader">
+        <i class="fa-spin ion-load-c"></i>
+      </div>
+
       <div class="pull-right userInfo">
         <div class="name" ng-bind="ctr.userName"></div>
         <div class="sep" ng-if="ctr.userName"></div>

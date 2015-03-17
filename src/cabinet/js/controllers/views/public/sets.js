@@ -1,9 +1,5 @@
-angular.module('Cabinet').controller('CV_public_sets', [
-  '$scope',
-  'S_vk',
-  'S_utils',
-  'S_selfapi',
-  function($scope, S_vk, S_utils, S_selfapi) {
+angular.module('Cabinet').controller('CV_public_sets', 
+  function($scope, S_vk, S_utils, S_selfapi, resp) {
     var ctr = this;
 
     ctr.openedSet = {};
@@ -28,11 +24,6 @@ angular.module('Cabinet').controller('CV_public_sets', [
         ctr.sets = resp.data;
       });
     }
-
-
-
-    ctr.updateSets();
-
-    return ctr;
+    ctr.sets = resp.data;
   }
-]);
+);

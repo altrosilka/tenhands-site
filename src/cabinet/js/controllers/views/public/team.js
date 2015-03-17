@@ -1,6 +1,6 @@
 angular.module('Cabinet')
   .controller('CV_public_team',
-    function($scope, S_vk, S_utils, S_selfapi) {
+    function($scope, S_vk, S_utils, S_selfapi, resp) {
       var ctr = this;
 
       ctr.selectedSets = [];
@@ -35,7 +35,6 @@ angular.module('Cabinet')
         });
       }
 
-      ctr.refreshTeam();
+      ctr.team = resp.data;
 
-      return ctr;
     });

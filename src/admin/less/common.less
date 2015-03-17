@@ -20,7 +20,7 @@ body.cabinet {
   top: 0;
   right: 0;
   left: 0;
-  bottom: 0;
+  bottom: 0; 
   background: #F9F9F9;
   i {
     position: absolute;
@@ -67,29 +67,6 @@ body.cabinet {
   .container {
     width: 100%!important;
     padding: 0 50px;
-  }
-  .loader {
-    position: absolute;
-    left: 50%;
-    color: #FFF;
-    font-size: 27px;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    top: 50%;
-    margin-top: -20px;
-    margin-left: -20px;
-    text-align: center;
-    &.ng-enter, &.ng-leave {
-      -webkit-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s;
-      transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s;
-    }
-    &.ng-enter, &.ng-leave.ng-leave-active {
-      opacity: 0;
-    }
-    &.ng-leave, &.ng-enter.ng-enter-active {
-      opacity: 1;
-    }
   }
   menu {
     padding: 0;

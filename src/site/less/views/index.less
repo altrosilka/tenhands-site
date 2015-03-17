@@ -4,7 +4,7 @@
     background: #000;
     overflow: hidden;
     position: relative;
-    height: 750px;
+    height: 600px;
     .image {
       opacity: 0.5;
       width: 100%;
@@ -14,7 +14,7 @@
       position: absolute;
     }
     .enterForm {
-      margin-top: 127px;
+      margin-top: 59px;
     }
     .inner {
       width: 960px;
@@ -72,310 +72,339 @@
       font-size: 38px;
     }
   }
-  .advanSection {
+  .screensSection {
     background: #fff;
+    .images {
+      width: 1004px;
+      margin: 80px auto 40px;
+    }
+    .im {
+      width: 370px;
+      margin: -19px;
+      box-shadow: 0px 0px 0px 1px #DDD, 1px 18px 11px -15px #ddd;
+      &.im2 {
+        position: relative;
+        top: 30px;
+      }
+    }
     .triangle {
       path {
-        fill: #f9f9f9;
-        stroke: #f9f9f9;
-      }
-    }
-    .advan {
-      width: 960px;
-      padding: 0;
-      margin: auto;
-      list-style-type: none;
-      text-align: center;
-      margin-bottom: 30px;
-      li {
-        width: 320px;
-        height: 180px;
-        float: left;
-        padding: 0 10px;
-        overflow: hidden;
-        margin-bottom: 50px;
-        display: block;
-        .icon {
-          font-size: 45px;
-          text-align: center;
-          color: #467896;
-          height: 50px;
-          line-height: 60px;
-        }
-        h3 {
-          font-weight: 300;
-          font-size: 23px;
-          margin: 20px 0;
-          color: #444;
-        }
-        .text {
-          font-size: 14px;
-          color: #444;
-        }
-      }
-    }
-    .more {
-      text-align: center;
-      margin: 30px 0 0;
-      a {
-        color: #000;
-        font-size: 16px;
-        display: inline-block;
-        margin-top: 9px;
-        &.cabinet {
-          margin-top: 39px;
-        }
-      }
-    }
-    .bigTriangleColor2 {
-      position: absolute;
-      bottom: -3px;
-      left: 0;
-      right: 0;
-      path {
-        fill: #222;
-        stroke: #222;
+        fill: #fafafa;
+        stroke: #fafafa;
         stroke-width: 1;
       }
     }
   }
-  footer {
-    background: #222;
-    height: 68px;
-    margin: auto;
-    position: relative;
-    menu {
-      position: absolute;
-      left: 0px;
-      right: 0px;
-      text-align: center;
-      bottom: 30px;
-      a {
-        color: #fff;
-        font-size: 14px;
-        display: inline-block;
-        margin: 0 5px;
-        &:focus {
-          text-decoration: none;
-        }
-      }
-    }
-  }
-  .enterForm {
-    z-index: 4;
-    text-align: center;
-    position: relative;
-    transition: 0.3s;
-    h3 {
-      color: #fff;
-      font-weight: 300;
-      margin: 0 0 25px;
-    }
-    input {
-      border: none;
-      color: #000;
-      background: #fff;
-      padding: 13px 30px;
-      font-size: 22px;
-      font-weight: 300;
-      width: 100%;
-      transition: 0.2s;
-      box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
-      &:focus {
-        outline: none;
-        box-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
-      }
-      &[type="password"] {
-        visibility: hidden;
-        display: none;
-      }
-    }
-    button {
-      position: absolute;
-      background: rgba(0, 0, 0, 0);
-      color: #000;
-      font-size: 29px;
-      line-height: 59px;
-      padding: 0 15px;
-      right: 0;
-      top: 0;
-      outline: none;
-      border: none;
-      opacity: 0.3;
-      transition: 0.3s;
-      &:hover {
-        opacity: 1;
-      }
-    }
-    form {
-      position: relative;
-      width: 390px;
-      margin: auto;
-    }
-    &.light {
-      h3 {
-        color: #000;
-      }
-    }
-    .loader {
-      opacity: 0;
-      visibility: hidden;
-    }
-    .arrow {
-      opacity: 1;
-      visibility: visible;
-    }
-    .loader, .arrow {
-      transition: 0.3s;
-      display: inline-block;
-    }
-    &.entered {
-      button {
-        -webkit-transform: translateX(20px);
-        opacity: 1;
-      }
-      input {
-        background-color: #ccc;
-        color: #555;
-      }
-      .arrow {
-        opacity: 0;
-        visibility: hidden;
-      }
-      .loader {
-        opacity: 1;
-        visibility: visible;
-      }
-    }
-  }
-  .priceSection {
-    background: #f9f9f9;
-    .plans {} .wr {
-      width: 900px;
-      margin: auto;
-      background: #FFF;
-      border: 1px solid #CEE6F7;
-      overflow: hidden;
-      box-shadow: 0px 0px 0px 10px #F2F2F2;
-    }
-    table {
-      margin: 0;
-      border: none;
-      tbody tr:last-child td {
-        padding-bottom: 30px;
-      }
-      td, th {
-        text-align: center;
-        border-color: #ccc;
-        border-bottom-width: 1px;
-        vertical-align: middle;
-        border: none;
-        padding: 16px 3px;
-        &.text-left {
-          text-align: right;
-          padding-right: 20px;
-        }
-      }
-      th {
-        vertical-align: top;
-        padding-top: 30px;
-      }
-      tr {
-        background: transparent;
-        .demo {
-          background-color: #FAFDFF;
-        }
-        .standart {
-          background-color: #EFF9FF;
-        }
-        .optimal {
-          background-color: #E4F4FD;
-        }
-        .pro {
-          background-color: #DCF0FC;
-        }
-        .tool {
-          color: #777;
-          display: inline-block;
-          margin-left: 4px;
-        }
-      }
-      h3 {
-        font-weight: normal;
-        font-size: 17px;
-        margin: 5px 0px;
-        color: #777;
-      }
-      .desc {
-        font-weight: normal;
-        font-size: 10px;
-        color: #999;
-        display: none;
-      }
-      .bigg {
-        font-size: 20px;
-      }
-      .price {
-        margin-top: 15px;
-        h4 {
-          font-weight: normal;
-          font-size: 30px;
-          margin: 0 0 2px;
-        }
-        div {
-          color: #999;
-          font-weight: normal;
-          font-size: 10px;
-        }
-      }
-    }
-    .noborder {
-      border: none;
-    }
-    .promoinfo {
-      margin: 25px 0 60px;
-    }
-    .triangle {
-      path {
-        fill: #222;
-        stroke: #222;
-      }
-    }
-  }
-  .clientsSection {
-    background: #f2f2f2;
-    .logos {
-      padding: 0 0 70px;
-      img {
-        height: 40px;
-        margin: 20px;
-      }
-    }
-    .triangle {
-      path {
-        fill: #222;
-        stroke: #222;
-        stroke-width: 1;
-      }
-    }
-  }
+}
+.advanSection {
+  background: #fafafa;
   .triangle {
+    path {
+      fill: #f3f3f3;
+      stroke: #f3f3f3;
+    }
+  }
+  .advan {
+    width: 960px;
+    padding: 0;
+    margin: auto;
+    list-style-type: none;
+    text-align: center;
+    margin-bottom: 30px;
+    li {
+      width: 320px;
+      height: 180px;
+      float: left;
+      padding: 0 10px;
+      overflow: hidden;
+      margin-bottom: 50px;
+      display: block;
+      .icon {
+        font-size: 45px;
+        text-align: center;
+        color: #467896;
+        height: 50px;
+        line-height: 60px;
+      }
+      h3 {
+        font-weight: 300;
+        font-size: 23px;
+        margin: 20px 0;
+        color: #444;
+      }
+      .text {
+        font-size: 14px;
+        color: #444;
+      }
+    }
+  }
+  .more {
+    text-align: center;
+    margin: 30px 0 0;
+    a {
+      color: #000;
+      font-size: 16px;
+      display: inline-block;
+      margin-top: 9px;
+      &.cabinet {
+        margin-top: 39px;
+      }
+    }
+  }
+  .bigTriangleColor2 {
     position: absolute;
     bottom: -3px;
     left: 0;
     right: 0;
-    &.header {
-      path {
-        fill: #f9f9f9;
-        stroke: #f9f9f9;
-        stroke-width: 1;
+    path {
+      fill: #222;
+      stroke: #222;
+      stroke-width: 1;
+    }
+  }
+}
+footer {
+  background: #222;
+  height: 68px;
+  margin: auto;
+  position: relative;
+  menu {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    bottom: 30px;
+    a {
+      color: #fff;
+      font-size: 14px;
+      display: inline-block;
+      margin: 0 5px;
+      &:focus {
+        text-decoration: none;
       }
     }
   }
-  .fa-spin {
-    -webkit-animation: fa-spin 2s infinite linear;
-    animation: fa-spin 2s infinite linear
+}
+.enterForm {
+  z-index: 4;
+  text-align: center;
+  position: relative;
+  transition: 0.3s;
+  h3 {
+    color: #fff;
+    font-weight: 300;
+    margin: 0 0 25px;
   }
+  input {
+    border: none;
+    color: #000;
+    background: #fff;
+    padding: 13px 30px;
+    font-size: 22px;
+    font-weight: 300;
+    width: 100%;
+    transition: 0.2s;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+    &:focus {
+      outline: none;
+      box-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
+    }
+    &[type="password"] {
+      visibility: hidden;
+      display: none;
+    }
+  }
+  button {
+    position: absolute;
+    background: rgba(0, 0, 0, 0);
+    color: #000;
+    font-size: 29px;
+    line-height: 59px;
+    padding: 0 15px;
+    right: 0;
+    top: 0;
+    outline: none;
+    border: none;
+    opacity: 0.3;
+    transition: 0.3s;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  form {
+    position: relative;
+    width: 390px;
+    margin: auto;
+  }
+  &.light {
+    h3 {
+      color: #000;
+    }
+  }
+  .loader {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .arrow {
+    opacity: 1;
+    visibility: visible;
+  }
+  .loader, .arrow {
+    transition: 0.3s;
+    display: inline-block;
+  }
+  &.entered {
+    button {
+      -webkit-transform: translateX(20px);
+      opacity: 1;
+    }
+    input {
+      background-color: #ccc;
+      color: #555;
+    }
+    .arrow {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loader {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+.priceSection {
+  background: #f3f3f3;
+  .nana {
+    margin: 0 0 30px;
+    padding: 10px;
+    font-size: 15px;
+    text-align: center;
+  }
+  .plans {} .wr {
+    width: 900px;
+    margin: auto;
+    background: #FFF;
+    border: 1px solid #CEE6F7;
+    overflow: hidden;
+    box-shadow: 0px 0px 0px 10px #EEE;
+  }
+  table {
+    margin: 0;
+    border: none;
+    tbody tr:last-child td {
+      padding-bottom: 30px;
+    }
+    td, th {
+      text-align: center;
+      border-color: #ccc;
+      border-bottom-width: 1px;
+      vertical-align: middle;
+      border: none!important;
+      padding: 16px 3px!important;
+      &.text-left {
+        text-align: right;
+        padding-right: 20px;
+      }
+    }
+    th {
+      vertical-align: top;
+      padding-top: 30px;
+    }
+    tr {
+      background: transparent;
+      .demo {
+        background-color: #FAFDFF;
+      }
+      .standart {
+        background-color: #EFF9FF;
+      }
+      .optimal {
+        background-color: #E4F4FD;
+      }
+      .pro {
+        background-color: #DCF0FC;
+      }
+      .tool {
+        color: #777;
+        display: inline-block;
+        margin-left: 4px;
+      }
+    }
+    h3 {
+      font-weight: normal;
+      font-size: 17px;
+      margin: 5px 0px;
+      color: #777;
+    }
+    .desc {
+      font-weight: normal;
+      font-size: 10px;
+      color: #999;
+      display: none;
+    }
+    .bigg {
+      font-size: 20px;
+    }
+    .price {
+      margin-top: 15px;
+      h4 {
+        font-weight: normal;
+        font-size: 30px;
+        margin: 0 0 2px;
+      }
+      div {
+        color: #999;
+        font-weight: normal;
+        font-size: 10px;
+      }
+    }
+  }
+  .noborder {
+    border: none;
+  }
+  .promoinfo {
+    margin: 25px 0 60px;
+  }
+  .triangle {
+    path {
+      fill: #222;
+      stroke: #222;
+    }
+  }
+}
+.clientsSection {
+  background: #f2f2f2;
+  .logos {
+    padding: 0 0 70px;
+    img {
+      height: 40px;
+      margin: 20px;
+    }
+  }
+  .triangle {
+    path {
+      fill: #222;
+      stroke: #222;
+      stroke-width: 1;
+    }
+  }
+}
+.triangle {
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  &.header {
+    path {
+      fill: #f9f9f9;
+      stroke: #f9f9f9;
+      stroke-width: 1;
+    }
+  }
+}
+.fa-spin {
+  -webkit-animation: fa-spin 2s infinite linear;
+  animation: fa-spin 2s infinite linear
 }
 @-webkit-keyframes fa-spin {
   0% {

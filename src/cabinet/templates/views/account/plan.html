@@ -9,6 +9,8 @@
 
       <div class="bg-warning topnanana" ng-show="ctr.paidUntilStr_now">Необходимо продлить тарифный план <strong>прямо сейчас</strong>, иначе Вы потеряете возможность публиковать материалы</div>
 
+        <div class="bg-warning topnanana" >Сервис работает в режиме бета-тестирования, доступ ко всем функциям бесплатный</div>
+
       <section class="currentPlanName">
         Текущий тарифный план:
         <span class="name" ng-bind="ctr.getCurrentPlanName()"></span>
@@ -23,6 +25,7 @@
           </div>
         </div>
       </section>
+
 
 
       <h2>Доступные тарифные планы</h2>
@@ -68,7 +71,7 @@
             <div class="row">
               <span ng-bind="plan['planning:str']"></span>
             </div>
-            <div class="row">
+            <div class="row ng-hide">
               <button ng-if="!ctr.thisIsCurrentPlan(plan)" class="btn btn-primary" ng-click="ctr.selectPlan(plan)">Перейти сейчас</button>
               <button ng-if="ctr.thisIsCurrentPlan(plan) && plan.id !== 0" class="btn btn-success" ng-click="ctr.selectPlan(plan)">Продлить</button>
               <span class="currentText" ng-if="ctr.thisIsCurrentPlan(plan) && plan.id === 0">текущий план</span>

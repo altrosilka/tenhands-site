@@ -30,6 +30,19 @@
   </header>
 
 
+  <section class="section screensSection">
+    <h2>Делитесь новостью со своего сайта за минуту</h2>
+    <div class="images">
+      <img class="im im1" src="/images/screens/1.jpg">
+      <img class="im im2" src="/images/screens/2.jpg">
+      <img class="im im3" src="/images/screens/3.jpg">
+
+      <svg class="triangle" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="140" viewBox="0 0 100 102" preserveAspectRatio="none">
+        <path d="M50 60 L0 10 L0 100 L50 100 M50 100 L100 100 L100 10 L50 60 Z"></path>
+      </svg>
+    </div>
+  </section>
+
   <section class="section advanSection">
     <h2>Размещение записей в социальных сетях</h2>
     <ul class="advan clearfix">
@@ -100,9 +113,10 @@
 
   <section class="section priceSection">
     <h2>Тарифные планы</h2>
+    <div class="bg-warning nana">Сервис работает в режиме бета-тестирования, доступ ко всем функциям бесплатный</div>
     <div class="plans">
       <div class="wr">
-        <table class="table table-bordered table-striped">
+        <table class="table">
           <thead>
             <tr>
               <th></th>
